@@ -16,6 +16,11 @@
         </style>
     </head>
     <body class="antialiased">
-        <h1>Hello World</h1>
+        <h1>Welcome admin</h1>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/home', '/welcome')->name('home');
+Route::view('/login', '/auth/login')->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+
+
 
     
 
