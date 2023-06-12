@@ -1,5 +1,4 @@
 @import "base.scss";
-@import "responsive.scss";
 
 .form-auth {
     margin: 164px 472px 365px; 
@@ -73,7 +72,7 @@
         flex-direction: column;
         button {
             margin-bottom: 16px;
-            width:  218px;
+            width:  240px;
             height: 40px;
             @include btnPrimary;
         }
@@ -106,7 +105,6 @@
     }
     .form-auth {
         width: auto;
-        
         .form-auth-input {
             input {
                 width: 100%;
@@ -131,6 +129,7 @@
         }
         .form-auth-btn {
             button {
+                width:  218px;
                 margin-bottom: 19px;
             }
         }

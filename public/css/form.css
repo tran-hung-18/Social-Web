@@ -117,7 +117,7 @@ body a {
 }
 .form-auth .form-auth-btn button {
   margin-bottom: 16px;
-  width: 218px;
+  width: 240px;
   height: 40px;
   background-color: #007BFF;
   color: white;
@@ -178,6 +178,7 @@ body a {
     height: 10px;
   }
   .form-auth .form-auth-btn button {
+    width: 218px;
     margin-bottom: 19px;
   }
   .form-auth .form-register {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -20,5 +21,14 @@ class AuthController extends Controller
         else {
             return redirect()->route('home')->with('success', 'Login Successfully');
         }    
+    }
+    public function register(Request $request){
+        dd($request->all());
+
+        // return User::create([
+        //     'user_name' => $request->username,
+        //     'email' => $request->email,
+        //     'password' => Hash::make($request->password),
+        // ]);
     }
 }
