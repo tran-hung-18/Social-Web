@@ -2,15 +2,26 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+
+    const STATUS_ACTIVE = 1;
+
+    const STATUS_INACTIVE = 0;
+
+    const ROLE_ADMIN = 1;
+
+    const ROLE_USER = 2;
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +29,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'user_name',
         'email',
         'password',
+        'role',
+        'status',
+        'avatar',
+        'token_verify_email',
+        'email_verified_at',
     ];
 
     /**
@@ -39,7 +55,11 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->withPivot('id');
+    }
 }
