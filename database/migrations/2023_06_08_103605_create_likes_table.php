@@ -6,18 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('user_id');
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->bigInteger('post_id');
+            $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('likes');
     }
 };
