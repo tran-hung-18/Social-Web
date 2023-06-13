@@ -28,7 +28,18 @@
         <div class="form-auth-input">
             <label for="password">Password<span>*</span></label>
             <input type="password" id="password" class="input-password" name="password">
-            <span>Error: password cannot be null</span>
+            @if(session('error'))
+                <span>{{ session('error') }}</span>
+            @endif
+            @if(session('success'))
+                <span>{{ session('success') }}</span>
+            @endif
+            @error('email')
+                <br><span class="noti-error">{{$message }}</span>
+            @enderror
+            @error('password')
+                <br><span class="noti-error">{{$message }}</span>
+            @enderror
         </div>
         <div class="form-auth-password">
             <div class="remember-password">
@@ -40,13 +51,8 @@
             <a href="">Forgot your password?</a>
         </div>
         <div class="form-auth-btn">
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
             <button type="submit">Login</button>
-            <a href="">Don't have an account? Sign up here</a>
+            <a href="{{ route('register') }}">Don't have an account? Sign up here</a>
         </div>
     </form>
 </body>

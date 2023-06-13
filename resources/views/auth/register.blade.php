@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap">
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <style>
+        .noti-error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <form method="POST" action="{{ route('post-register') }}" class="form-auth form-auth-register">
@@ -24,22 +29,31 @@
         <div class="form-auth-input">
             <label for="username">Username<span>*</span></label>
             <input type="text" id="username" name="username">
+            @error('username')
+                <small class="noti-error">{{ $message }}</small>
+            @enderror
         </div>
         <div class="form-auth-input">
             <label for="email">Email<span>*</span></label>
             <input type="text" id="email" name="email">
+            @error('email')
+                <small class="noti-error">{{$message }}</small>
+            @enderror
         </div>
         <div class="form-auth-input">
             <label for="password">Password<span>*</span></label>
-            <input type="password" id="password" class="input-password" name="password">
+            <input type="text" id="password" class="input-password" name="password">
+            @error('password')
+                <p class="noti-error">{{$message }}</p>
+            @enderror
         </div>
         <div class="form-auth-input">
             <label for="password-confirm">Password Confirm<span>*</span></label>
-            <input type="password" id="password-confirm" class="input-password-confirm" name="password_confirmed">
+            <input type="text" id="password-confirm" class="input-password-confirm" name="password_confirmation">
         </div>
         <div class="form-auth-btn form-register">
             <button type="submit">Sign up</button>
-            <a href="">Already have an account? Login</a>
+            <a href="{{ route('login') }}">Already have an account? Login</a>
         </div>
     </form>
 </body>
