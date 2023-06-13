@@ -1,0 +1,137 @@
+.form-auth {
+    margin: 164px 472px 365px; 
+    .form-auth-logo {
+        width: 100%;
+        margin: 0 auto 75px;
+        @include centerAll;
+    }
+    .form-auth-title {
+        margin-bottom: 16px;
+        p {
+            @include fontNotoBold;
+            line-height: 28px;
+            font-size: 20px;
+        }
+    }
+    .form-auth-input {
+        margin-bottom: 24px;
+        label {
+            @include fontNotoRegular;
+            margin-bottom: 10px;
+            span {
+                color: red;
+            }
+        }
+        input {
+            width: 100%;
+            height: 40px;
+            margin: 0;
+            border: 1px solid $border-input;
+            border-radius: 4px;
+        }
+        span {
+            color: red;
+        }
+        .input-password {
+            margin-bottom: 16px;
+        }
+    }
+    .form-auth-password {
+        @include centerVertical;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+        .remember-password {
+            margin: 0;   
+            @include centerVertical;
+            justify-content: flex-start; 
+            .checkbox-remember {
+                width: 24px; 
+                height: 24px;
+                @include centerAll;
+                margin-right: 7px;
+                cursor: pointer;
+                input {
+                    width: 18px;
+                    height: 18px;
+                }
+            }  
+            a, p {
+                @include fontNotoRegular;
+                height: 22px;
+            }
+            a {
+                color: $color-text-link !important;
+            }
+        }
+    }
+    .form-auth-btn {
+        @include centerAll;
+        flex-direction: column;
+        button {
+            margin-bottom: 16px;
+            width:  240px;
+            height: 40px;
+            @include btnPrimary;
+        }
+        button:hover {
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        a {
+            @include fontNotoRegular;
+            color: $color-text-link !important;
+        }
+    }
+    .form-register {
+        margin: 41px auto 11px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .form-auth-register {
+        margin: 148px 72px 252px;
+        .form-auth-logo {
+            margin-bottom: 91px;
+        }
+    }
+    .form-auth-login {
+        margin: 148px 52px 384px;
+        .form-auth-logo {
+            margin-bottom: 69px;
+        }
+    }
+    .form-auth {
+        width: auto;
+        .form-auth-input {
+            input {
+                width: 100%;
+            }
+        }
+        .form-auth-password {
+            .remember-password {
+                margin: 0;   
+                @include centerVertical;
+                justify-content: flex-start; 
+                .checkbox-remember {
+                    width: 13px; 
+                    height: 13px;
+                    @include centerAll;
+                    margin-right: 7px;
+                    input {
+                        width: 10px;
+                        height: 10px;
+                    }
+                }
+            }  
+        }
+        .form-auth-btn {
+            button {
+                width:  218px;
+                margin-bottom: 19px;
+            }
+        }
+        .form-register {
+            margin: 41px auto 16px;
+        }
+    }
+}
