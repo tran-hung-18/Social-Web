@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('user_name');
             $table->string('avatar');
+            $table->tinyInteger('status');
             $table->tinyInteger('role');
             $table->rememberToken();
             $table->timestamps();
