@@ -34,11 +34,12 @@
                 </div>
                 <p>Remember password</p>
             </div>
-            <a href="{{ route('forgot-password') }}">Forgot your password?</a>
+            <a href="">Forgot your password?</a>
         </div>
         <div class="form-auth-btn">
             <button type="submit">Login</button>
             <a href="{{ route('view-register') }}">Don't have an account? Sign up here</a>
         </div>
     </form>
-@endsection
+</body>
+</html>

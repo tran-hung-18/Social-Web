@@ -12,6 +12,7 @@ use App\Service\AuthService;
 class AuthController extends Controller
 {
     protected AuthService $authService;
+
     public function __construct(AuthService $authService)
     {   
         $this->authService = $authService;
@@ -30,15 +31,6 @@ class AuthController extends Controller
             return redirect()->route('home')->with('message', __('auth.login_success'));
         } else {
             return redirect()->route('view-login')->with('message', __('auth.login_error'));
-        }
-    }
-    public function register(RegisterRequest $request) 
-    {
-        $result = $this->authService->register($request->all());
-        if ($result) {
-            return redirect()->route('view-login')->with('message', __('auth.register_success'));
-        } else {
-            return redirect()->route('view-register')->with('message', __('auth.register_error'));
         }
     }
     public function verifyEmail(string $token) 
