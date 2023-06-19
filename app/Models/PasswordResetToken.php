@@ -10,6 +10,7 @@ class PasswordResetToken extends Model
     use HasFactory;
 
     const UPDATED_AT = null;
+
     protected $table = 'password_reset_tokens';
 
     protected $fillable = [

@@ -22,9 +22,9 @@ return [
     'register_error' => 'Register error',
     'forgot_password_check_mail' => 'Please check your email to get password',
     'password_new' => 'Please check gmail to get your new password',
+    'not_access' => 'You do not have permission to access this item',
 
-
-    'try_again' => "Please try again",
+    'try_again' => 'Please try again',
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',

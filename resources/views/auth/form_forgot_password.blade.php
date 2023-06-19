@@ -3,7 +3,7 @@
         color: red;
     }
 </style>
-@extends('layouts.app')
+@extends('layouts.auth')
 @section('content')
     <form action="{{ route('post-forgot-password') }}" method="POST" class='form-auth'>
         @csrf
