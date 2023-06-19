@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/home', '/welcome')->name('home');
+Route::view('/home', '/testRole')->name('home');
 
 Route::prefix('auth')->group(function () {
     Route::get('/login', [AuthController::class, 'viewLogin'])->name('view-login');
