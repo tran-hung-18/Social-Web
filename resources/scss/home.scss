@@ -1,187 +1,205 @@
-.menu-mobile, .search-mobile {
-    display: none;
-    width: 0%;
-}
-.body {
-    .img-title {
+@import "./base.scss";
+
+.img-title {
+    width: 100%;
+    height: 519px;
+    img {
         width: 100%;
-        height: 519px;
-        img{
-            width: 100%;
-            height: 100%;
+        height: 100%;
+    }
+}
+.list-blog {
+    padding: 0;
+    margin: 72.5px 101px 96px;
+    .title {
+        @include centerVertical;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 38px;
+        h1 {
+            @include centerVertical;
+            font: normal 700 50px/72px "Noto Sans JP";
+        }
+        select {
+            border-radius: 4px;
+            padding: 7px 0 11px 15px;
+            width: 144px;
+            height: 40px;;
+            font-weight: 500;
         }
     }
-    .list-blog {
-        height: 100%;
-        padding: 0;
-        margin: 72.5px 101px 96px 102px;
-        .title {
-            @include centerVertical;
-            justify-content: space-between;
+    .all-item {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        h2 {
             width: 100%;
-            margin-bottom: 38px;
-            h1 {
-                @include centerVertical;
-                font: normal 700 50px/72px "Noto Sans JP";
-            }
-            select {
-                border-radius: 4px;
-                width: 144px;
-                height: 40px;;
-                font-weight: 500;
-            }
+            text-align: center;
+            margin: 0 auto 40px;
+
         }
-        .all-item {
-            width: 100%;
-            @include centerVertical;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            .item-blog {
-                width: 32%;
-                border-radius: 8px;
-                margin-bottom: 70px;
-                background: #FFFFFF;
+        .item-blog {
+            width: calc(33.333333333% - 20px);
+            border-radius: 8px;
+            margin: 0 30px 70px 0;
+            color: #211E3B;
+            background: #FFFFFF;
+            overflow: hidden;
+            border: 1px solid #CCCCCC;
+            .item-blog-img {
+                width: 100%;
+                height: 275px;
                 overflow: hidden;
-                border: 1px solid #CCCCCC;
-                .item-blog-img {
+                margin-bottom: 25px;
+                cursor: pointer;
+                img {
                     width: 100%;
-                    overflow: hidden;
-                    margin-bottom: 25px;
-                    cursor: pointer;
-                    img {
-                        width: 100%;
-                        border-radius: 8px 8px 0px 0px;
-                        transition: transform 0.3s;
-                    }
-                    img:hover {
-                        transform: scale(1.05);
-                    }
+                    height: 100%;
+                    border-radius: 8px 8px 0px 0px;
+                    transition: transform 0.3s;
                 }
-                .item-blog-content {
-                    margin: 0 13px 0 20px;
-                    border-radius: 0 0 6px 6px;
-                    .info {
-                        height: 31px;
-                        margin: 0 0 15px 0;
+                img:hover {
+                    transform: scale(1.05);
+                }
+            }
+            .item-blog-content {
+                margin: 0 13px 0 20px;
+                border-radius: 0 0 6px 6px;
+                .info {
+                    height: 31px;
+                    margin: 0 0 15px 0;
+                    @include centerVertical;
+                    justify-self: start;
+                    .author {
                         @include centerVertical;
-                        justify-self: start;
-                        .author {
-                            @include centerVertical;
-                            img {
-                                width: 24px;
-                                height: 24px;
-                                margin-right: 4px;
-                            }
-                            p {
-                                @include fontInfoImg;
-                                font-size: 18px;
-                                line-height: 30px;
-                            }
-                        }
-                        .time {
-                            @include centerVertical;
-                            img {
-                                width: 24px;
-                                height: 24px;
-                                margin: 0 8px 0 21px;
-                            }
-                            p {
-                                @include fontInfoImg;
-                                font-size: 18px;
-                                line-height: 30px;
-                            }
-                        }
-                    }
-                    .text-detail {
-                        p:first-child {
-                            font-family: "SVN-Gilroy-Bold";
-                            margin-bottom: 10px;
-                            font-size: 20px;
-                            line-height: 28px;  
+                        img {
+                            width: 24px;
+                            height: 24px;
+                            margin-right: 4px;
                         }
                         p {
-                            font-family: "SVN-Gilroy";
-                            margin-bottom: 29px;
+                            @include fontInfoImg;
                             font-size: 18px;
-                            font-weight: 400;
-                            line-height: 25px;
-                            letter-spacing: 0em;
+                            line-height: 30px;
                         }
                     }
-                    .text-link {
-                        .btn-details {
-                            @include centerVertical;
-                            width: 137px;
-                            height: 40px;
-                            font-family: "SVN-Gilroy";
-                            margin-bottom: 21px;
-                            border: 1px solid $border-btn;
-                            padding: 10px 20px 10px 15px ;
-                            transition: all 0.3s linear;
-                            color: $color-primary;
-                            p {
-                                width: 76px;
-                                height: 20px;
-                                font-weight: 400;
-                                font-size: 14px;
-                                line-height: 20px;
-                                margin-right: 8px;
-                            }
-                            img {
-                                width:18px;
-                                height: 8px;
-                            }
+                    .time {
+                        @include centerVertical;
+                        img {
+                            width: 24px;
+                            height: 24px;
+                            margin: 0 8px 0 21px;
                         }
-                        .btn-details:hover {
-                            color: white;
-                            border: 1px solid white;
-                            background-color: $color-primary;
-                            svg path{
-                                stroke: white;
-                            }
+                        p {
+                            @include fontInfoImg;
+                            font-size: 18px;
+                            line-height: 30px;
                         }
                     }
                 }
-            }
-            .item-blog:nth-last-child(-n+3) {
-                margin-bottom: 50px;
+                .text-detail {
+                    p:first-child {
+                        font-family: "SVN-Gilroy-Bold";
+                        margin-bottom: 10px;
+                        font-size: 20px;
+                        line-height: 28px;  
+                    }
+                    p {
+                        font-family: "SVN-Gilroy";
+                        margin-bottom: 29px;
+                        font-size: 18px;
+                        font-weight: 400;
+                        line-height: 25px;
+                        letter-spacing: 0em;
+                    }
+                }
+                .text-link {
+                    .btn-details {
+                        @include centerVertical;
+                        width: 137px;
+                        height: 40px;
+                        font-family: "SVN-Gilroy";
+                        margin-bottom: 21px;
+                        border: 1px solid $border-btn;
+                        padding: 10px 20px 10px 15px ;
+                        transition: all 0.3s linear;
+                        color: $color-primary;
+                        a {
+                            width: 76px;
+                            height: 20px;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 20px;
+                            margin-right: 8px;
+                            color: $color-primary;
+                        }
+                    }
+                    .btn-details:hover {
+                        border: 1px solid white;
+                        background-color: $color-primary;
+                        svg path{
+                            stroke: white;
+                        }
+                        a {
+                            color: white;
+                        }
+                    }
+                }
             }
         }
-        .paging {
-            position: relative;
+        .item-blog:nth-child(3n){
+            margin-right: 0;
+        }
+    }
+    .paginate {
+        position: relative;
+        @include centerAll;
+        li {
             @include centerAll;
-            li {
-                @include centerAll;
-                width: 32px;
-                height: 32px;
-                cursor: pointer;
-                a {
-                    height: 28px;
-                    font-family: "SVN-Gilroy-Bold";
-                    font-style: normal;
-                    font-size: 20px;
-                    line-height: 28px;
-                    color: #211E3B;
-                }
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            a {
+                height: 28px;
+                font-family: "SVN-Gilroy-Bold";
+                font-style: normal;
+                font-size: 20px;
+                line-height: 28px;
+                color: #211E3B;
             }
-            li:hover, li:nth-child(4) {
-                border-radius: 50%;
-                background-color: #FFE4E4;
-                a {
-                    color: $color-primary;
-                }
+        }
+        li:hover, .paginate-active {
+            border-radius: 50%;
+            background-color: #FFE4E4;
+            a {
+                color: $color-primary;
             }
-            li:first-child {
-                @include pagingItem;
-                background-color: $color-primary;
+        }
+        .arrow-paginate {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            a {
+                color: white;
             }
-            li:last-child {
-                @include pagingItem;
-                background: #E5E5E5;
+        }
+        .arrow-paginate:hover {
+            opacity: 0.8;
+            a {
+                color: white;
             }
-            li + li {
-                margin-left: 10px;
-            }
+        }
+        li:first-child {
+            background-color: $color-primary;
+        }
+        li:last-child {
+            background: #E5E5E5;
+        }
+        li + li {
+            margin-left: 10px;
         }
     }
 }
+
+@import "./responsive.scss";

@@ -3,12 +3,12 @@
 @section('content')
     <form method="POST" action="{{ route('post-login') }}" class="form-auth form-auth-login">
         @csrf
-        <div class="form-auth-logo">
+        <a href="{{ route('blogs-home') }}" class="form-auth-logo">
             <img src="{{ Vite::asset('resources/images/LogoRegit.png') }}" alt="">
             <h4>RT-Blogs</h4>
-        </div>
+        </a>
         <div class="form-auth-title">
-            <p>Sign in</p>
+            <p>{{ __('auth.title_form_login') }}</p>
         </div>
         <div class="form-auth-input">
             <label for="email">Username or email<span>*</span></label>
@@ -37,8 +37,8 @@
             <a href="{{ route('view-forgot-password') }}">Forgot your password?</a>
         </div>
         <div class="form-auth-btn">
-            <button type="submit">Login</button>
-            <a href="{{ route('view-register') }}">Don't have an account? Sign up here</a>
+            <button type="submit">{{ __('auth.btn_login') }}</button>
+            <a href="{{ route('view-register') }}">{{ __('auth.text_register') }}</a>
         </div>
     </form>
 @endsection

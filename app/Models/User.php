@@ -53,4 +53,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    protected $date = [
+        'created_at',
+        'updated_at'
+    ];
 }

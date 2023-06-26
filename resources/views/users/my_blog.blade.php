@@ -14,9 +14,7 @@
             <select type="text" id="select-category" name="category_id" class="item-input">
                 <option value="0">Categories</option>
                 @foreach ($categories as $item)
-                    <option @if (isset($categorySelected) && $item['id'] == $categorySelected) selected @endif 
-                        value="{{ route('blogs-category', ['id' => $item['id']]) }}"
-                    >
+                    <option @if (isset($categorySelected) && $item['id'] == $categorySelected) selected @endif value="{{ route('my-blogs-category', ['id' => $item['id']]) }}">
                         {{ $item['name'] }}
                     </option>
                 @endforeach
@@ -66,7 +64,7 @@
                             </div>
                             <div class="text-link">
                                 <button class="btn btn-details">
-                                    <a href="{{ route('blog-detail', ['id' => $item['id']]) }}">{{ __('auth.btn_detail_blog') }}</a> 
+                                    <a href="{{ route('blog-detail', ['id' => $item['id']]) }}">Read more</a> 
                                     <svg width="18" height="8" viewBox="0 0 20 10" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M19 5H1M19 5L15 9M19 5L15 1" stroke="#C40000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
@@ -77,7 +75,7 @@
                 @endforeach
             </div>
             @php
-                $numberPage = ceil($countBlog/(\App\Models\Post::LIMIT_BLOG_PAGE_HOME));
+                $numberPage = ceil($countBlog/(\App\Models\Post::LIMIT_BLOG_PAGE_MY_BLOG));
             @endphp
             @include('layouts.paginate')
         @endif

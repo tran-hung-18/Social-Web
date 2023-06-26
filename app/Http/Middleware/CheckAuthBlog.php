@@ -2,13 +2,15 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckUser
+class CheckAuthBlog
 {
     /**
      * Handle an incoming request.
@@ -17,8 +19,8 @@ class CheckUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
-        if (Auth::check() && $user->role == User::ROLE_USER && $user->status == User::STATUS_ACTIVE) {
+       $idAuth = Post::find($request->route('id'))->user_id; 
+        if (Auth::user()->role == User::ROLE_ADMIN || Auth::id() == $idAuth) {
             return $next($request);
         }
 

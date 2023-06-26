@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,28 +15,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/home', '/testRole')->name('home');
-
 Route::prefix('auth')->group(function () {
     Route::get('/login', [AuthController::class, 'viewLogin'])->name('view-login');
+    Route::post('/login', [AuthController::class, 'login'])->name('post-login');
     Route::get('/register', [AuthController::class, 'viewRegister'])->name('view-register');
+    Route::post('/register', [AuthController::class, 'register'])->name('post-register');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/formForgotPassword', [AuthController::class, 'formForgotPassword'])->name('view-forgot-password');
     Route::post('/forgotPassword', [AuthController::class, 'forgotPassword'])->name('post-forgot-password');
     Route::get('/getPassword/{token}', [AuthController::class, 'getPassword'])->name('get-password');
-    Route::post('/login', [AuthController::class, 'login'])->name('post-login');
-    Route::post('/register', [AuthController::class, 'register'])->name('post-register');
     Route::get('/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verify-email');
 });
 
-Route::prefix('posts')->group(function () {
-    Route::get('/', [AuthController::class, 'viewPost'])->name('home-posts');
-});
+Route::get('/', [PostController::class, 'allBlogPublic'])->name('blogs-home');
+Route::get('/blogs/details/{id}', [PostController::class, 'detail'])->name('blog-detail');
+Route::get('/blogs/category/{id}', [PostController::class, 'allBlogCategory'])->name('blogs-category');
+Route::post('/blogs/search', [PostController::class, 'searchBlog'])->name('blogs-search');
 
 Route::middleware(['isAdmin'])->group(function () {
     Route::get('/admin', [AuthController::class, 'viewAdmin'])->name('home-admin');
 });
 
-Route::middleware(['isUser'])->group(function () {
-    Route::get('user', [AuthController::class, 'viewUser'])->name('home-user');
+Route::prefix('blogs')->middleware(['isUser'])->group(function () {
+    Route::get('myBlog', [PostController::class, 'myBlog'])->name('view-my-blog');
+    Route::get('/myBlog/category/{id}', [PostController::class, 'myBlogCategory'])->name('my-blogs-category');
+    Route::get('create', [PostController::class, 'create'])->name('view-create-blog');
+    Route::post('add', [PostController::class, 'store'])->name('post-create-blog');
+
+    Route::middleware(['isAuthBlog'])->group(function () {
+        Route::get('/edit/{id}', [PostController::class, 'edit'])->name('view-update-blog');
+        Route::put('/update/{id}', [PostController::class, 'update'])->name('put-update-blog');
+        Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('delete-blog');
+    });
 });
