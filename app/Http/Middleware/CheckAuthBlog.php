@@ -19,11 +19,11 @@ class CheckAuthBlog
      */
     public function handle(Request $request, Closure $next): Response
     {
-       $idAuth = Post::find($request->route('id'))->user_id; 
+        $idAuth = Post::find($request->route('id'))->user_id; 
         if (Auth::user()->role == User::ROLE_ADMIN || Auth::id() == $idAuth) {
             return $next($request);
         }
 
-        return redirect()->route('blogs-home')->with('error', __('auth.not_access'));
+        return redirect()->route('blogs.home')->with('error', __('auth.no_permission'));
     }
 }

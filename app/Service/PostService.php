@@ -4,84 +4,53 @@ namespace App\Service;
 
 use Exception;
 use App\Models\Post;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
-    public function countBlog($idAuth = 0, $idCategory = 0): int
+    public function getAllBlogPublic(string $data = null, int $idCategory = 0): LengthAwarePaginator
     {
-        if ($idAuth != 0) {
-            return Post::where('user_id', $idAuth)->count();
-        } else if ($idCategory != 0) {
-            return Post::where(['category_id' => $idCategory, 'status' => Post::STATUS_APPROVED])->count();
+        $query = Post::approved();
+        if ($data != null) {
+            $query->with('user')->where('title', 'like', '%'.$data.'%');
         }
-        
-        return Post::where('status', Post::STATUS_APPROVED)->count();
-    }
-    public function getAllBlogPublic($dataSearch = null): object|null
-    {
-        if ($dataSearch != null) {
-            return Post::where('status', Post::STATUS_APPROVED)
-            ->where('title', 'like', '%'.$dataSearch.'%')
-            ->orWhere('content', 'like', '%'.$dataSearch.'%')
-            ->with('user', 'category')
-            ->orderBy('id')
-            ->get();
-        }
+        elseif ($idCategory != 0) {
+            $query->where(['category_id' => $idCategory]);
+        } 
 
-        return Post::where('status', Post::STATUS_APPROVED)
-        ->with('user', 'category')
+        return $query->with('user')
         ->orderBy('id')
-        ->paginate(Post::LIMIT_BLOG_PAGE_HOME);
+        ->paginate(Post::LIMIT_BLOG_PAGE);
     }
 
-    public function getAllBlog(): object|null
+    public function relatedBlog(int $categoryId, int $blogId): Collection
     {
-        return Post::with('user', 'category')
-        ->orderBy('id')
-        ->paginate(Post::LIMIT_BLOG_PAGE_HOME);
-    }
-
-    public function getAllBlogCategory($categoryId, $id = 0): object|null
-    {
-        if ($id == 0) {
-            return Post::where(['category_id' => $categoryId, 'status' => Post::STATUS_APPROVED])
-            ->with('user', 'category')
-            ->orderBy('id')
-            ->paginate(Post::LIMIT_BLOG_PAGE_HOME);
-        }
-        return Post::where(['category_id' => $categoryId, 'status' => Post::STATUS_APPROVED])
-        ->where('id','<>', $id)
-        ->with('user', 'category')
-        ->orderBy('id')
-        ->limit(4)
+        return Post::where([['category_id', $categoryId], ['id', '<>', $blogId]])
+        ->approved()
+        ->with('user')
+        ->limit(Post::LIMIT_BLOG_RELATED)
+        ->inRandomOrder()
         ->get();
     }
 
-    public function getMyBlogCategory($categoryId, $idUser): object|null
+    public function detailBlog(int $id): object|null
     {
-        return Post::where(['category_id' => $categoryId, 'user_id'=> $idUser])
-        // ->where()
-        ->with('user', 'category')
-        ->orderBy('id')
-        ->paginate(Post::LIMIT_BLOG_PAGE_MY_BLOG);
+        return Post::where('id', $id)
+        ->with('user')
+        ->first();
     }
 
-    public function myBlog($id): object|null
-    {
-        return Post::where('user_id', $id)
-        ->orderBy('id')
-        ->paginate(Post::LIMIT_BLOG_PAGE_MY_BLOG);
-    }
-
-    public function createPost($data): bool
+    public function createPost(object $data): bool
     {
         try {
             Post::create(['user_id' => Auth::id(),
                 'category_id' => $data['category_id'],
                 'title' => $data['title'],
                 'content' => $data['content'],
-                'image' => $this->storeAsImg($data),
+                'image' => Storage::disk('public')->put('images', $data->file('image')),
                 'status' => Post::STATUS_NOT_APPROVED
             ]);
                 
@@ -92,32 +61,16 @@ class PostService
         }
     }
 
-    public function detailBlog($id): object
-    {
-        return Post::where('id', $id)
-        ->with('user','category')
-        ->first();
-    }
-    
-    public function approvedBlog($id): bool
-    {
-        return Post::where('posts.id', $id)->update(['status' => Post::STATUS_APPROVED]);
-    }
-
-    public function unApproved($id): bool
-    {
-        return Post::where('posts.id', $id)->update(['status' => Post::STATUS_NOT_APPROVED]);
-    }
-
-    public function updateBlog($data, $id): bool
+    public function updateBlog(object $data, int $id): bool
     {
         try {
+            $post = Post::find($id);
             if (isset($data['image'])) {
-                $fileName = $this->storeAsImg($data);
+                $fileName = Storage::disk('public')->put('images', $data->file('image'));
             } else {
-                $fileName = Post::find($id)->image;
+                $fileName = $post->image;
             }
-            Post::find($id)->update(['category_id' => $data['category_id'],
+            $post->update(['category_id' => $data['category_id'],
                 'title' => $data['title'],
                 'content' => $data['content'],
                 'image' => $fileName,
@@ -130,17 +83,8 @@ class PostService
         }
     }
 
-    public function deleteBlog($id):bool
-    {
+    public function deleteBlog(int $id):bool
+    {    
         return Post::find($id)->delete();
-    }
-
-    public function storeAsImg($data): string
-    {
-        $image = $data['image'];
-        $fileName = time() . 'socialTHH.' . $image->getClientOriginalExtension();
-        $image->storeAs('public/images', $fileName);
-
-        return $fileName;
     }
 }

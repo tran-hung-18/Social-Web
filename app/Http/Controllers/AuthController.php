@@ -40,26 +40,26 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if ($this->authService->login($request->all())) {
-            return redirect()->route('blogs-home')->with('message', __('auth.login_success'));
+            return redirect()->route('blogs.home')->with('message', __('auth.login_success'));
         } 
             
-        return redirect()->route('view-login')->with('message', __('auth.login_error'));
+        return redirect()->route('view.login')->with('message', __('auth.login_error'));
     }
 
     public function register(RegisterRequest $request)
     {
         if ($this->authService->register($request->all())) {
-            return redirect()->route('view-login')->with('message', __('auth.register_success'));
+            return redirect()->route('view.login')->with('message', __('auth.register_success'));
         }
         
-        return redirect()->route('view-register')->with('message', __('auth.register_error'));
+        return redirect()->route('view.register')->with('message', __('auth.register_error'));
     }
 
     public function verifyEmail(string $token)
     {
         $message = $this->authService->verifyEmail($token);
 
-        return redirect()->route('view-login')->with('message', $message);
+        return redirect()->route('view.login')->with('message', $message);
     }
 
     public function formForgotPassword()
@@ -72,20 +72,20 @@ class AuthController extends Controller
 
         $result = $this->authService->forgotPassword($request->email);
 
-        return redirect()->route('view-login')->with('message', $result);
+        return redirect()->route('view.login')->with('message', $result);
     }
 
-    public function getPassword($token)
+    public function getPassword(string $token)
     {
         $result = $this->authService->createPasswordNew($token);
 
-        return redirect()->route('view-login')->with('message', $result);
+        return redirect()->route('view.login')->with('message', $result);
     }
 
     public function logout()
     {
         Auth::logout();
 
-        return redirect()->route('view-login');
+        return redirect()->route('view.login');
     }
 }

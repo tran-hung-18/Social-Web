@@ -1,314 +1,322 @@
 @import "./base.scss";
 
-.layout-detail {
-    margin: 156px 110px 60px 100px;
-    .layout-detail-item {
-        .title {
-            text-align: center;
-            @include fontNotoBold;
-            color: #212121;
-            font-size: 24px;
-        }
-        .line-title {
-            width: 63px;
-            height: 3px;
-            margin: 18px auto 30px;
-            background-color: #747474;
+.body {
+    .notify-no-blog {
+        @include centerAll;
+        margin: 190px auto 50px;
+        h2 {
+            height: 100%;
         }
     }
-    .info-blog {
-        .dashboard {
-            height: 23px;
-            @include centerVertical;
-            a, p {
-                line-height: 23px;
-                color: $text-color-grey;
-                font-size: 16px;
-            }   
-            p:last-child {
+    .layout-detail {
+        margin: 156px 110px 60px 100px;
+        .layout-detail-item {
+            .title {
+                text-align: center;
                 @include fontNotoBold;
+                color: #212121;
+                font-size: 24px;
             }
-            i {
-                color: $text-color-grey;
-                font-size: 12px;
-                margin: 3px 5px 0;            
-            }
-            a:hover {
-                color: $color-primary;
-                font-weight: bold;
+            .line-title {
+                width: 63px;
+                height: 3px;
+                margin: 18px auto 30px;
+                background-color: #747474;
             }
         }
-        .detail-blog {
-            h3 {
-                color: #000;
-                @include fontNotoBold;
-                font-size: 18px;
-                margin-top: 40px;
-            }
-            .header-blog {
-                margin-top: 40px;
-                height: 40px;
-                position: relative;
+        .info-blog {
+            .dashboard {
+                height: 23px;
                 @include centerVertical;
-                justify-content: space-between;
-                .auth {
-                    @include centerVertical;
-                    img {
-                        width: 36px;
-                        height: 36px;
-                        margin-right: 8px;
-                    }
-                    .info {
-                        display: flex;
-                        flex-direction: column;
-                        p {
-                            color: #000;
-                            font-size: 12px;
-                            font-family: "Noto Sans JP";
-                            font-weight: 500;
-                        }
-                        p:last-child {
-                            color: #A7A7A7;
-                            font-size: 11px;
-                        }
-                    }
+                a, p {
+                    line-height: 23px;
+                    color: $text-color-grey;
+                    font-size: 16px;
+                }   
+                p:last-child {
+                    @include fontNotoBold;
                 }
-                .control {
+                i {
+                    color: $text-color-grey;
+                    font-size: 12px;
+                    margin: 3px 5px 0;            
+                }
+                a:hover {
+                    color: $color-primary;
+                    font-weight: bold;
+                }
+            }
+            .detail-blog {
+                h3 {
+                    color: #000;
+                    @include fontNotoBold;
+                    font-size: 18px;
+                    margin-top: 40px;
+                }
+                .header-blog {
+                    margin-top: 40px;
+                    height: 40px;
+                    position: relative;
                     @include centerVertical;
                     justify-content: space-between;
-                    .item-status {
-                        height: 30px;
-                        padding: 3px 8px;
-                        font-size: 15px;
+                    .auth {
+                        @include centerVertical;
+                        img {
+                            width: 36px;
+                            height: 36px;
+                            margin-right: 8px;
+                        }
+                        .info {
+                            display: flex;
+                            flex-direction: column;
+                            p {
+                                color: #000;
+                                font-size: 12px;
+                                font-family: "Noto Sans JP";
+                                font-weight: 500;
+                            }
+                            p:last-child {
+                                color: #A7A7A7;
+                                font-size: 11px;
+                            }
+                        }
+                    }
+                    .control {
+                        @include centerVertical;
+                        justify-content: space-between;
+                        .item-status {
+                            height: 30px;
+                            padding: 3px 8px;
+                            font-size: 15px;
+                            font-family: "Noto Sans JP";
+                            font-weight: 400;
+                            line-height: 23px;
+                            color: #fff;
+                            border: none;
+                            border-radius: 3px;
+                        }
+                        .approved {
+                            background-color: $color-success;
+                        }
+                        .update-blog {
+                            background-color: orange;
+                            margin-left: 18px;
+                        }
+                        .not-approved {
+                            background-color: $background-btn-not;
+                        }
+                        .delete-blog {
+                            margin-left: 18px;
+                            background-color: $color-error;
+                        }
+                    }
+                }
+                .img-blog {
+                    margin-top: 40px;
+                    width: 100%;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                .content {
+                    margin-top: 40px;
+                    p {
+                        color: #747474;
+                        font-size: 14px;
                         font-family: "Noto Sans JP";
-                        font-weight: 400;
-                        line-height: 23px;
-                        color: #fff;
-                        border: none;
-                        border-radius: 3px;
-                    }
-                    .approved {
-                        background-color: $color-success;
-                    }
-                    .update-blog {
-                        background-color: orange;
-                        margin-left: 18px;
-                    }
-                    .not-approved {
-                        background-color: $background-btn-not;
-                    }
-                    .delete-blog {
-                        margin-left: 18px;
-                        background-color: $color-error;
                     }
                 }
             }
-            .img-blog {
-                margin-top: 40px;
+        }
+        .related {
+            margin-top: 55px;
+            .list-blog-related {
                 width: 100%;
-                img {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                .item-blog {
+                    width: 300px;
+                    margin-right:36px;
+                    border-radius: 8px;
+                    border: 1px solid #CCC;
+                    background: #FFF;
+                    overflow: hidden;
+                    img {
+                        width: 100%;
+                        height: 300px;
+                    }
+                }
+                .item-blog:last-child {
+                    margin-right: 0;
+                }
+                .title-blog {
                     width: 100%;
-                    height: 100%;
+                    text-align: center;
+                    padding: 15px 21px 35px;
+                    @include fontNotoBold;
+                    font-size: 17px;
+                    line-height: 28px;
                 }
             }
-            .content {
-                margin-top: 40px;
+        }
+        .comments {
+            margin-top: 81px;
+            .send-comment {
+                position: relative;
+                @include centerVertical;
+                img {
+                    border-radius: 50%;
+                    width: 48px;
+                    height: 48px;
+                    margin-right: 17px;
+                }
+                input {
+                    flex: 1;
+                    height: 82px;
+                    padding: 8px 20px;
+                    border-radius: 4px;
+                    border: 1px solid #E1E1E1;
+                    background: #FFF;
+                }
+                input::placeholder {
+                    font-size: 20px;
+                }
+                button {
+                    position: absolute;
+                    right: 20px;
+                    background-color: $color-success;
+                    @include fontNotoRegular;
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    border: 1px solid $border-btn;
+                }
+            }
+            .item-comment {
+                margin-top: 22px;
+                display: flex;
+                img {
+                    border-radius: 50%;
+                    width: 48px;
+                    height: 48px;
+                    margin-right: 17px;
+                }
+                h3 {
+                    margin-top: 6px;
+                    @include fontNotoBold;
+                    font-size: 24px;
+                    height: 35px;
+                }
                 p {
-                    color: #747474;
-                    font-size: 14px;
-                    font-family: "Noto Sans JP";
+                    margin-top: 6px;
                 }
-            }
-        }
-    }
-    .related {
-        margin-top: 55px;
-        .list-blog-related {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            .item-blog {
-                width: 300px;
-                margin-right:36px;
-                border-radius: 8px;
-                border: 1px solid #CCC;
-                background: #FFF;
-                overflow: hidden;
-                img {
+                .content {
+                    @include fontNotoRegular;
+                    color: $text-color-header;
+                    height: 27px;
+                }
+                .time {
+                    @include fontNotoRegular;
+                    color: $text-color-grey;
+                    height: 20px;
+                }
+                .notify-no-comment {
                     width: 100%;
-                    height: 300px;
+                    text-align: center;
+                    @include fontNotoBold;
+                    font-size: 20px;
                 }
             }
-            .item-blog:last-child {
-                margin-right: 0;
+        }
+    }
+    .box-delete {
+        overflow: hidden;
+        position: fixed;
+        inset: 0;
+        transition: all 0.2s linear;
+        background: rgba(72, 72, 72, 0.40);
+        display: none;
+        .layout {
+            position: absolute;
+            top: 185px;
+            left:467px;
+            width: 542px;
+            background-color: white;
+            box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.04);
+            .header-box {
+                @include centerVertical;
+                justify-content: space-between;
+                border-bottom: 1px solid $border-bottom-item;
+                p {
+                    @include fontNotoBold;
+                    font-size: 20px;
+                    padding: 16px 0 16px 28px;
+                }
+                i {
+                    margin: 10px 11px auto 0;
+                }
+                i:hover {
+                    @include hover;
+                }
             }
-            .title-blog {
-                width: 100%;
-                text-align: center;
-                padding: 15px 21px 35px;
-                @include fontNotoBold;
-                font-size: 17px;
-                line-height: 28px;
+            .question-box {
+                height: 118px;
+                @include centerAll;
+                p {
+                    @include fontNotoRegular;
+                }
+            }
+            .form-request {
+                padding: 12px 53px 16px;
+                border-top: 1px solid $border-bottom-item;
+                @include centerVertical;
+                justify-content: space-between;
+                div, button {
+                    color: #FFF;
+                    font-size: 20px;
+                    font-family: "Noto Sans JP";
+                    padding: 4px 10px 7px;
+                    border-radius: 4px;
+                }
+                .btn:hover {
+                    opacity: 0.8;
+                }
+                .btn-cancel {
+                    border: 1px solid $color-cancel;
+                    background: $color-cancel;
+                }
+                .btn-delete {
+                    border: 1px solid $color-error;
+                    background: $color-error;
+                }
             }
         }
     }
-    .comments {
-        margin-top: 81px;
-        .send-comment {
-            position: relative;
-            @include centerVertical;
-            img {
-                border-radius: 50%;
-                width: 48px;
-                height: 48px;
-                margin-right: 17px;
-            }
-            input {
-                flex: 1;
-                height: 82px;
-                padding: 8px 20px;
-                border-radius: 4px;
-                border: 1px solid #E1E1E1;
-                background: #FFF;
-            }
-            input::placeholder {
-                font-size: 20px;
-            }
-            button {
-                position: absolute;
-                right: 20px;
-                background-color: $color-success;
-                @include fontNotoRegular;
-                color: white;
-                padding: 8px 12px;
-                border-radius: 4px;
-                border: 1px solid $border-btn;
-            }
+    .slick-dots {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 1rem 0;
+        list-style-type: none;
+        li {
+            margin: 0 0.25rem;
         }
-        .item-comment {
-            margin-top: 22px;
-            display: flex;
-            img {
-                border-radius: 50%;
-                width: 48px;
-                height: 48px;
-                margin-right: 17px;
-            }
-            h3 {
-                margin-top: 6px;
-                @include fontNotoBold;
-                font-size: 24px;
-                height: 35px;
-            }
-            p {
-                margin-top: 6px;
-            }
-            .content {
-                @include fontNotoRegular;
-                color: $text-color-header;
-                height: 27px;
-            }
-            .time {
-                @include fontNotoRegular;
-                color: $text-color-grey;
-                height: 20px;
-            }
-            .notify-no-comment {
-                width: 100%;
-                text-align: center;
-                @include fontNotoBold;
-                font-size: 20px;
-            }
+        button {
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            padding: 0;
+            border: none;
+            border-radius: 100%;
+            background-color: #D9D9D9;
+            text-indent: -9999px;
+        }
+        li.slick-active button {
+            background-color: #801616;
         }
     }
-}
-.box-delete {
-    overflow: hidden;
-    position: fixed;
-    inset: 0;
-    transition: all 0.2s linear;
-    background: rgba(72, 72, 72, 0.40);
-    display: none;
-    .layout {
-        position: absolute;
-        top: 185px;
-        left:467px;
-        width: 542px;
-        background-color: white;
-        box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.04);
-        .header-box {
-            @include centerVertical;
-            justify-content: space-between;
-            border-bottom: 1px solid $border-bottom-item;
-            p {
-                @include fontNotoBold;
-                font-size: 20px;
-                padding: 16px 0 16px 28px;
-            }
-            i {
-                margin: 10px 11px auto 0;
-            }
-            i:hover {
-                @include hover;
-            }
-        }
-        .question-box {
-            height: 118px;
-            @include centerAll;
-            p {
-                @include fontNotoRegular;
-            }
-        }
-        .form-request {
-            padding: 12px 53px 16px;
-            border-top: 1px solid $border-bottom-item;
-            @include centerVertical;
-            justify-content: space-between;
-            div, button {
-                color: #FFF;
-                font-size: 20px;
-                font-family: "Noto Sans JP";
-                padding: 4px 10px 7px;
-                border-radius: 4px;
-            }
-            .btn:hover {
-                opacity: 0.8;
-            }
-            .btn-cancel {
-                border: 1px solid $color-cancel;
-                background: $color-cancel;
-            }
-            .btn-delete {
-                border: 1px solid $color-error;
-                background: $color-error;
-            }
-        }
-    }
-}
-.slick-dots {
-	display: flex;
-	justify-content: center;
-	margin: 0;
-	padding: 1rem 0;
-	list-style-type: none;
-		li {
-			margin: 0 0.25rem;
-		}
-		button {
-			display: block;
-			width: 1rem;
-			height: 1rem;
-			padding: 0;
-			border: none;
-			border-radius: 100%;
-			background-color: #D9D9D9;
-			text-indent: -9999px;
-		}
-		li.slick-active button {
-			background-color: #801616;
-		}
-	
 }
 
 @import "./responsive.scss";

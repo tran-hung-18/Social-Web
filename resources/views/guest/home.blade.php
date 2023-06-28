@@ -11,11 +11,11 @@
     <div class="list-blog">
         <div class="title">
             <h1>List Blog</h1>
-            <select type="text" id="select-category" name="category_id" class="item-input">
+            <select type="text" name="category_id" class="select-category item-input">
                 <option value="0">Categories</option>
                 @foreach ($categories as $item)
                     <option @if (isset($categorySelected) && $item['id'] == $categorySelected) selected @endif 
-                        value="{{ route('blogs-category', ['id' => $item['id']]) }}"
+                        value="{{ route('blogs.category', ['id' => $item['id']]) }}"
                     >
                         {{ $item['name'] }}
                     </option>
@@ -23,13 +23,13 @@
             </select>
         </div>
         @if ($blogs->count() == 0)
-            <h2>{{ __('auth.text_no_found_blog') }}</h2>
+            <h2>{{ __('blog.text_no_found_blog') }}</h2>
         @else
             <div class="all-item">
                 @foreach($blogs as $item)
                     <div class="item-blog">
                         <div class="item-blog-img">
-                            <img src="{{ Vite::asset('storage/app/public/images/' . $item['image']) }}" alt="">
+                            <img src="{{ asset('storage/'.$item['image']) }}" alt="">
                         </div>
                         <div class="item-blog-content">
                             <div class="info">
@@ -41,11 +41,19 @@
                                     <img src="{{ Vite::asset('resources/images/Group 38.svg') }}" alt="">
                                     @php
                                         $timeMinutes = now()->diffInMinutes($item['created_at'], true);
-                                        if ($timeMinutes > 1440) {
+                                        if ($timeMinutes > 43200) {
+                                            $timeMinutes = (int)($timeMinutes/43200)." months ago";
+                                        }
+                                        elseif ($timeMinutes > 10080) {
+                                            $timeMinutes = (int)($timeMinutes/10080)." weeks ago";
+                                        }
+                                        elseif ($timeMinutes > 1440) {
                                             $timeMinutes = (int)($timeMinutes/1440)." days ago";
-                                        } elseif ($timeMinutes > 60) {
+                                        }
+                                        elseif ($timeMinutes > 60) {
                                             $timeMinutes = (int)($timeMinutes/60)." hours ago";
-                                        } else {
+                                        }
+                                        else {
                                             $timeMinutes = $timeMinutes." minutes ago";
                                         }
                                     @endphp
@@ -66,7 +74,7 @@
                             </div>
                             <div class="text-link">
                                 <button class="btn btn-details">
-                                    <a href="{{ route('blog-detail', ['id' => $item['id']]) }}">{{ __('auth.btn_detail_blog') }}</a> 
+                                    <a href="{{ route('blog.detail', ['id' => $item['id']]) }}">{{ __('blog.btn_detail_blog') }}</a> 
                                     <svg width="18" height="8" viewBox="0 0 20 10" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M19 5H1M19 5L15 9M19 5L15 1" stroke="#C40000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
@@ -76,9 +84,6 @@
                     </div>
                 @endforeach
             </div>
-            @php
-                $numberPage = ceil($countBlog/(\App\Models\Post::LIMIT_BLOG_PAGE_HOME));
-            @endphp
             @include('layouts.paginate')
         @endif
     </div>

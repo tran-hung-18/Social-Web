@@ -14,12 +14,12 @@ use Illuminate\Support\Str;
 
 class AuthService
 {
-    public function login($data): bool
+    public function login(array $data): bool
     {
         return Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'status' => User::STATUS_ACTIVE]);
     }
 
-    public function register($data): bool
+    public function register(array $data): bool
     {
         $token = Str::random(64);
         $user = User::create(['user_name' => $data['username'],
@@ -67,12 +67,12 @@ class AuthService
         return __('auth.forgot_password_error');
     }
 
-    public function createPasswordNew($token): string
+    public function createPasswordNew(string $token): string
     {
         $userId = PasswordResetToken::where(['token' => $token])->pluck('user_id')->first();
         if ($userId) {
             $user = User::where('id', $userId)->first();
-            $passwordNew = $user->id.'_'.Str::random(5);
+            $passwordNew = Str::random(6);
             $user->update(['password' => Hash::make($passwordNew)]);
             $dataSendMail = ['password' => $passwordNew];
             Mail::to($user->email)->send(new SendPassword($dataSendMail));

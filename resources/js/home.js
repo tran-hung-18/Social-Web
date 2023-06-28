@@ -1,25 +1,20 @@
-// SCROLL HEADER
 $(window).scroll(function() {
-    let header = $('.container-header');
+    const header = $('.container-header');
     $(window).scrollTop() > 0 ? header.addClass('header-scrolled') : header.removeClass('header-scrolled');
   });
 
-// SELECT CATEGORY
-$('#select-category').change(function() {
-    let idCategory = $(this).val();
-    if (idCategory != 0) {
-      location.href = $(this).val();
-    }
-  });
-  
-
-// PREVIEW IMAGE BLOG
-$('#btn-upload-img').click(function() {
-    $('#image').click();
+$('.select-category').change(function() {
+  if ($(this).val() != 0) {
+    location.href = $(this).val();
+  }
 });
 
-$('#image').change(function() {
-  const file = $('#image')[0].files[0];
+$('.btn-upload-img').click(function() {
+    $('.upload-image-blog').click();
+});
+
+$('.upload-image-blog').change(function() {
+  const file = $('.upload-image-blog')[0].files[0];
   if (file && file.type.startsWith('image/')) {
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -30,15 +25,14 @@ $('#image').change(function() {
   }
 });
 
-// RELATED IMAGE
 if ($(window).width() <= 768) {
-    $('.related-img').slick({
-        infinite: true,
-        dots: true,
-        arrows: false,
-        autoplaySpeed: 1500,
-        draggable: true,
-    });     
+  $('.related-img').slick({
+      infinite: true,
+      dots: true,
+      arrows: false,
+      autoplaySpeed: 1500,
+      draggable: true,
+  });     
 }
 
 setTimeout(() => {
@@ -48,14 +42,13 @@ setTimeout(() => {
 $('.icon-show-menu').click(function() {
     $('.menu-mobile').css('width','100%');
 });
-$('.icon-close-menu').click(function() {
-    $('.menu-mobile').width(0);
-});
 
 $('.icon-show-search').click(function() {
-    $('.search-mobile').css('width','100%');
+  $('.search-mobile').css('width','100%');
 });
-$('.icon-close-search').click(function() {
+
+$('.icon-close-menu').click(function() {
+    $('.menu-mobile').width(0);
     $('.search-mobile').width(0);
 });
 
@@ -65,5 +58,3 @@ $('.delete-blog').click(function() {
 $('.cancel-box-delete').click(function() {
     $('.box-delete').hide();
 });
-
-

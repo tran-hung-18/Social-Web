@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Category;
 use App\Models\User;
-
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
@@ -18,9 +18,9 @@ class Post extends Model
 
     const STATUS_NOT_APPROVED = 0;
 
-    const LIMIT_BLOG_PAGE_HOME = 6;
+    const LIMIT_BLOG_PAGE = 6;
 
-    const LIMIT_BLOG_PAGE_MY_BLOG = 3;
+    const LIMIT_BLOG_RELATED = 4;
 
     protected $fillable = [
         'user_id',
@@ -36,13 +36,13 @@ class Post extends Model
         'updated_at'
     ];
     
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function category()
+    public function scopeApproved(Builder $query): Builder
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $query->where('status', Post::STATUS_APPROVED);
     }
 }

@@ -18,7 +18,7 @@
         <div class="container-header">
             <div class="header-mobile">
                 <img src="{{ Vite::asset('resources/images/Vector.svg') }}" class="icon-show-menu" alt="">
-                <a href="{{ route('blogs-home') }}" class="logo-header">
+                <a href="{{ route('blogs.home') }}" class="logo-header">
                     <img src="{{ Vite::asset('resources/images/7d85462e-ed1f-4b7b-b617-ad57854a2ac0 (1) 1.png') }}" alt="">
                     <h4>RT-Blogs</h4>
                 </a>
@@ -26,26 +26,27 @@
             </div>
             <div class="header-desktop">
                 <div class="header-left">    
-                    <a href="{{ route('blogs-home') }}" class="logo-header">
+                    <a href="{{ route('blogs.home') }}" class="logo-header">
                         <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
                     </a>
-                    <form action="{{ route('blogs-search') }}" method="POST" class="search-header">
-                        @csrf
-                        <input type="text" placeholder="Search blog" name="data">
+                    <form action="{{ route('blogs.search') }}" method="GET" class="search-header">
+                        <input type="text" name="title"
+                            @if (isset($dataSearch) && $dataSearch != null)  value="{{ $dataSearch }}" @else placeholder="Search blog" @endif 
+                        >
                         <button><i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
                 <div class="header-right">
                     <div class="header-tag">
-                        @if (Route::is("blogs-home"))
-                            <a class="active" href="{{ route('blogs-home') }}">Top</a>
+                        @if (Route::is("blogs.home"))
+                            <a class="active" href="{{ route('blogs.home') }}">Top</a>
                         @else
-                            <a href="{{ route('blogs-home') }}">Top</a>
+                            <a href="{{ route('blogs.home') }}">Top</a>
                         @endif
-                        @if (Auth::user() && Route::is("view-create-blog"))
-                            <a class="active" href="{{ route('view-create-blog') }}">Create Blog</a>
+                        @if (Auth::user() && Route::is("view.create.blog"))
+                            <a class="active" href="{{ route('view.create.blog') }}">Create Blog</a>
                         @elseif (Auth::user())
-                            <a href="{{ route('view-create-blog') }}">Create Blog</a>
+                            <a href="{{ route('view.create.blog') }}">Create Blog</a>
                         @endif
                     </div>
                     <div class="header-account">
@@ -56,14 +57,14 @@
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <ul>
-                                        <li><a href="{{ route('view-my-blog') }}">My blogs</a></li>
+                                        <li><a href="#">My blogs</a></li>
                                         <li><button type='submit'>Log out</button></li>
                                     </ul>
                                 </form>
                             </i>
                         @else
-                            <a href="{{ route('view-login') }}">Login</a>
-                            <a href="{{ route('view-register') }}">Sign up</a>
+                            <a href="{{ route('view.login') }}">Login</a>
+                            <a href="{{ route('view.register') }}">Sign up</a>
                         @endif
                     </div>
                 </div>
@@ -76,12 +77,13 @@
             <div class="logo-header">
                 <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
             </div>
-            <form action="{{ route('blogs-search') }}" method="POST" class="search-header">
-                @csrf
-                <input type="text" placeholder="Search blog" name="data">
+            <form action="{{ route('blogs.search') }}" method="GET" class="search-header">
+                <input type="text" name="title"
+                    @if (isset($dataSearch) && $dataSearch != null)  value="{{ $dataSearch }}" @else placeholder="Search blog" @endif 
+                >
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
-            <i class="fa-solid fa-xmark icon-close-search"></i>
+            <i class="fa-solid fa-xmark icon-close-menu"></i>
         </div>
     </div>
     <div class="menu-mobile">
@@ -92,18 +94,18 @@
             </div>
             <div class="header-right">
                 <div class="header-right-item">
-                    @if(Route::is("blogs-home"))
-                        <a class="active" href="{{ route('blogs-home') }}">Top</a>
+                    @if(Route::is("blogs.home"))
+                        <a class="active" href="{{ route('blogs.home') }}">Top</a>
                     @else
-                        <a href="{{ route('blogs-home') }}">Top</a>
+                        <a href="{{ route('blogs.home') }}">Top</a>
                     @endif
                 </div>
                 @if (Auth::user())
                     <div class="header-right-item">
-                        <a @if(Route::is("view-create-blog")) class="active" @endif href="{{ route('view-create-blog') }}">Create Blog</a>
+                        <a @if(Route::is("view.create.blog")) class="active" @endif href="{{ route('view.create.blog') }}">Create Blog</a>
                     </div>
                     <div class="header-right-item">
-                        <a href="{{ route('view-my-blog') }}">My Blogs</a>
+                        <a href="#">My Blogs</a>
                     </div>
                     <div class="header-right-item">
                         <a href="#">{{ Auth::user()->user_name }}</a>
@@ -120,10 +122,10 @@
                     </div>
                 @else
                     <div class="header-right-item">
-                        <a href="{{ route('view-login') }}">Login</a>
+                        <a href="{{ route('view.login') }}">Login</a>
                     </div>
                     <div class="header-right-item">
-                        <a href="{{ route('view-register') }}">Sign up</a>
+                        <a href="{{ route('view.register') }}">Sign up</a>
                     </div>
                 @endif
             </div>

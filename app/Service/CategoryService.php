@@ -3,11 +3,12 @@
 namespace App\Service;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Collection;
 
 class CategoryService 
 {
-    public function getAll(): object
+    public function getAll(): Collection
     {
-        return Category::where('status', Category::STATUS_YES)->get();
+        return Category::get();
     }
 }

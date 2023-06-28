@@ -22,6 +22,6 @@ class CheckUser
             return $next($request);
         }
 
-        return redirect()->route('blogs-home')->with('error', __('auth.not_access'));
+        return redirect()->route('blogs.home')->with('error', __('auth.no_permission'));
     }
 }

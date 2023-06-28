@@ -1,9 +1,9 @@
 @extends('layouts.auth') 
 
 @section('content')
-    <form method="POST" action="{{ route('post-register') }}" class="form-auth form-auth-register">
+    <form method="POST" action="{{ route('post.register') }}" class="form-auth form-auth-register">
         @csrf
-        <a href="{{ route('blogs-home') }}" class="form-auth-logo">
+        <a href="{{ route('blogs.home') }}" class="form-auth-logo">
             <img src="{{ Vite::asset('resources/images/LogoRegit.png') }}" alt="">
             <h4>RT-Blogs</h4>
         </a>
@@ -37,7 +37,7 @@
         </div>
         <div class="form-auth-btn form-register">
             <button type="submit">{{ __('auth.btn_register') }}</button>
-            <a href="{{ route('view-login') }}">{{ __('auth.text_login') }}</a>
+            <a href="{{ route('view.login') }}">{{ __('auth.text_login') }}</a>
         </div>
     </form>
 @endsection

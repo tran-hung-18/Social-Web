@@ -9,8 +9,6 @@ class Category extends Model
 {
     use HasFactory;
 
-    const STATUS_YES = 1;
-
     protected $table = "categories";
 }
 

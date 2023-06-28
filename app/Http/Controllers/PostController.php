@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Post;
 use App\Service\PostService;
 use App\Service\CategoryService;
-use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -15,120 +15,94 @@ class PostController extends Controller
     
     protected CategoryService $categoryService;
     
-    protected $categories;
-
     public function __construct(PostService $postService, CategoryService $categoryService)
     {
         $this->postService = $postService;
         $this->categoryService = $categoryService;
-        $this->categories = $this->categoryService->getAll();
     }
 
-    public function allBlog()
+    public function allBlogPublic(Request $request)
     {
-        $blogs = $this->postService->getAllBlog();
-        
-        return $blogs;
+        $dataSearch = null;
+        $categorySelected = 0;
+        if (isset($request->all()['title'])) {
+            $dataSearch = $request->all()['title'];
+            $blogs = $this->postService->getAllBlogPublic($dataSearch);
+        } 
+        elseif (isset($request->all()['id'])) {
+            $categorySelected = $request->all()['id'];
+            $blogs = $this->postService->getAllBlogPublic(null, $request->all()['id']);
+        }
+        else {
+            $blogs = $this->postService->getAllBlogPublic();
+        }
+
+        return view('guest.home', [
+            'blogs' => $blogs,
+            'dataSearch' => $dataSearch,
+            'categorySelected' => $categorySelected,
+            'categories' => $this->categoryService->getAll()
+        ]);
     }
 
-    public function allBlogPublic()
-    {
-        $blogs =$this->postService->getAllBlogPublic();
-        $countBlog = $this->postService->countBlog();
-
-        return view('guest.home', ['blogs' => $blogs, 'categories' => $this->categories, 'countBlog' => $countBlog]);
-    }
-    
-    public function allBlogCategory($id)
-    {
-        $blogs = $this->postService->getAllBlogCategory($id);
-        $countBlog = $this->postService->countBlog(0, $id);
-
-        return view('guest.home',['blogs' => $blogs, 'categories' => $this->categories, 'categorySelected' => $id, 'countBlog' => $countBlog]);
-    }
-
-    public function searchBlog(Request $request)
-    {
-        $blogs = $this->postService->getAllBlogPublic($request->data);
-
-        return view('guest.home', ['blogs' => $blogs, 'categories' => $this->categories]);
-    }
-
-    public function detail($id)
+    public function detail(int $idBlog)
     {   
-        $blog = $this->postService->detailBlog($id);
-        $blogs = $this->postService->getAllBlogCategory($blog->category_id, $id);
+        $blog = $this->postService->detailBlog($idBlog);
+        $blogs = ($blog != null) ? $this->postService->relatedBlog($blog->category_id, $idBlog) : null;
         
-        return view('guest.detail_blog', ['blog' => $blog, 'blogs' => $blogs]);
-    }
-
-    public function myBlog()
-    {
-        $blogs = $this->postService->myBlog(Auth::id());
-        $countBlog = $this->postService->countBlog(Auth::id(), 0);
-
-        return view('users.my_blog', ['blogs' => $blogs, 'categories' => $this->categories, 'countBlog' => $countBlog]);
-    }
-
-    public function myBlogCategory($id)
-    {
-        $blogs = $this->postService->getMyBlogCategory($id, Auth::id());
-        $countBlog = $this->postService->countBlog(0, $id);
-
-        return view('users.my_blog',['blogs' => $blogs, 'categories' => $this->categories, 'categorySelected' => $id, 'countBlog' => $countBlog]);
+        return view('guest.detail_blog', [
+            'blog' => $blog, 
+            'blogs' => $blogs
+        ]);
     }
 
     public function create()
-    {
-        return view('users.create_blog', ['categories'=> $this->categories]);
-    }
+    {        
+        $this->authorize('create', Post::class);
 
+        return view('users.create_blog', ['categories'=> $this->categoryService->getAll()]);
+    }
+ 
     public function store(CreatePostRequest $request)
     {
-        if ($this->postService->createPost($request->all())) {
-            return redirect()->route('blogs-home')->with('success', __('auth.notify_create_blog_success'));
-        } 
+        if ($this->postService->createPost($request)) {
+            
+            return redirect()->route('blogs.home')->with('success', __('blog.notify_create_success'));
+        }
 
-        return redirect()->back()->with('error', __('auth.notify_create_blog_error'));
+        return redirect()->back()->with('error', __('blog.notify_create_error'));
     }
 
-    public function approvedBlog(Request $request)
+    public function edit(int $id)
     {
-        $result = $this->postService->approvedBlog($request->id);
-
-        return $result;
-    }
-
-    public function unApproved(Request $request)
-    {
-        $result = $this->postService->unApproved($request->id);
-
-        return $result;
-    }
-
-    public function edit(string $id)
-    {
-        $blog = $this->postService->detailBlog($id);
+        $this->authorize('update', Post::find($id));
         
-        return view('users.update_blog', ['blog'=> $blog, 'categories' => $this->categories, 'categorySelected' => $blog->category_id]);
+        $blog = $this->postService->detailBlog($id);
+    
+        return view('users.update_blog', [
+            'blog'=> $blog,
+            'categories' => $this->categoryService->getAll(), 
+            'categorySelected' => $blog->category_id
+        ]);
     }
 
-    public function update(UpdatePostRequest $request, $id)
+    public function update(UpdatePostRequest $request, int $id)
     {
-        $result = $this->postService->updateBlog($request->all(), $id);
-        if ($result) {
-            return redirect()->route('blog-detail', ['id' => $id])->with('success', __('auth.notify_update_blog_success'));
+        if ($this->postService->updateBlog($request, $id)) {
+            return redirect()->route('blog.detail', ['id' => $id])->with('success', __('blog.notify_update_success'));
         }
 
-        return redirect()->route('blogs-home')->with('error', __('auth.notify_update_blog_error'));
+        return redirect()->route('blogs.home')->with('error', __('blog.notify_update_error'));
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
+        $this->authorize('delete', Post::find($id));
+
         if ($this->postService->deleteBlog($id)) {
-            return redirect()->route('blogs-home')->with('success', __('auth.notify_delete_blog_success'));
+            return redirect()->route('blogs.home')->with('success', __('blog.notify_delete_success'));
         }
 
-        return redirect()->route('blogs-home')->with('success', __('auth.notify_delete_blog_error'));
+        return redirect()->route('blogs.home')->with('success', __('blog.notify_delete_error'));
     }
 }
