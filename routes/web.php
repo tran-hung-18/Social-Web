@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,15 +32,12 @@ Route::get('/', [PostController::class, 'allBlogPublic'])->name('blogs.home');
 Route::get('/search', [PostController::class, 'allBlogPublic'])->name('blogs.search');
 Route::get('/category', [PostController::class, 'allBlogPublic'])->name('blogs.category');
 Route::get('/blogs/details/{id}', [PostController::class, 'detail'])->name('blog.detail');
+Route::post('/blogs/comments/{id}', [CommentController::class, 'create'])->name('blog.comment');
 
 Route::prefix('blogs')->group(function () {
-    Route::middleware('isUser')->group(function () {
-        Route::get('create', [PostController::class, 'create'])->name('view.create.blog');
-        Route::post('add', [PostController::class, 'store'])->name('post.create.blog');
-    });
-    Route::middleware('isAuthBlog')->group(function () {
-        Route::get('/edit/{id}', [PostController::class, 'edit'])->name('view.update.blog');
-        Route::put('/update/{id}', [PostController::class, 'update'])->name('put.update.blog');
-        Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('delete.blog');
-    });
+    Route::get('create', [PostController::class, 'create'])->name('view.create.blog');
+    Route::post('add', [PostController::class, 'store'])->name('post.create.blog');
+    Route::get('/edit/{id}', [PostController::class, 'edit'])->name('view.update.blog');
+    Route::put('/update/{id}', [PostController::class, 'update'])->name('put.update.blog');
+    Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('delete.blog');
 });

@@ -16,13 +16,18 @@ class AuthService
 {
     public function login(array $data): bool
     {
-        return Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'status' => User::STATUS_ACTIVE]);
+        return Auth::attempt([
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'status' => User::STATUS_ACTIVE
+        ]);
     }
 
     public function register(array $data): bool
     {
         $token = Str::random(64);
-        $user = User::create(['user_name' => $data['username'],
+        $user = User::create([
+            'user_name' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => User::ROLE_USER,
@@ -42,7 +47,10 @@ class AuthService
     {
         $user = User::where('token_verify_email', $token)->where('email_verified_at', null)->first();
         if ($user) {
-            $user->update(['email_verified_at' => now(), 'status' => User::STATUS_ACTIVE]);
+            $user->update([
+                'email_verified_at' => now(),
+                'status' => User::STATUS_ACTIVE
+            ]);
 
             return __('auth.verify_success');
         }

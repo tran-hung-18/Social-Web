@@ -10,12 +10,12 @@
     </div>
     <div class="list-blog">
         <div class="title">
-            <h1>List Blog</h1>
+            <h1>{{ __('blog.title_list_blog') }}</h1>
             <select type="text" name="category_id" class="select-category item-input">
-                <option value="0">Categories</option>
+                <option value="0">{{ __('blog.title_select_category')}}</option>
                 @foreach ($categories as $item)
-                    <option @if (isset($categorySelected) && $item['id'] == $categorySelected) selected @endif 
-                        value="{{ route('blogs.category', ['id' => $item['id']]) }}"
+                    <option value="{{ route('blogs.category', ['id' => $item['id']]) }}"
+                        @if ($request->has('id') && $request->id == $item['id']) selected @endif
                     >
                         {{ $item['name'] }}
                     </option>

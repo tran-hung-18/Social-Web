@@ -1,6 +1,8 @@
 <?php
     return [
-        
+        'title_home' => 'Home',
+        'title_list_blog' => 'List Blog',
+        'title_select_category' => 'Categories',
         'title_create_blog' => 'Create Blog',
         'title_detail_blog' => 'Detail Blog',
         'title_update_blog' => 'Update Blog',
@@ -29,5 +31,8 @@
         'notify_delete_success' => 'Delete blog successfully!',
         'notify_delete_error' => 'Delete blog error. Please try again',
         'question_delete' => 'Are you sure want to delete this blog?',
+
+        'notify_create_comment_success' => 'Create comment successfully!',
+        'notify_create_comment_error' => 'Create comment error. Please try again',
     ];
 ?>

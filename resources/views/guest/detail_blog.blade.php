@@ -9,7 +9,7 @@
         <div class="layout-detail">
             <div class="layout-detail-item info-blog">
                 <div class="dashboard">
-                    <a href="{{ route('blogs.home') }}">Home</a>
+                    <a href="{{ route('blogs.home') }}">{{ __('blog.title_home') }}</a>
                     <i class="fa-solid fa-chevron-right"></i>
                     <p>{{ __('blog.title_detail_blog') }}</p>
                 </div>
@@ -17,7 +17,7 @@
                     <h3>{{ $blog->title }}</h3>
                     <div class="header-blog">
                         <div class="auth">
-                            <img src="{{ Vite::asset('resources/images/Ellipse 18.png') }}" alt="">
+                            <img src="{{ Vite::asset('storage/app/public/images/' . $blog->user->avatar) }}" alt="">
                             <div class="info">
                                 <p class="name">{{ $blog->user->user_name }}</p>
                                 @php
@@ -57,9 +57,9 @@
             <div class="layout-detail-item related">
                 <div class="title">{{ __('blog.title_related') }}</div>
                 <div class="line-title"></div>
-                @if ($blogs->count() > 0)
+                @if ($blogsRelated->count() > 0)
                     <div class="list-blog-related related-img">
-                        @foreach ($blogs as $item)
+                        @foreach ($blogsRelated as $item)
                             <div class="item-blog">
                                 <img src="{{ asset('storage/'.$item->image) }}" alt="">
                                 <div class="title-blog">{{ $item->title }}</div>
@@ -74,10 +74,10 @@
                 <div class="title">{{ __('blog.title_comments') }}</div>
                 <div class="line-title"></div>
                 @if (Auth::check())
-                    <form method="POST" action="#" class="send-comment">
+                    <form method="POST" action="{{ route('blog.comment', ['id' => $blog->id] )}}" class="send-comment">
                         @csrf
                         <img src="{{ Vite::asset('storage/app/public/images/' . Auth::user()->avatar) }}" alt="">
-                        <input type="text" placeholder="Input your comment . . . . " name="comment">
+                        <input type="text" placeholder="Input your comment . . . . " name="content">
                         <button>{{ __('blog.btn_send_comment') }}</button>
                     </form>
                 @endif

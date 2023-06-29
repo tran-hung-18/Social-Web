@@ -30,8 +30,12 @@
                         <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
                     </a>
                     <form action="{{ route('blogs.search') }}" method="GET" class="search-header">
-                        <input type="text" name="title"
-                            @if (isset($dataSearch) && $dataSearch != null)  value="{{ $dataSearch }}" @else placeholder="Search blog" @endif 
+                        <input type="text" name="data"
+                            @if (isset($request) && $request->has('data'))
+                                value="{{ $request->input('data') }}" 
+                            @else 
+                                placeholder="Search blog" 
+                            @endif 
                         >
                         <button><i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
@@ -77,12 +81,16 @@
             <div class="logo-header">
                 <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
             </div>
-            <form action="{{ route('blogs.search') }}" method="GET" class="search-header">
-                <input type="text" name="title"
-                    @if (isset($dataSearch) && $dataSearch != null)  value="{{ $dataSearch }}" @else placeholder="Search blog" @endif 
+            {{-- <form action="{{ route('blogs.search') }}" method="GET" class="search-header">
+                <input type="text" name="data"
+                    @if ($request->has('data'))
+                        value="{{ $request->input('data') }}" 
+                    @else 
+                        placeholder="Search blog" 
+                    @endif 
                 >
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
+            </form> --}}
             <i class="fa-solid fa-xmark icon-close-menu"></i>
         </div>
     </div>

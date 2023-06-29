@@ -27,16 +27,6 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function viewUser()
-    {
-        return view('users.home');
-    }
-
-    public function viewAdmin()
-    {
-        return view('admin.home');
-    }
-
     public function login(LoginRequest $request)
     {
         if ($this->authService->login($request->all())) {

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Exception;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -11,42 +12,41 @@ use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
-    public function getAllBlogPublic(string $data = null, int $idCategory = 0): LengthAwarePaginator
+    public function getAllBlogPublic(array $dataSearch = []): LengthAwarePaginator
     {
         $query = Post::approved();
-        if ($data != null) {
-            $query->with('user')->where('title', 'like', '%'.$data.'%');
-        }
-        elseif ($idCategory != 0) {
-            $query->where(['category_id' => $idCategory]);
+        if (isset($dataSearch['data'])) {
+            $query->with('user')->where('title', 'like', '%'.$dataSearch['data'].'%');
+        } 
+        if (isset($dataSearch['categoryId'])) {
+            $query->where(['category_id' => $dataSearch['categoryId']]);
         } 
 
-        return $query->with('user')
-        ->orderBy('id')
-        ->paginate(Post::LIMIT_BLOG_PAGE);
+        return $query
+            ->with('user')
+            ->orderBy('id')
+            ->paginate(Post::LIMIT_BLOG_PAGE);
     }
 
     public function relatedBlog(int $categoryId, int $blogId): Collection
     {
-        return Post::where([['category_id', $categoryId], ['id', '<>', $blogId]])
-        ->approved()
-        ->with('user')
-        ->limit(Post::LIMIT_BLOG_RELATED)
-        ->inRandomOrder()
-        ->get();
+        return Post::approved()
+            ->where([['category_id', $categoryId], ['id', '!=', $blogId]])
+            ->limit(Post::LIMIT_BLOG_RELATED)
+            ->inRandomOrder()
+            ->get();
     }
 
     public function detailBlog(int $id): object|null
     {
-        return Post::where('id', $id)
-        ->with('user')
-        ->first();
+        return Post::where('id', $id)->first();
     }
 
     public function createPost(object $data): bool
     {
         try {
-            Post::create(['user_id' => Auth::id(),
+            Post::create([
+                'user_id' => Auth::id(),
                 'category_id' => $data['category_id'],
                 'title' => $data['title'],
                 'content' => $data['content'],
@@ -70,7 +70,8 @@ class PostService
             } else {
                 $fileName = $post->image;
             }
-            $post->update(['category_id' => $data['category_id'],
+            $post->update([
+                'category_id' => $data['category_id'],
                 'title' => $data['title'],
                 'content' => $data['content'],
                 'image' => $fileName,
@@ -84,7 +85,15 @@ class PostService
     }
 
     public function deleteBlog(int $id):bool
-    {    
-        return Post::find($id)->delete();
+    {   
+        try {
+            Comment::where('post_id', $id)->delete();
+            Post::find($id)->delete();
+
+            return true;
+        }
+        catch (Exception $e) {
+            return false;
+        }
     }
 }
