@@ -9,7 +9,6 @@ use App\Models\Post;
 use App\Service\PostService;
 use App\Service\CategoryService;
 use App\Service\CommentService;
-use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -45,12 +44,12 @@ class PostController extends Controller
     {   
         $blog = $this->postService->detailBlog($idBlog);
         $commentsBlog = $blog ? $this->commentService->getAll($idBlog) : null;
-        $blogsRelated = $blog ? $this->postService->relatedBlog($blog->category_id, $idBlog) : null;
+        $relatedBlogs = $blog ? $this->postService->relatedBlog($blog->category_id, $idBlog) : null;
 
         return view('guest.detail_blog', [
             'blog' => $blog,
             'comments' => $commentsBlog,
-            'blogsRelated' => $blogsRelated,
+            'relatedBlogs' => $relatedBlogs,
         ]);
     }
 

@@ -22,8 +22,7 @@ class PostService
             $query->where(['category_id' => $dataSearch['categoryId']]);
         } 
 
-        return $query
-            ->with('user')
+        return $query->with('user')
             ->orderBy('id')
             ->paginate(Post::LIMIT_BLOG_PAGE);
     }
@@ -84,13 +83,17 @@ class PostService
         }
     }
 
-    public function deleteBlog(int $id):bool
+    public function deleteBlog(int $id):bool|string
     {   
         try {
-            Comment::where('post_id', $id)->delete();
-            Post::find($id)->delete();
+            $blog =  Post::find($id);
+            if ($blog) {
+                Comment::where('post_id', $id)->delete();
 
-            return true;
+                return $blog->delete();
+            }
+            
+            return false;
         }
         catch (Exception $e) {
             return false;

@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('style')
-    @vite(['resources/scss/home.scss'])
-@endsection
-
 @section('content')
     <div class="img-title">
         <img src="{{ Vite::asset('resources/images/laptop-in-modern-office 1.png') }}" alt="">

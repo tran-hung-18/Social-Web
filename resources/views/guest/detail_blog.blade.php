@@ -57,18 +57,14 @@
             <div class="layout-detail-item related">
                 <div class="title">{{ __('blog.title_related') }}</div>
                 <div class="line-title"></div>
-                @if ($blogsRelated->count() > 0)
-                    <div class="list-blog-related related-img">
-                        @foreach ($blogsRelated as $item)
-                            <div class="item-blog">
-                                <img src="{{ asset('storage/'.$item->image) }}" alt="">
-                                <div class="title-blog">{{ $item->title }}</div>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="title">{{ __('blog.text_no_found_related') }}</div>
-                @endif
+                <div class="list-blog-related related-img">
+                    @foreach ($relatedBlogs as $item)
+                        <a href="{{ route('blog.detail', ['id'=> $item->id]) }}" class="item-blog">
+                            <img src="{{ asset('storage/'.$item->image) }}" alt="">
+                            <div class="title-blog">{{ $item->title }}</div>
+                        </a>
+                    @endforeach
+                </div>
             </div>
             <div class="layout-detail-item comments">
                 <div class="title">{{ __('blog.title_comments') }}</div>
@@ -81,32 +77,26 @@
                         <button>{{ __('blog.btn_send_comment') }}</button>
                     </form>
                 @endif
-                @if (isset($comments) && $comments->count() > 0)
-                    @foreach ($comments as $comment)
-                        <div class="item-comment">
-                            <img src="{{ Vite::asset('storage/app/public/images/' . $comment->user->avatar) }}" alt="">
-                            <div class="info-comment">
-                                <h3>{{ $comment->user->user_name }}</h3>
-                                <p class="content">{{ $comment->content }}</p>
-                                @php
-                                    $timeMinutes = now()->diffInMinutes($comment['created_at'], true);
-                                    if ($timeMinutes > 1440) {
-                                        $timeMinutes = (int)($timeMinutes/1440)." days ago";
-                                    } elseif ($timeMinutes > 60) {
-                                        $timeMinutes = (int)($timeMinutes/60)." hours ago";
-                                    } else {
-                                        $timeMinutes = $timeMinutes." minutes ago";
-                                    }
-                                @endphp
-                                <p class="time">{{ $timeMinutes }}</p>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
+                @foreach ($comments as $comment)
                     <div class="item-comment">
-                        <div class="notify-no-comment">{{ __('blog.text_no_found_comment') }}</div>
+                        <img src="{{ Vite::asset('storage/app/public/images/' . $comment->user->avatar) }}" alt="">
+                        <div class="info-comment">
+                            <h3>{{ $comment->user->user_name }}</h3>
+                            <p class="content">{{ $comment->content }}</p>
+                            @php
+                                $timeMinutes = now()->diffInMinutes($comment['created_at'], true);
+                                if ($timeMinutes > 1440) {
+                                    $timeMinutes = (int)($timeMinutes/1440)." days ago";
+                                } elseif ($timeMinutes > 60) {
+                                    $timeMinutes = (int)($timeMinutes/60)." hours ago";
+                                } else {
+                                    $timeMinutes = $timeMinutes." minutes ago";
+                                }
+                            @endphp
+                            <p class="time">{{ $timeMinutes }}</p>
+                        </div>
                     </div>
-                @endif
+                @endforeach
             </div>
         </div>
         <div class="box-delete">
@@ -119,7 +109,7 @@
                 <div class="question-box">
                     <p>{{ __('blog.question_delete') }}</p>
                 </div>
-                <form class="form-request" action="{{ route('delete.blog', ['id' => $blog->id, 'auth' => $blog->user_id]) }}" method="POST">
+                <form class="form-request" action="{{ route('delete.blog', ['id' => $blog->id]) }}" method="POST">
                     @method("DELETE")
                     @csrf
                     <div class="btn btn-cancel cancel-box-delete">{{ __('auth.btn_cancel') }}</div>

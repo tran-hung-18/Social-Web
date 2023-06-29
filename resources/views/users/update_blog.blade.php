@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('style')
-    @vite(['resources/scss/create_update_blog.scss'])
-@endsection
-
 @section('content')
     <div class="layout-create">
         <div class="dashboard">
