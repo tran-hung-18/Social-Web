@@ -13,12 +13,12 @@ class CommentService
     {
         return Comment::where('post_id', $id)->with('user')->get();
     }
-    public function createComment(object $dataComment): bool
+    public function createComment(object $dataComment, object $blog): bool
     {
         try {
             Comment::create([
                 'user_id' => Auth::id(),
-                'post_id' => $dataComment->id,
+                'post_id' => $blog->id,
                 'content' => $dataComment->content,
             ]);
                 

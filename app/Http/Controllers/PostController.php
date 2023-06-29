@@ -40,11 +40,10 @@ class PostController extends Controller
         ]);
     }
 
-    public function detail(int $idBlog)
+    public function detail(Post $blog)
     {   
-        $blog = $this->postService->detailBlog($idBlog);
-        $commentsBlog = $blog ? $this->commentService->getAll($idBlog) : null;
-        $relatedBlogs = $blog ? $this->postService->relatedBlog($blog->category_id, $idBlog) : null;
+        $commentsBlog = $blog ? $this->commentService->getAll($blog->id) : null;
+        $relatedBlogs = $blog ? $this->postService->relatedBlog($blog->category_id, $blog->id) : null;
 
         return view('guest.detail_blog', [
             'blog' => $blog,
@@ -70,10 +69,9 @@ class PostController extends Controller
         return redirect()->back()->with('error', __('auth.no_permission'));
     }
 
-    public function edit(int $id)
+    public function edit(Post $blog)
     {
-        $this->authorize('update', Post::find($id));
-        $blog = $this->postService->detailBlog($id);
+        $this->authorize('update', $blog);
 
         return view('users.update_blog', [
             'blog'=> $blog,
@@ -83,20 +81,20 @@ class PostController extends Controller
         
     }
 
-    public function update(UpdatePostRequest $request, int $id)
+    public function update(UpdatePostRequest $request, Post $blog)
     {
-        $this->authorize('update', Post::find($id));
-        if ($this->postService->updateBlog($request, $id)) {
-            return redirect()->route('blog.detail', ['id' => $id])->with('success', __('blog.notify_update_success'));
+        $this->authorize('update', $blog);
+        if ($this->postService->updateBlog($request, $blog)) {
+            return redirect()->route('blog.detail', ['blog' => $blog])->with('success', __('blog.notify_update_success'));
         }
 
         return redirect()->route('blogs.home')->with('error', __('blog.notify_update_error'));
     }
 
-    public function destroy(int $id)
+    public function destroy(Post $blog)
     {
-        $this->authorize('delete', Post::find($id));
-        if ($this->postService->deleteBlog($id)) {
+        $this->authorize('delete', $blog);
+        if ($this->postService->deleteBlog($blog)) {
             return redirect()->route('blogs.home')->with('success', __('blog.notify_delete_success'));
         }
 

@@ -36,7 +36,7 @@
                                     @endif
                                 @endif
                                 @can ('update', $blog)
-                                    <a class="item-status update-blog" href="{{ route('view.update.blog', ['id' => $blog->id]) }}">
+                                    <a class="item-status update-blog" href="{{ route('view.update.blog', ['blog' => $blog]) }}">
                                         {{ __('blog.btn_update_blog') }}
                                     </a>
                                 @endcan
@@ -59,7 +59,7 @@
                 <div class="line-title"></div>
                 <div class="list-blog-related related-img">
                     @foreach ($relatedBlogs as $item)
-                        <a href="{{ route('blog.detail', ['id'=> $item->id]) }}" class="item-blog">
+                        <a href="{{ route('blog.detail', ['blog'=> $item]) }}" class="item-blog">
                             <img src="{{ asset('storage/'.$item->image) }}" alt="">
                             <div class="title-blog">{{ $item->title }}</div>
                         </a>
@@ -70,7 +70,7 @@
                 <div class="title">{{ __('blog.title_comments') }}</div>
                 <div class="line-title"></div>
                 @if (Auth::check())
-                    <form method="POST" action="{{ route('blog.comment', ['id' => $blog->id] )}}" class="send-comment">
+                    <form method="POST" action="{{ route('blog.comment', ['blog' => $blog] )}}" class="send-comment">
                         @csrf
                         <img src="{{ Vite::asset('storage/app/public/images/' . Auth::user()->avatar) }}" alt="">
                         <input type="text" placeholder="Input your comment . . . . " name="content">
@@ -100,7 +100,6 @@
             </div>
         </div>
         <div class="box-delete">
-            <div class="modal"></div>
             <div class="layout">
                 <div class="header-box">
                     <p>{{ __('blog.title_box_delete') }}</p>
@@ -109,7 +108,7 @@
                 <div class="question-box">
                     <p>{{ __('blog.question_delete') }}</p>
                 </div>
-                <form class="form-request" action="{{ route('delete.blog', ['id' => $blog->id]) }}" method="POST">
+                <form class="form-request" action="{{ route('delete.blog', ['blog' => $blog]) }}" method="POST">
                     @method("DELETE")
                     @csrf
                     <div class="btn btn-cancel cancel-box-delete">{{ __('auth.btn_cancel') }}</div>

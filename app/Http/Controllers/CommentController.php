@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Service\CommentService;
+use App\Models\Post;
 
 class CommentController extends Controller
 {
@@ -14,10 +15,10 @@ class CommentController extends Controller
         $this->commentService = $commentService;
     }
 
-    public function create(CommentRequest $request)
+    public function create(CommentRequest $request, Post $blog)
     {
         $this->authorize('create', Comment::class);
-        if ($this->commentService->createComment($request)) {
+        if ($this->commentService->createComment($request, $blog)) {
             return redirect()->back()->with('success', __('blog.notify_create_comment_success'));
         }
 

@@ -36,11 +36,6 @@ class PostService
             ->get();
     }
 
-    public function detailBlog(int $id): object|null
-    {
-        return Post::where('id', $id)->first();
-    }
-
     public function createPost(object $data): bool
     {
         try {
@@ -60,16 +55,16 @@ class PostService
         }
     }
 
-    public function updateBlog(object $data, int $id): bool
+    public function updateBlog(object $data, object $blog): bool
     {
         try {
-            $post = Post::find($id);
+            
             if (isset($data['image'])) {
                 $fileName = Storage::disk('public')->put('images', $data->file('image'));
             } else {
-                $fileName = $post->image;
+                $fileName = $blog->image;
             }
-            $post->update([
+            $blog->update([
                 'category_id' => $data['category_id'],
                 'title' => $data['title'],
                 'content' => $data['content'],
@@ -83,12 +78,11 @@ class PostService
         }
     }
 
-    public function deleteBlog(int $id):bool|string
+    public function deleteBlog(object $blog):bool
     {   
         try {
-            $blog =  Post::find($id);
             if ($blog) {
-                Comment::where('post_id', $id)->delete();
+                Comment::where('post_id', $blog->id)->delete();
 
                 return $blog->delete();
             }

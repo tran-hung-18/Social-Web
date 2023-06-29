@@ -31,13 +31,13 @@ Route::prefix('auth')->group(function () {
 Route::get('/', [PostController::class, 'allBlogPublic'])->name('blogs.home');
 Route::get('/search', [PostController::class, 'allBlogPublic'])->name('blogs.search');
 Route::get('/category', [PostController::class, 'allBlogPublic'])->name('blogs.category');
-Route::get('/blogs/details/{id}', [PostController::class, 'detail'])->name('blog.detail');
-Route::post('/blogs/comments/{id}', [CommentController::class, 'create'])->name('blog.comment');
+Route::get('/blogs/{blog}/details', [PostController::class, 'detail'])->name('blog.detail');
+Route::post('/blogs/{blog}/comments', [CommentController::class, 'create'])->name('blog.comment');
 
 Route::prefix('blogs')->group(function () {
     Route::get('create', [PostController::class, 'create'])->name('view.create.blog');
-    Route::post('add', [PostController::class, 'store'])->name('post.create.blog');
-    Route::get('/edit/{id}', [PostController::class, 'edit'])->name('view.update.blog');
-    Route::put('/update/{id}', [PostController::class, 'update'])->name('put.update.blog');
-    Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('delete.blog');
+    Route::post('store', [PostController::class, 'store'])->name('post.create.blog');
+    Route::get('/{blog}/edit', [PostController::class, 'edit'])->name('view.update.blog');
+    Route::put('/{blog}/update', [PostController::class, 'update'])->name('put.update.blog');
+    Route::delete('/{blog}/delete', [PostController::class, 'destroy'])->name('delete.blog');
 });

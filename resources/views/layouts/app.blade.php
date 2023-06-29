@@ -76,7 +76,6 @@
         </div>   
     </div>
     <div class="search-mobile">
-        <div class="modal"></div>
         <div class="layout">
             <div class="logo-header">
                 <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
@@ -95,7 +94,6 @@
         </div>
     </div>
     <div class="menu-mobile">
-        <div class="modal"></div>
         <div class="layout">
             <div class="logo-header">
                 <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
