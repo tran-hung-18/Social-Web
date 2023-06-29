@@ -1,11 +1,7 @@
-<style>
-    small {
-        color: red;
-    }
-</style>
 @extends('layouts.auth')
+
 @section('content')
-    <form action="{{ route('post-forgot-password') }}" method="POST" class='form-auth'>
+    <form action="{{ route('post.forgot.password') }}" method="POST" class='form-auth'>
         @csrf
         <div class="form-auth-logo">
             <img src="{{ Vite::asset('resources/images/LogoRegit.png') }}" alt="">
@@ -23,7 +19,7 @@
         </div>
         <div class="form-auth-btn">
             <button type="submit">Send</button>
-            <a href="{{ route('view-login') }}">Back to login Page</a>
+            <a href="{{ route('view.login') }}">Back to login Page</a>
         </div>
     </form>
 @endsection

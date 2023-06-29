@@ -1,11 +1,13 @@
-@import "./base.scss";
-
 .form-auth {
     margin: 164px 472px 365px; 
     .form-auth-logo {
         width: 100%;
         margin: 0 auto 75px;
         @include centerAll;
+        h4 {
+            color: $text-color-header;
+            font-weight: bold;
+        }
     }
     .form-auth-title {
         margin-bottom: 16px;
@@ -63,7 +65,7 @@
                 height: 22px;
             }
             a {
-                color: $color-text-link !important;
+                color: $text-color-link !important;
             }
         }
     }
@@ -82,12 +84,10 @@
         }
         a {
             @include fontNotoRegular;
-            color: $color-text-link !important;
+            color: $text-color-link !important;
         }
     }
     .form-register {
         margin: 41px auto 11px;
     }
 }
-
-@import "./responsive.scss";

@@ -27,45 +27,29 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function viewUser()
-    {
-        return view('users.home');
-    }
-
-    public function viewAdmin()
-    {
-        return view('admin.home');
-    }
-
-    public function viewPost()
-    {
-        return view('guest.home');
-    }
-
     public function login(LoginRequest $request)
     {
         if ($this->authService->login($request->all())) {
-            return redirect()->route('home-posts')->with('message', __('auth.login_success'));
-        } else {
-            return redirect()->route('view-login')->with('message', __('auth.login_error'));
-        }
+            return redirect()->route('blogs.home')->with('message', __('auth.login_success'));
+        } 
+            
+        return redirect()->route('view.login')->with('message', __('auth.login_error'));
     }
 
     public function register(RegisterRequest $request)
     {
-        $result = $this->authService->register($request->all());
-        if ($result) {
-            return redirect()->route('view-login')->with('message', __('auth.register_success'));
-        } else {
-            return redirect()->route('view-register')->with('message', __('auth.register_error'));
+        if ($this->authService->register($request->all())) {
+            return redirect()->route('view.login')->with('message', __('auth.register_success'));
         }
+        
+        return redirect()->route('view.register')->with('message', __('auth.register_error'));
     }
 
     public function verifyEmail(string $token)
     {
         $message = $this->authService->verifyEmail($token);
 
-        return redirect()->route('view-login')->with('message', $message);
+        return redirect()->route('view.login')->with('message', $message);
     }
 
     public function formForgotPassword()
@@ -77,27 +61,21 @@ class AuthController extends Controller
     {
 
         $result = $this->authService->forgotPassword($request->email);
-        if ($result) {
-            return redirect()->route('view-login')->with('message', __('auth.forgot_password_check_mail'));
-        }
 
-        return redirect()->route('view-login')->with('message', __('auth.try_again'));
+        return redirect()->route('view.login')->with('message', $result);
     }
 
-    public function getPassword($token)
+    public function getPassword(string $token)
     {
         $result = $this->authService->createPasswordNew($token);
-        if ($result) {
-            return redirect()->route('view-login')->with('message', __('auth.password_new'));
-        }
 
-        return redirect()->route('view-login')->with('message', __('auth.try_again'));
+        return redirect()->route('view.login')->with('message', $result);
     }
 
     public function logout()
     {
         Auth::logout();
 
-        return redirect()->route('view-login');
+        return redirect()->route('view.login');
     }
 }

@@ -1,19 +1,24 @@
 $color-primary: #C40000;
-$color-border: #CCCCCC;
-$border-btn: #E4E4E4;
-$border-input: #DEDEDE;
+$color-border-primary: #007BFF;
 $color-btn: #770303;
-$color-header: #212121;
-$color-text-link: #007BFF;
+$text-color-header: #212121;
+$text-color-link: #007BFF;
+$text-color-grey: #AFAFAF;
+$text-color-blog: #211E3B;
+$text-input-file: #87B6E7;
+$color-error: #DC3545;
+$color-cancel: #B0B0B0;
+$color-success: #18B727;
+$border-input: #DEDEDE;
+$border-btn: #E4E4E4;
+$border-bottom-item: #D9D9D9;
+$border-color-default: #CCCCCC;
 $background-btn-primary: #007BFF;
+$background-create: #D9D9D9;
+$background-btn-not: #ABB1AB;
 
 @import "./fonts.scss";
-@mixin pagingItem {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    color: white;
-}
+
 @mixin fontInfoImg {
     font-family: "SVN-Gilroy";
     height: 31px;
@@ -44,6 +49,14 @@ $background-btn-primary: #007BFF;
     border-radius: 4px;
     border: 1px solid #007BFF;
 }
+@mixin inputText {
+    background: #FFFFFF;
+    border: 1px solid $border-input;
+    border-radius: 4px;
+}
+::-webkit-input-placeholder {
+    color: $text-color-grey;
+}
 body {
     position: relative;
     box-sizing: border-box;
@@ -58,13 +71,17 @@ body {
     a {
         text-decoration: none;
     }
+    small {
+        color: red;
+        margin-bottom: 5px;
+    }
 }
 .header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 122px;
+    z-index: 2;
     .container-header {
         width: 100%;
         margin: 0 !important;
@@ -72,6 +89,7 @@ body {
         transform: translateY(0);
         background-color: rgba(255, 255, 255, 0.65);
         padding: 30px 0 31px;
+        box-shadow: 0px 1px 14px rgba(0, 0, 0, 0.25);
         .header-mobile {
             display: none;
         }
@@ -93,16 +111,24 @@ body {
                     input {
                         width: 100%;
                         padding: 13px 13px 13px 20px;
-                        border: 0px;
+                        border: 1px solid #D4D4D4;
                         border-radius: 5px;
                     }
-                    i {
+                    button {
+                        background: none;
+                        border: none;
                         position: absolute;
-                        width: 19px;
-                        height: 19px;
-                        color: #A7A7A7;
+
                         right: 0;
                         margin : 13px ;
+                        i {
+                            color: #A7A7A7;
+                            width: 19px;
+                            height: 19px;
+                        }
+                    }
+                    button:hover {
+                        @include hover;
                     }
                 }
             }
@@ -121,35 +147,37 @@ body {
                     @include centerVertical;
                     justify-content: flex-end;
                     margin-right: 106px;
-                    button {
-                        color: white;
-                        width: 51px;
+                    a:first-child {
+                        margin-right:  27px;
+                    }
+                    a.active {
+                        padding: 2px 11px 2px 11px;
                         height: 31px;
                         font-size: 15px;
                         font-weight: 500;
-                        margin-right:  27px;
                         border: 0;
                         border-radius:3px;
                         outline: none;
                         background-color: $color-btn;
+                        color: white;
                     }
-                    p {
-                        width: 86px;
+                    a {
                         height: 24px;
                         @include fontNotoBold;
+                        font-weight: 700;
                     }
-                    p:hover {
+                    a.active:hover {
+                        color: white;
+                    }
+                    a:hover {
                         @include hover;
                     }
                 }
                 .header-account {
                     position: relative;
                     @include centerVertical;
-                    p {
-                        @include fontNotoBold;
-                    }
                     a {
-                        @include fontNotoRegular;
+                        @include fontNotoBold;
                     }
                     a:hover {
                         @include hover;
@@ -158,11 +186,13 @@ body {
                         margin-left: 32px;
                     }
                     i {
-                        color: $color-header;
+                        color: $text-color-header;
                         font-size: 26px;
                         margin-left: 17px;
                         form {
+                            margin-bottom: 0;
                             ul {
+                                min-width: 150px;
                                 position: absolute;
                                 top: 100%;
                                 right: 0;
@@ -172,12 +202,12 @@ body {
                                 border-radius: 5px;
                                 overflow: hidden;
                                 display: none;
+
                                 li {
                                     @include fontNotoRegular;
                                     font-weight: 500;
                                     text-align: end;
                                     padding: 12px 20px;
-    
                                     a, button{
                                         color: #000000;
                                     }
@@ -198,7 +228,10 @@ body {
                         right: 0;
                         display: none;
                     }
-                    i:hover ul,
+                    i:hover ul {
+                        @include centerAll;
+                        flex-direction: column;
+                    }
                     i:hover .connect-menu {
                         display: block;
                     }
@@ -211,6 +244,11 @@ body {
         transform: translateY(-100%);
     }
 }
+.menu-mobile, .search-mobile {
+    display: none;
+    width: 0%;
+    z-index: 2;
+}
 footer {
     position: absolute;
     left: 0;
@@ -222,5 +260,24 @@ footer {
         height: 20px;
         text-align: center;
         margin: 37px auto 37px;
+    }
+}
+.notification {
+    position: fixed;
+    z-index: 3;
+    min-width: 100px;
+    max-width: 50%;
+    max-height: 100px;
+    top: 130px;
+    right: 10px;
+    .alert {
+        margin: 0;
+        padding: 15px 20px;
+        box-shadow: 0px 1px 14px rgba(0, 0, 0, 0.25);
+        @include centerVertical;
+        strong {
+            @include fontNotoBold;
+            font-size: 18px;
+        }
     }
 }

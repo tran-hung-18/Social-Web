@@ -32,7 +32,6 @@
 }
 @media screen and (max-width: 768px) {
     .header {
-        height: 69px;
         padding: 0;
         transition: height 3s linear;
         .container-header {
@@ -65,6 +64,7 @@
                         height: 34px;
                         width: 90px;
                         font-size: 20px;
+                        color: $text-color-header;
                         font-weight: 700;
                         line-height: 29px;
                     }
@@ -95,7 +95,7 @@
             .logo-header {
                 width: 100%;
                 padding: 10px 20px;
-                border-bottom: 1px solid $color-border;
+                border-bottom: 1px solid $border-color-default;
             }
             .search-header {
                 position: relative;
@@ -105,22 +105,34 @@
                 input {
                     width: 100%;
                     padding: 6px 15px;
-                    border: 1px solid $color-border;
+                    border: 1px solid $border-color-default;
                     border-radius: 5px;
                 }
-                i {
+                button {
+                    background: none;
+                    border: none;
                     position: absolute;
-                    right: 10px;
+
+                    right: 0;
+                    margin : 13px ;
+                    i {
+                        color: #A7A7A7;
+                        width: 19px;
+                        height: 19px;
+                    }
+                }
+                button:hover {
+                    @include hover;
                 }
             }
-            .icon-close-search {
+            .icon-close-menu {
                 position: absolute;
                 top: 20px;
                 right: 20px;
                 font-size: 30px;
                 cursor: pointer;
             }
-            .icon-close-search:hover {
+            .icon-close-menu:hover {
                 color: red;
             }
         }
@@ -134,7 +146,6 @@
         position: fixed;
         inset: 0;
         transition: all 0.2s linear;
-
         .layout {
             position: relative;
             width: 60%;
@@ -144,7 +155,7 @@
             .logo-header {
                 width: 100%;
                 padding: 10px 30px;
-                border-bottom: 1px solid $color-border;
+                border-bottom: 1px solid $border-color-default;
             }
             .icon-close-menu {
                 position: absolute;
@@ -164,31 +175,44 @@
                     width: 100%;
                     @include centerVertical;
                     padding: 15px 20px;
-                    button {
-                        color: white;
-                        width: 51px;
+                    form {
+                        width: 100%;
+                        label {
+                            cursor: pointer;
+                            width: 100%;
+                            margin-left: 6px;
+                            border: none;
+                            padding: 0;
+                            background: none;
+                            @include fontNotoBold;
+                            font-weight: 500;
+                        }
+                    }
+                    a {
+                        width: 100%;
+                        height: 24px;
+                        padding-left: 6px;
+                        @include fontNotoBold;
+                        font-weight: 500;
+                    }
+                    a.active {
+                        width: auto;
+                        margin-left: 6px;
+                        padding: 3px 11px 2px 11px;
                         height: 31px;
                         font-size: 15px;
                         font-weight: 500;
-                        margin-right:  27px;
                         border: 0;
                         border-radius:3px;
                         outline: none;
                         background-color: $color-btn;
-                    }
-                    p {
-                        width: 86px;
-                        height: 24px;
-                        @include fontNotoBold
+                        color: white;
                     }
                     i {
                         margin-right: 10px;
                     }
                 }
                 .header-right-item:hover {
-                    p {
-                        @include fontNotoBold;
-                    }
                     background-color: rgb(234 234 234 / 92%);                
                 }
             }
@@ -200,6 +224,58 @@
                 .item-blog:last-child{
                     margin-bottom: 67px;
                 }
+            }
+        }
+        .layout-detail {
+            margin: 155px 42.5px 38px;
+            .info-blog {
+                .detail-blog {
+                    .img-blog {
+                        margin-top: 24px;
+                    }
+                }
+                .content {
+                    margin-top: 30px;
+                }
+            }
+            .related {
+                margin-top: 60px;
+                .list-blog-related {
+                    .item-blog {
+                        width: 100%;
+                        margin: 0;
+                    }
+                }
+            }
+            .comments {
+                margin-top: 36px;
+                .line-title {
+                    margin-top: 9px
+                }
+                .send-comment {
+                    input {
+                        height: 55px;
+                    }
+                    input::placeholder {
+                        font-size: 16px;
+                    }
+                    img {
+                        width: 36px;
+                        height: 36px;
+                    }
+                }
+                .item-comment {
+                    margin-top: 50px;
+                    img {
+                        width: 36px;
+                        height: 36px;
+                    }
+                }
+            }
+        }
+        .box-delete {
+            .layout {
+                left: 120px;
             }
         }
     }
@@ -248,6 +324,9 @@
         .form-register {
             margin: 41px auto 16px;
         }
+    }
+    .layout-create {
+        margin: 110px 41px 52px;
     }
 }
 @media screen and (max-width: 576px) {
