@@ -58,7 +58,6 @@ class PostService
     public function updateBlog(object $data, object $blog): bool
     {
         try {
-            
             if (isset($data['image'])) {
                 $fileName = Storage::disk('public')->put('images', $data->file('image'));
             } else {

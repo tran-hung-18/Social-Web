@@ -21,7 +21,6 @@
         'btn_not_approved' => 'Not approved',
         'btn_upload_img' => 'Upload image',
         'btn_change_img' => 'Change image',
-        'btn_send_comment' => 'Send',
         'btn_detail_blog' => 'Read more',
 
         'notify_create_success' => 'Create blog successfully. Please wait for admin approved',
@@ -31,8 +30,5 @@
         'notify_delete_success' => 'Delete blog successfully!',
         'notify_delete_error' => 'Delete blog error. Please try again',
         'question_delete' => 'Are you sure want to delete this blog?',
-
-        'notify_create_comment_success' => 'Create comment successfully!',
-        'notify_create_comment_error' => 'Create comment error. Please try again',
     ];
 ?>

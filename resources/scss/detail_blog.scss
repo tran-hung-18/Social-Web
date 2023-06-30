@@ -1,3 +1,6 @@
+.hidden {
+    display: none;
+}
 .body {
     .layout-detail {
         margin: 156px 110px 60px 100px;
@@ -164,15 +167,15 @@
                     height: 48px;
                     margin-right: 17px;
                 }
-                input {
+                textarea {
                     flex: 1;
                     height: 82px;
-                    padding: 8px 20px;
+                    padding: 20px;
                     border-radius: 4px;
                     border: 1px solid #E1E1E1;
                     background: #FFF;
                 }
-                input::placeholder {
+                textarea::placeholder {
                     font-size: 20px;
                 }
                 button {
@@ -189,36 +192,95 @@
             .item-comment {
                 margin-top: 22px;
                 display: flex;
+                position: relative;
                 img {
                     border-radius: 50%;
                     width: 48px;
                     height: 48px;
                     margin-right: 17px;
                 }
-                h3 {
-                    margin-top: 6px;
-                    @include fontNotoBold;
-                    font-size: 24px;
-                    height: 35px;
+                .info-comment {
+                    flex: 1;
+                    h3 {
+                        margin-top: 6px;
+                        @include fontNotoBold;
+                        font-size: 24px;
+                        height: 35px;
+                    }
+                    p {
+                        margin-top: 6px;
+                    }
+                    .content-comment {
+                        @include fontNotoRegular;
+                        color: $text-color-black;
+                        line-height: 28px;
+                    }
+                    .time-comment {
+                        @include fontNotoRegular;
+                        color: $text-color-grey;
+                    }
+                    .form-edit-comment {
+                        margin-top: 6px;
+                        @include centerVertical;
+                        display: none;
+                        .item-form-edit {
+                            padding: 8px 20px;
+                            border-radius: 4px;
+                            border: 1px solid #E1E1E1;
+                        }
+                        textarea {
+                            width: 100%;
+                            line-height: 25px;
+                            background: #FFF;
+                            margin-right: 10px;
+                        }
+                        button {
+                            background-color: $background-btn-primary;
+                            color: white;
+                        }
+                    }
                 }
-                p {
-                    margin-top: 6px;
+                .icon-option-comment {
+                    font-size: 25px;
+                    position: absolute;
+                    top: 10px;
+                    right: 0;
                 }
-                .content {
-                    @include fontNotoRegular;
-                    color: $text-color-header;
-                    height: 27px;
+                .icon-option-comment:hover {
+                    @include hover;
                 }
-                .time {
-                    @include fontNotoRegular;
-                    color: $text-color-grey;
-                    height: 20px;
+                .box-option-comment {
+                    position: absolute;
+                    top: 10px;
+                    right: 15px;
+                    @include centerAll;
+                    flex-direction: column;
+                    background-color: #dfe4ea;
+                    cursor: pointer;
+                    display: none;
+                    border-radius: 5px;
+                    .item-option-comment {
+                        text-align: center;
+                        width: 100%;
+                        padding: 10px 20px;
+                        color: $text-color-black;
+                    }
+                    button {
+                        background: none;
+                        border: 0;
+                    }
+                    .item-option-comment:hover {
+                        @include hover;
+                        font-weight: 500;
+                    }
                 }
-                .notify-no-comment {
-                    width: 100%;
-                    text-align: center;
-                    @include fontNotoBold;
-                    font-size: 20px;
+                .box-option-comment::after {
+                    content: "";
+                    border: 15px solid;
+                    border-color: transparent transparent transparent #dfe4ea ;
+                    position: absolute;
+                    top: 0;
+                    left: 90%;
                 }
             }
         }

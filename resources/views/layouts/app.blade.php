@@ -47,10 +47,10 @@
                         @else
                             <a href="{{ route('blogs.home') }}">Top</a>
                         @endif
-                        @if (Auth::user() && Route::is("view.create.blog"))
-                            <a class="active" href="{{ route('view.create.blog') }}">Create Blog</a>
+                        @if (Auth::user() && Route::is("create.blog"))
+                            <a class="active" href="{{ route('create.blog') }}">Create Blog</a>
                         @elseif (Auth::user())
-                            <a href="{{ route('view.create.blog') }}">Create Blog</a>
+                            <a href="{{ route('create.blog') }}">Create Blog</a>
                         @endif
                     </div>
                     <div class="header-account">
@@ -108,7 +108,7 @@
                 </div>
                 @if (Auth::user())
                     <div class="header-right-item">
-                        <a @if(Route::is("view.create.blog")) class="active" @endif href="{{ route('view.create.blog') }}">Create Blog</a>
+                        <a @if(Route::is("create.blog")) class="active" @endif href="{{ route('create.blog') }}">Create Blog</a>
                     </div>
                     <div class="header-right-item">
                         <a href="#">My Blogs</a>
