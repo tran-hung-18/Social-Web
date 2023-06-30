@@ -78,7 +78,6 @@ class PostController extends Controller
             'categories' => $this->categoryService->getAll(), 
             'categorySelected' => $blog->category_id,
         ]);
-        
     }
 
     public function update(UpdatePostRequest $request, Post $blog)

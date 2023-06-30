@@ -35,25 +35,7 @@
                                 </div>
                                 <div class="time">
                                     <img src="{{ Vite::asset('resources/images/Group 38.svg') }}" alt="">
-                                    @php
-                                        $timeMinutes = now()->diffInMinutes($item['created_at'], true);
-                                        if ($timeMinutes > 43200) {
-                                            $timeMinutes = (int)($timeMinutes/43200)." months ago";
-                                        }
-                                        elseif ($timeMinutes > 10080) {
-                                            $timeMinutes = (int)($timeMinutes/10080)." weeks ago";
-                                        }
-                                        elseif ($timeMinutes > 1440) {
-                                            $timeMinutes = (int)($timeMinutes/1440)." days ago";
-                                        }
-                                        elseif ($timeMinutes > 60) {
-                                            $timeMinutes = (int)($timeMinutes/60)." hours ago";
-                                        }
-                                        else {
-                                            $timeMinutes = $timeMinutes." minutes ago";
-                                        }
-                                    @endphp
-                                    <p>{{ $timeMinutes }}</p>
+                                    <p>{{ $item->created_at->diffForHumans() }}</p>
                                 </div>
                             </div>
                             <div class="text-detail">

@@ -25,4 +25,14 @@ class CommentPolicy
     {
         return Auth::check() && $user->role === User::ROLE_USER;
     }
+    
+    public function update(User $user, Comment $comment): bool
+    {
+        return $user->role === User::ROLE_ADMIN || $user->id === $comment->user_id;
+    }
+
+    public function delete(User $user, Comment $comment): bool
+    {
+        return $user->role === User::ROLE_ADMIN || $user->id === $comment->user_id;
+    }
 }

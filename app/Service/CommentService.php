@@ -11,9 +11,11 @@ class CommentService
 {
     public function getAll(int $id): Collection
     {
-        return Comment::where('post_id', $id)->with('user')->get();
+        return Comment::where('post_id', $id)
+            ->with('user')
+            ->get();
     }
-    public function createComment(object $dataComment, object $blog): bool
+    public function create(object $dataComment, object $blog): bool
     {
         try {
             Comment::create([
@@ -23,6 +25,34 @@ class CommentService
             ]);
                 
             return true;
+        }
+        catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public function update(object $data, object $comment): bool
+    {
+        try {
+            $comment->update([
+                'content' => $data->content,
+            ]);
+                        
+            return true;
+        }
+        catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public function delete(object $comment):bool
+    {   
+        try {
+            if ($comment) {
+                return $comment->delete();
+            }
+            
+            return false;
         }
         catch (Exception $e) {
             return false;

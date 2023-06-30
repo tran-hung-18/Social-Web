@@ -7,7 +7,7 @@
             <i class="fa-solid fa-chevron-right"></i>
             <p>{{ __('blog.title_create_blog') }}</p>
         </div>
-        <form action="{{ route('post.create.blog') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <h3>{{ __('blog.title_create_blog') }}</h3>
             <div class="form-item">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use Faker\Provider\Lorem;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,13 +32,16 @@ Route::prefix('auth')->group(function () {
 Route::get('/', [PostController::class, 'allBlogPublic'])->name('blogs.home');
 Route::get('/search', [PostController::class, 'allBlogPublic'])->name('blogs.search');
 Route::get('/category', [PostController::class, 'allBlogPublic'])->name('blogs.category');
-Route::get('/blogs/{blog}/details', [PostController::class, 'detail'])->name('blog.detail');
-Route::post('/blogs/{blog}/comments', [CommentController::class, 'create'])->name('blog.comment');
 
 Route::prefix('blogs')->group(function () {
-    Route::get('create', [PostController::class, 'create'])->name('view.create.blog');
-    Route::post('store', [PostController::class, 'store'])->name('post.create.blog');
-    Route::get('/{blog}/edit', [PostController::class, 'edit'])->name('view.update.blog');
-    Route::put('/{blog}/update', [PostController::class, 'update'])->name('put.update.blog');
+    Route::get('/{blog}/details', [PostController::class, 'detail'])->name('blog.detail');
+    Route::get('create', [PostController::class, 'create'])->name('create.blog');
+    Route::post('store', [PostController::class, 'store'])->name('blog.store');
+    Route::get('/{blog}/edit', [PostController::class, 'edit'])->name('edit.blog');
+    Route::put('/{blog}/update', [PostController::class, 'update'])->name('update.blog');
     Route::delete('/{blog}/delete', [PostController::class, 'destroy'])->name('delete.blog');
+    
+    Route::post('{blog}/comment', [CommentController::class, 'create'])->name('comment.store');
+    Route::put('comment/{comment}/update', [CommentController::class, 'update'])->name('update.comment');
+    Route::delete('comment/{comment}/delete', [CommentController::class, 'destroy'])->name('delete.comment');
 });

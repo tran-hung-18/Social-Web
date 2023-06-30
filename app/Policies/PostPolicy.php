@@ -31,6 +31,6 @@ class PostPolicy
 
     public function delete(User $user, Post $post): bool
     {
-        return Auth::user()->role === User::ROLE_ADMIN || $user->id === $post->user_id;
+        return $user->role === User::ROLE_ADMIN || $user->id === $post->user_id;
     }
 }

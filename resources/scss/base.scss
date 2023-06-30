@@ -1,7 +1,7 @@
 $color-primary: #C40000;
 $color-border-primary: #007BFF;
 $color-btn: #770303;
-$text-color-header: #212121;
+$text-color-black: #212121;
 $text-color-link: #007BFF;
 $text-color-grey: #AFAFAF;
 $text-color-blog: #211E3B;
@@ -186,7 +186,7 @@ body {
                         margin-left: 32px;
                     }
                     i {
-                        color: $text-color-header;
+                        color: $text-color-black;
                         font-size: 26px;
                         margin-left: 17px;
                         form {
@@ -202,7 +202,6 @@ body {
                                 border-radius: 5px;
                                 overflow: hidden;
                                 display: none;
-
                                 li {
                                     @include fontNotoRegular;
                                     font-weight: 500;
