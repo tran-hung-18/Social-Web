@@ -34,7 +34,7 @@ class AuthService
             'token_verify_email' => $token,
         ]);
         if ($user) {
-            $dataSendMail = ['title' => 'Hi '.$user['user_name'].' !', 'token' => $token];
+            $dataSendMail = ['title' => 'Hi ' . $user['user_name'] . ' !', 'token' => $token];
             Mail::to($user['email'])->send(new VerifyAccount($dataSendMail));
 
             return true;
@@ -60,7 +60,7 @@ class AuthService
 
     public function forgotPassword(string $email): string
     {
-        $user = User::where(['email'=> $email, 'status' => User::STATUS_ACTIVE])->first();
+        $user = User::where(['email' => $email, 'status' => User::STATUS_ACTIVE])->first();
         if ($user) {
             $tokenResetPassword = $user->createToken('auth_token')->plainTextToken;
             $passwordReset = PasswordResetToken::create(['user_id' => $user->id, 'token' => $tokenResetPassword]);

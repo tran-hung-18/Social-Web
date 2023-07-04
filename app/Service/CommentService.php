@@ -23,10 +23,9 @@ class CommentService
                 'post_id' => $blog->id,
                 'content' => $dataComment->content,
             ]);
-                
+
             return true;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -37,24 +36,18 @@ class CommentService
             $comment->update([
                 'content' => $data->content,
             ]);
-                        
+
             return true;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
 
-    public function delete(object $comment):bool
-    {   
+    public function delete(object $comment): bool
+    {
         try {
-            if ($comment) {
-                return $comment->delete();
-            }
-            
-            return false;
-        }
-        catch (Exception $e) {
+            return $comment->delete();
+        } catch (Exception $e) {
             return false;
         }
     }

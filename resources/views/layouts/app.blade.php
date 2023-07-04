@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Social THH</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    @vite(['resources/js/home.js'])
-    @vite(['resources/scss/app.scss'])
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    @vite(['resources/js/home.js'])
+    @vite(['resources/scss/app.scss'])
+    @yield('js')
 </head>
 <body>
     <div class="header">
@@ -29,7 +31,7 @@
                     <a href="{{ route('blogs.home') }}" class="logo-header">
                         <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
                     </a>
-                    <form action="{{ route('blogs.search') }}" method="GET" class="search-header">
+                    <form action="{{ route('blog.search') }}" method="GET" class="search-header">
                         <input type="text" name="data"
                             @if (isset($request) && $request->has('data'))
                                 value="{{ $request->input('data') }}" 
@@ -47,10 +49,10 @@
                         @else
                             <a href="{{ route('blogs.home') }}">Top</a>
                         @endif
-                        @if (Auth::user() && Route::is("create.blog"))
-                            <a class="active" href="{{ route('create.blog') }}">Create Blog</a>
+                        @if (Auth::user() && Route::is("blog.create"))
+                            <a class="active" href="{{ route('blog.create') }}">Create Blog</a>
                         @elseif (Auth::user())
-                            <a href="{{ route('create.blog') }}">Create Blog</a>
+                            <a href="{{ route('blog.create') }}">Create Blog</a>
                         @endif
                     </div>
                     <div class="header-account">
@@ -80,7 +82,7 @@
             <div class="logo-header">
                 <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
             </div>
-            <form action="{{ route('blogs.search') }}" method="GET" class="search-header">
+            <form action="{{ route('blog.search') }}" method="GET" class="search-header">
                 <input type="text" name="data"
                     @if (isset($request) && $request->has('data'))
                         value="{{ $request->input('data') }}" 
@@ -108,7 +110,7 @@
                 </div>
                 @if (Auth::user())
                     <div class="header-right-item">
-                        <a @if(Route::is("create.blog")) class="active" @endif href="{{ route('create.blog') }}">Create Blog</a>
+                        <a @if(Route::is("blog.create")) class="active" @endif href="{{ route('blog.create') }}">Create Blog</a>
                     </div>
                     <div class="header-right-item">
                         <a href="#">My Blogs</a>
