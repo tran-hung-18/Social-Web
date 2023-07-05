@@ -115,11 +115,29 @@
                     }
                 }
                 .content {
-                    margin-top: 40px;
+                    margin-top: 20px;
                     p {
                         color: #747474;
                         font-size: 14px;
                         font-family: "Noto Sans JP";
+                    }
+                }
+                .like {
+                    @include centerVertical;
+                    justify-content: flex-start;
+                    margin-top: 15px;
+                    .total-like {
+                        font-size: 23px;
+                        line-height: 23px;
+                        margin-left: 5px;
+                    }
+                    i {
+                        color: red;
+                        font-size: 25px;
+                        height:100%;
+                    }
+                    i:hover {
+                        transform: scale(1.1);
                     }
                 }
             }

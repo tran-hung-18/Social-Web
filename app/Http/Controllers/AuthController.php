@@ -31,8 +31,8 @@ class AuthController extends Controller
     {
         if ($this->authService->login($request->all())) {
             return redirect()->route('blogs.home')->with('message', __('auth.login_success'));
-        } 
-            
+        }
+
         return redirect()->route('view.login')->with('message', __('auth.login_error'));
     }
 
@@ -41,7 +41,7 @@ class AuthController extends Controller
         if ($this->authService->register($request->all())) {
             return redirect()->route('view.login')->with('message', __('auth.register_success'));
         }
-        
+
         return redirect()->route('view.register')->with('message', __('auth.register_error'));
     }
 

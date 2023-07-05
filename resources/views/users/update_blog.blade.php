@@ -7,7 +7,7 @@
             <i class="fa-solid fa-chevron-right"></i>
             <p>{{ __('blog.title_update_blog') }}</p>
         </div>
-        <form action="{{ route('update.blog', ['blog' => $blog]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('blog.update', ['blog' => $blog]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method("PUT")
             <h3>{{ __('blog.title_update_blog') }}</h3>

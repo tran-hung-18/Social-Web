@@ -10,7 +10,7 @@ use Illuminate\Auth\Access\Response;
 
 class PostPolicy
 {
-    use HandlesAuthorization;    
+    use HandlesAuthorization;
 
     /**
      * Create a new policy instance.
@@ -24,13 +24,14 @@ class PostPolicy
     {
         return Auth::check() && $user->role === User::ROLE_USER;
     }
+
     public function update(User $user, Post $post): bool
     {
-        return $user->role === User::ROLE_ADMIN || $user->id === $post->user_id;
+        return ($user->role === User::ROLE_ADMIN || $user->id === $post->user_id) && $user->status === User::STATUS_ACTIVE;
     }
 
     public function delete(User $user, Post $post): bool
     {
-        return $user->role === User::ROLE_ADMIN || $user->id === $post->user_id;
+        return ($user->role === User::ROLE_ADMIN || $user->id === $post->user_id) && $user->status === User::STATUS_ACTIVE;
     }
 }

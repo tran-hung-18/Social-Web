@@ -10,7 +10,7 @@
             <select type="text" name="category_id" class="select-category item-input">
                 <option value="0">{{ __('blog.title_select_category')}}</option>
                 @foreach ($categories as $item)
-                    <option value="{{ route('blogs.category', ['id' => $item['id']]) }}"
+                    <option value="{{ route('blog.category', ['id' => $item['id']]) }}"
                         @if ($request->has('id') && $request->id == $item['id']) selected @endif
                     >
                         {{ $item['name'] }}
@@ -24,7 +24,7 @@
             <div class="all-item">
                 @foreach($blogs as $item)
                     <div class="item-blog">
-                        <div class="item-blog-img">
+                        <div class="item-blog-img">     
                             <img src="{{ asset('storage/'.$item['image']) }}" alt="">
                         </div>
                         <div class="item-blog-content">

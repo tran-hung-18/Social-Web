@@ -15,10 +15,7 @@
                         <img src="{{ Vite::asset('storage/app/public/images/' . $blog->user->avatar) }}" alt="">
                         <div class="info">
                             <p class="name">{{ $blog->user->user_name }}</p>
-                            @php
-                                $created = date('d-m-Y', strtotime($blog->created_at));
-                            @endphp
-                            <p>{{ $created }}</p>
+                            <p>{{ $blog->created_at->format('d/m/Y') }}</p>
                         </div>
                     </div>
                     @if (Auth::check())
@@ -31,7 +28,7 @@
                                 @endif
                             @endif
                             @can ('update', $blog)
-                                <a class="item-status update-blog" href="{{ route('edit.blog', ['blog' => $blog]) }}">
+                                <a class="item-status update-blog" href="{{ route('blog.edit', ['blog' => $blog]) }}">
                                     {{ __('blog.btn_update_blog') }}
                                 </a>
                             @endcan
@@ -43,6 +40,18 @@
                 </div>
                 <div class="img-blog">
                     <img src="{{ asset('storage/'.$blog->image) }}" alt="">
+                </div>
+                <div class="like">
+                    @if (Auth::check())
+                        @if ($statusLike)
+                            <i class="interactive fa-solid fa-heart" data-route='{{ $interactive_route }}'></i>
+                        @else
+                            <i class="interactive fa-regular fa-heart" data-route='{{ $interactive_route }}'></i>
+                        @endif
+                    @else
+                        <i class="fa-regular fa-heart"></i>
+                    @endif
+                    <p class="total-like">{{ $totalLike }}</p>
                 </div>
                 <div class="content">
                     <p>{!! $blog->content !!}</p>
@@ -65,7 +74,7 @@
             <div class="title">{{ __('blog.title_comments') }}</div>
             <div class="line-title"></div>
             @if (Auth::check())
-                <form method="POST" action="{{ route('comment.store', ['blog' => $blog] )}}" class="send-comment">
+                <form method="POST" action="{{ route('comment.store', ['blog' => $blog]) }}" class="send-comment">
                     @csrf
                     <img src="{{ Vite::asset('storage/app/public/images/' . Auth::user()->avatar) }}" alt="">
                     <textarea name="content" id="" placeholder="Input your comment . . . . "></textarea>
@@ -78,7 +87,7 @@
                     <div class="info-comment">
                         <h3>{{ $comment->user->user_name }}</h3>
                         @can ('update', $comment)
-                            <form action="{{ route('update.comment', ['comment' => $comment]) }}" method="POST" class="form-edit-comment">
+                            <form action="{{ route('comment.update', ['comment' => $comment]) }}" method="POST" class="form-edit-comment">
                                 @method("PUT")
                                 @csrf
                                 <textarea name="content" id="" class="textarea-update item-form-edit">{{ $comment->content }}</textarea>
@@ -90,9 +99,9 @@
                         @endcan
                         <p class="time-comment">{{ $comment->created_at->diffForHumans() }}</p>
                     </div>
-                    @canany(['update', 'delete'], $comment)
+                    @canany (['update', 'delete'], $comment)
                         <i class="fa-solid fa-ellipsis-vertical icon-option-comment"></i>
-                        <form action="{{ route('delete.comment', ['comment' => $comment]) }}" method="POST" class="box-option-comment">
+                        <form action="{{ route('comment.delete', ['comment' => $comment]) }}" method="POST" class="box-option-comment">
                             @method("DELETE")
                             @csrf
                             <p class="item-option-comment option-edit">{{ __('comment.option_edit') }}</p>
@@ -112,30 +121,17 @@
             <div class="question-box">
                 <p>{{ __('blog.question_delete') }}</p>
             </div>
-            <form class="form-request" action="{{ route('delete.blog', ['blog' => $blog]) }}" method="POST">
+            <form class="form-request" action="{{ route('blog.delete', ['blog' => $blog]) }}" method="POST">
                 @method("DELETE")
                 @csrf
                 <div class="btn btn-cancel cancel-box-delete">{{ __('auth.btn_cancel') }}</div>
                 <button class="btn btn-delete" type="submit">{{ __('auth.btn_delete') }}</button>
             </form>
         </div>
-    </div>   
-    <script>
-        const boxOptionComment = document.querySelectorAll('.box-option-comment');
-        const formEditComment = document.querySelectorAll('.form-edit-comment');
+    </div>
 
-        document.querySelectorAll('.icon-option-comment').forEach((item, index) => {
-            item.onclick = function() {
-                boxOptionComment[index].style.display = 'flex';
-                item.classList.toggle('hidden');
-            };
-        });
-        document.querySelectorAll('.option-edit').forEach((item, index) => {
-            item.onclick = function() {
-                formEditComment[index].style.display = 'flex';
-                document.querySelectorAll('.content-my-comment')[index].style.display = 'none';
-                boxOptionComment[index].style.display = 'none';
-            };
-        });
-    </script>
+    @section('js')
+        @vite(['resources/js/setup.js'])
+        @vite(['resources/js/detail.js'])
+    @endsection
 @endsection

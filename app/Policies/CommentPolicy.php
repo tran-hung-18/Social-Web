@@ -11,7 +11,7 @@ use Illuminate\Auth\Access\Response;
 
 class CommentPolicy
 {
-    use HandlesAuthorization;    
+    use HandlesAuthorization;
 
     /**
      * Create a new policy instance.
@@ -23,16 +23,16 @@ class CommentPolicy
 
     public function create(User $user): bool
     {
-        return Auth::check() && $user->role === User::ROLE_USER;
+        return Auth::check() && $user->role === User::ROLE_USER && $user->status === User::STATUS_ACTIVE;
     }
-    
+
     public function update(User $user, Comment $comment): bool
     {
-        return $user->role === User::ROLE_ADMIN || $user->id === $comment->user_id;
+        return ($user->role === User::ROLE_ADMIN || $user->id === $comment->user_id) && $user->status === User::STATUS_ACTIVE;
     }
 
     public function delete(User $user, Comment $comment): bool
     {
-        return $user->role === User::ROLE_ADMIN || $user->id === $comment->user_id;
+        return ($user->role === User::ROLE_ADMIN || $user->id === $comment->user_id) && $user->status === User::STATUS_ACTIVE;
     }
 }

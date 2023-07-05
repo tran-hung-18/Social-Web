@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
-    public function getAllBlogPublic(array $dataSearch = []): LengthAwarePaginator
+    public function getAllBlogPublic(array $dataSearch = [])
     {
         $query = Post::approved();
         if (isset($dataSearch['data'])) {
-            $query->with('user')->where('title', 'like', '%'.$dataSearch['data'].'%');
-        } 
+            $query->with('user')->where('title', 'like', '%' . $dataSearch['data'] . '%');
+        }
         if (isset($dataSearch['categoryId'])) {
             $query->where(['category_id' => $dataSearch['categoryId']]);
-        } 
+        }
 
         return $query->with('user')
             ->orderBy('id')
@@ -47,10 +47,9 @@ class PostService
                 'image' => Storage::disk('public')->put('images', $data->file('image')),
                 'status' => Post::STATUS_NOT_APPROVED
             ]);
-                
+
             return true;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -69,26 +68,20 @@ class PostService
                 'content' => $data['content'],
                 'image' => $fileName,
             ]);
-                        
+
             return true;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
 
-    public function deleteBlog(object $blog):bool
-    {   
+    public function deleteBlog(object $blog): bool
+    {
         try {
-            if ($blog) {
-                Comment::where('post_id', $blog->id)->delete();
+            Comment::where('post_id', $blog->id)->delete();
 
-                return $blog->delete();
-            }
-            
-            return false;
-        }
-        catch (Exception $e) {
+            return $blog->delete();
+        } catch (Exception $e) {
             return false;
         }
     }
