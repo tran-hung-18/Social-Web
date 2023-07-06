@@ -12,7 +12,7 @@
                 <h3>{{ $blog->title }}</h3>
                 <div class="header-blog">
                     <div class="auth">
-                        <img src="{{ Vite::asset('storage/app/public/images/' . $blog->user->avatar) }}" alt="">
+                        <img src="{{ asset('storage/'. Auth::user()->avatar) }}" alt="">
                         <div class="info">
                             <p class="name">{{ $blog->user->user_name }}</p>
                             <p>{{ $blog->created_at->format('d/m/Y') }}</p>
@@ -76,14 +76,14 @@
             @if (Auth::check())
                 <form method="POST" action="{{ route('comment.store', ['blog' => $blog]) }}" class="send-comment">
                     @csrf
-                    <img src="{{ Vite::asset('storage/app/public/images/' . Auth::user()->avatar) }}" alt="">
+                    <img src="{{ asset('storage/'. Auth::user()->avatar) }}" alt="">
                     <textarea name="content" id="" placeholder="Input your comment . . . . "></textarea>
                     <button>{{ __('comment.btn_send_comment') }}</button>
                 </form>
             @endif
             @foreach ($comments as $comment)
                 <div class="item-comment">
-                    <img src="{{ Vite::asset('storage/app/public/images/' . $comment->user->avatar) }}" alt="">
+                    <img src="{{ asset('storage/'. $comment->user->avatar) }}" alt="">
                     <div class="info-comment">
                         <h3>{{ $comment->user->user_name }}</h3>
                         @can ('update', $comment)

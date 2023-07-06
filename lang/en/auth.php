@@ -13,17 +13,23 @@ return [
     'forgot_password_error' => 'Email is not registered or not verified',
     'forgot_password_check_mail' => 'Please check your email to get password',
     'password_new' => 'Please check gmail to get your new password',
+    'change_password_success' => "Change Password successfully, please login again",
+    'incorrect_password' => "Password incorrect, please try again",
 
     'title_form_login' => 'Sign in',
     'title_form_register' => 'Sign up',
+    'title_change_password' => 'Change Password',
 
     'text_register' => "Don't have an account? Sign up here",
     'text_login' => "Already have an account? Login",
+    'notify_update_profile_success' => "Update Profile Successfully",
+    'notify_update_profile_error' => "Update Profile Fail, please try again",
+
 
     'btn_login' => 'Login',
     'btn_register' => 'Sign up',
     'btn_logout' => 'Logout',
-
+    'btn_change_password' => 'Change Password',
     'btn_cancel' => 'Cancel',
     'btn_delete' => 'Delete',
     'no_permission' => 'You do not have permission to access this item',

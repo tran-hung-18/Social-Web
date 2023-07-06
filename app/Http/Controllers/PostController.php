@@ -38,7 +38,6 @@ class PostController extends Controller
         $blogs = $this->postService->getAllBlogPublic($dataSearch);
 
         return view('guest.home', [
-            'request' => $request,
             'blogs' => $blogs,
             'categories' => $this->categoryService->getAll(),
         ]);

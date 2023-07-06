@@ -6,6 +6,7 @@ use App\Policies\PostPolicy;
 use App\Models\Post;
 use App\Policies\CommentPolicy;
 use App\Policies\LikePolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -20,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
         Post::class => PostPolicy::class,
         Comment::class => CommentPolicy::class,
         Like::class => LikePolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -30,5 +32,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::resource('posts', 'PostPolicy');
         Gate::resource('comments', 'CommentPolicy');
         Gate::resource('likes', 'LikePolicy');
+        Gate::resource('users', 'UserPolicy');
     }
 }

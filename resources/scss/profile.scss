@@ -1,0 +1,105 @@
+.layout-profile {
+    display: flex;
+    justify-content: space-between;
+    margin: 180px 100px 50px;
+    .profile {
+        width: 30%;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        .avatar-user {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+        }
+        .btn {
+            @include btnFile;
+            margin: 30px auto 0;
+            width: 45%;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .btn-save {
+            padding: 8px 20px;
+            border-radius: 4px;
+            border: 1px solid #E1E1E1;
+            background-color: $background-btn-primary;
+            color: white;
+        }
+        .info-user {
+            margin-top: 30px;
+            .item-info {
+                @include centerVertical;
+                justify-content: center;
+                strong {
+                    margin-right: 10px;
+                }
+                input {
+                    flex: 1;
+                    @include inputText;
+                    padding: 3px 15px;
+                    font-size: 15px;
+                }
+            }
+            .item-info:first-child {
+                margin-bottom: 20px;
+            }
+        }
+        .btn-save, .btn-upload, .input-user-name {
+            display: none;
+        }
+    }
+    .blog {
+        width: 65%;
+        height: auto;
+        .title {
+            max-width: 30%;
+            margin: 0 auto 20px;
+            padding-bottom: 15px;
+            border-bottom: 5px solid $color-primary;
+            border-radius: 50%;
+            text-align: center;
+        }
+        .all-blog {
+            width: 100%;
+            .item-blog {
+                width: 100%;
+                border-radius: 8px;
+                margin: 0 18px;
+                border: 1px solid #CCC;
+                background: #FFF;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: 450px;
+                }
+            }
+            .item-blog:last-child {
+                margin-right: 0;
+            }
+            .info-blog {
+                padding: 15px 30px;
+                h2 {
+                    width: 100%;
+                    margin: 10px auto 20px;
+                    text-align: center;
+                    @include fontNotoBold;
+                    font-size: 20px;
+                }
+                p {
+                    @include fontNotoRegular;
+                    color: $text-color-blog;
+                    line-height: 28px;
+                }
+            }
+            .slick-dots {
+                margin-top: 20px;
+            }
+        }
+    }
+}

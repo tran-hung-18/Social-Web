@@ -278,6 +278,25 @@
                 left: 120px;
             }
         }
+        .layout-profile {
+            flex-direction: column;
+            margin: 120px 50px 30px;
+            .profile {
+                width: 100%;
+                margin-bottom: 40px;
+                .btn {
+                    width: 30%;
+                }
+            }
+            .blog {
+                width: 100%;
+                .title {
+                    margin-top: 20px;
+                    padding-top: 15px;
+                    border-top: 5px solid $color-primary;
+                }
+            }
+        }
     }
     .form-auth-register {
         margin: 148px 72px 252px;

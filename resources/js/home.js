@@ -19,10 +19,18 @@ $('.upload-image-blog').change(function () {
         const reader = new FileReader();
         reader.onload = function (e) {
             const imageUrl = e.target.result;
-            $('.img-preview').html(` < img src = "${imageUrl}" alt = "Image Preview" > `);
+            $('.img-preview').html(` <img src = "${imageUrl}" alt = "Image Preview" > `);
         };
         reader.readAsDataURL(file);
     }
+});
+
+$('.all-blog').slick({
+    infinite: true,
+    dots: true,
+    arrows: false,
+    autoplaySpeed: 1500,
+    draggable: true,
 });
 
 if ($(window).width() <= 768) {

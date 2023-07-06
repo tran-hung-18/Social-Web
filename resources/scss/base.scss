@@ -54,6 +54,13 @@ $background-btn-not: #ABB1AB;
     border: 1px solid $border-input;
     border-radius: 4px;
 }
+@mixin btnFile {
+    padding: 8px 12px 10px 15px;
+    @include fontNotoBold;
+    color: $text-input-file;
+    border: 1px solid $color-border-primary;
+    cursor: pointer;
+}
 ::-webkit-input-placeholder {
     color: $text-color-grey;
 }
@@ -135,14 +142,6 @@ body {
             .header-right {
                 @include centerVertical;
                 justify-content: flex-end;
-                h4 {
-                    @include fontNotoBold;
-                    font-size: 16px;
-                    line-height: 29px;
-                }
-                h4:hover {
-                    @include hover;
-                }
                 .header-tag {
                     @include centerVertical;
                     justify-content: flex-end;
@@ -185,10 +184,13 @@ body {
                     a + a {
                         margin-left: 32px;
                     }
-                    i {
-                        color: $text-color-black;
-                        font-size: 26px;
+                    .avatar {
                         margin-left: 17px;
+                        img {
+                            width: 27px;
+                            height: 27px;
+                            border-radius: 50%;
+                        }
                         form {
                             margin-bottom: 0;
                             ul {
@@ -203,18 +205,22 @@ body {
                                 overflow: hidden;
                                 display: none;
                                 li {
-                                    @include fontNotoRegular;
-                                    font-weight: 500;
-                                    text-align: end;
-                                    padding: 12px 20px;
+                                    width: 100%;
+                                    text-align: center;
+                                    margin: 5px 0;
+                                    padding: 0 10px;
                                     a, button{
-                                        color: #000000;
+                                        @include fontNotoBold;
+                                    }
+                                    button {
+                                        background: none;
+                                        border: none;
                                     }
                                 }
                                 li:hover {
-                                    @include hover;
-                                    font-weight: 700;
-                                    background-color: #d2d2d2c4;
+                                    a, button {
+                                        @include hover;
+                                    }
                                 }
                             }
                         }
@@ -227,11 +233,11 @@ body {
                         right: 0;
                         display: none;
                     }
-                    i:hover ul {
+                    .avatar:hover ul {
                         @include centerAll;
                         flex-direction: column;
                     }
-                    i:hover .connect-menu {
+                    .avatar:hover .connect-menu {
                         display: block;
                     }
                 }

@@ -10,7 +10,7 @@
             <select type="text" name="category_id" class="select-category item-input">
                 <option value="0">{{ __('blog.title_select_category')}}</option>
                 @foreach ($categories as $item)
-                    <option value="{{ route('blog.category', ['id' => $item->id]) }}"
+                    <option value="{{ route('user.blog', ['id' => $item->id]) }}"
                         @if (request()->id == $item->id) selected @endif
                     >
                         {{ $item['name'] }}

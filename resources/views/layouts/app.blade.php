@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="{{ Vite::asset('resources/images/LogoRegit.png') }}"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Social THH</title>
+    <title>{{ __('app.name_website') }}</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,7 +23,7 @@
                 <img src="{{ Vite::asset('resources/images/Vector.svg') }}" class="icon-show-menu" alt="">
                 <a href="{{ route('blogs.home') }}" class="logo-header">
                     <img src="{{ Vite::asset('resources/images/7d85462e-ed1f-4b7b-b617-ad57854a2ac0 (1) 1.png') }}" alt="">
-                    <h4>RT-Blogs</h4>
+                    <h4>{{ __('app.name_website') }}</h4>
                 </a>
                 <img src="{{ Vite::asset('resources/images/Search.svg') }}" class="icon-show-search" alt="">
             </div>
@@ -31,10 +32,14 @@
                     <a href="{{ route('blogs.home') }}" class="logo-header">
                         <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
                     </a>
-                    <form action="{{ route('blog.search') }}" method="GET" class="search-header">
+                    @if (Route::is("blogs.home"))
+                        <form action="{{ route('blog.search') }}" method="GET" class="search-header">
+                    @else
+                        <form action="{{ route('user.blog') }}" method="GET" class="search-header">
+                    @endif
                         <input type="text" name="data"
-                            @if (isset($request) && $request->has('data'))
-                                value="{{ $request->input('data') }}" 
+                            @if (request()->data)
+                                value="{{ request()->data }}" 
                             @else 
                                 placeholder="Search blog" 
                             @endif 
@@ -45,32 +50,35 @@
                 <div class="header-right">
                     <div class="header-tag">
                         @if (Route::is("blogs.home"))
-                            <a class="active" href="{{ route('blogs.home') }}">Top</a>
+                            <a class="active" href="{{ route('blogs.home') }}">{{ __('app.btn_header_top') }}</a>
                         @else
-                            <a href="{{ route('blogs.home') }}">Top</a>
+                            <a href="{{ route('blogs.home') }}">{{ __('app.btn_header_top') }}</a>
                         @endif
                         @if (Auth::user() && Route::is("blog.create"))
-                            <a class="active" href="{{ route('blog.create') }}">Create Blog</a>
+                            <a class="active" href="{{ route('blog.create') }}">{{ __('app.btn_create_blog') }}</a>
                         @elseif (Auth::user())
-                            <a href="{{ route('blog.create') }}">Create Blog</a>
+                            <a href="{{ route('blog.create') }}">{{ __('app.btn_create_blog') }}</a>
                         @endif
                     </div>
                     <div class="header-account">
                         @if (Auth::user())
                             <a href="#">{{ Auth::user()->user_name }}</a>
-                            <i class="fa-regular fa-circle-user">
+                            <div class="avatar">
+                                <img src="{{ asset('storage/'. Auth::user()->avatar) }}" alt="">
                                 <div class="connect-menu"></div>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <ul>
-                                        <li><a href="#">My blogs</a></li>
-                                        <li><button type='submit'>Log out</button></li>
+                                        <li><a href="{{ route('user.profile')}}">{{ __('app.text_profile') }}</a></li>
+                                        <li><a href="{{ route('user.blog') }}">{{ __('app.text_my_blog') }}</a></li>
+                                        <li><a href="{{ route('user.password.edit') }}">{{ __('app.text_change_password') }}</a></li>
+                                        <li><button type='submit'>{{ __('app.text_logout') }}</button></li>
                                     </ul>
                                 </form>
-                            </i>
+                            </div>
                         @else
-                            <a href="{{ route('view.login') }}">Login</a>
-                            <a href="{{ route('view.register') }}">Sign up</a>
+                            <a href="{{ route('view.login') }}">{{ __('app.text_login') }}</a>z
+                            <a href="{{ route('view.register') }}">{{ __('app.text_sign_up') }}</a>
                         @endif
                     </div>
                 </div>
@@ -103,37 +111,40 @@
             <div class="header-right">
                 <div class="header-right-item">
                     @if(Route::is("blogs.home"))
-                        <a class="active" href="{{ route('blogs.home') }}">Top</a>
+                        <a class="active" href="{{ route('blogs.home') }}">{{ __('app.btn_header_top') }}</a>
                     @else
-                        <a href="{{ route('blogs.home') }}">Top</a>
+                        <a href="{{ route('blogs.home') }}">{{ __('app.btn_header_top') }}</a>
                     @endif
                 </div>
                 @if (Auth::user())
                     <div class="header-right-item">
-                        <a @if(Route::is("blog.create")) class="active" @endif href="{{ route('blog.create') }}">Create Blog</a>
-                    </div>
-                    <div class="header-right-item">
-                        <a href="#">My Blogs</a>
+                        <a @if(Route::is("blog.create")) class="active" @endif href="{{ route('blog.create') }}">{{ __('app.btn_create_blog') }}</a>
                     </div>
                     <div class="header-right-item">
                         <a href="#">{{ Auth::user()->user_name }}</a>
                     </div>
                     <div class="header-right-item">
-                        <a href="#">Change Password</a>
+                        <a href="{{ route('user.profile')}}">{{ __('app.text_profile') }}</a>
+                    </div>
+                    <div class="header-right-item">
+                        <a href="{{ route('user.blog') }}">{{ __('app.text_my_blog') }}</a>
+                    </div>
+                    <div class="header-right-item">
+                        <a href="{{ route('user.password.edit') }}">{{ __('app.text_change_password') }}</a>
                     </div>
                     <div class="header-right-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <label for="btn-logout">Logout</label>
-                            <button hidden id="btn-logout" type='submit'>Log out</button>
+                            <button hidden id="btn-logout" type='submit'>{{ __('app.text_logout') }}</button>
                         </form>
                     </div>
                 @else
                     <div class="header-right-item">
-                        <a href="{{ route('view.login') }}">Login</a>
+                        <a href="{{ route('view.login') }}">{{ __('app.text_login') }}</a>
                     </div>
                     <div class="header-right-item">
-                        <a href="{{ route('view.register') }}">Sign up</a>
+                        <a href="{{ route('view.register') }}">{{ __('app.text_sign_up') }}</a>
                     </div>
                 @endif
             </div>

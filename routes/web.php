@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,4 +47,12 @@ Route::group(['as' => 'comment.', 'prefix' => 'comments'],function () {
     Route::post('{blog}/comment', [CommentController::class, 'create'])->name('store');
     Route::put('{comment}/update', [CommentController::class, 'update'])->name('update');
     Route::delete('{comment}/delete', [CommentController::class, 'destroy'])->name('delete');
+});
+
+Route::group(['as' => 'user.', 'prefix' => 'users'],function () {
+    Route::get('/', [UserController::class, 'myBlog'])->name('blog');
+    Route::get('/password/edit', [UserController::class, 'editChangePassword'])->name('password.edit');
+    Route::put('/password/update', [UserController::class, 'updatePassword'])->name('password.update');
+    Route::get('/profile', [UserController::class, 'editProfile'])->name('profile');
+    Route::put('{user}/update', [UserController::class, 'updateUser'])->name('update');
 });
