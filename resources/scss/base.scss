@@ -54,6 +54,7 @@ $background-btn-not: #ABB1AB;
     border: 1px solid $border-input;
     border-radius: 4px;
 }
+<<<<<<< HEAD
 @mixin btnFile {
     padding: 8px 12px 10px 15px;
     @include fontNotoBold;
@@ -61,6 +62,8 @@ $background-btn-not: #ABB1AB;
     border: 1px solid $color-border-primary;
     cursor: pointer;
 }
+=======
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
 ::-webkit-input-placeholder {
     color: $text-color-grey;
 }
@@ -142,6 +145,17 @@ body {
             .header-right {
                 @include centerVertical;
                 justify-content: flex-end;
+<<<<<<< HEAD
+=======
+                h4 {
+                    @include fontNotoBold;
+                    font-size: 16px;
+                    line-height: 29px;
+                }
+                h4:hover {
+                    @include hover;
+                }
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
                 .header-tag {
                     @include centerVertical;
                     justify-content: flex-end;
@@ -184,6 +198,7 @@ body {
                     a + a {
                         margin-left: 32px;
                     }
+<<<<<<< HEAD
                     .avatar {
                         margin-left: 17px;
                         img {
@@ -191,6 +206,12 @@ body {
                             height: 27px;
                             border-radius: 50%;
                         }
+=======
+                    i {
+                        color: $text-color-black;
+                        font-size: 26px;
+                        margin-left: 17px;
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
                         form {
                             margin-bottom: 0;
                             ul {
@@ -205,6 +226,7 @@ body {
                                 overflow: hidden;
                                 display: none;
                                 li {
+<<<<<<< HEAD
                                     width: 100%;
                                     text-align: center;
                                     margin: 5px 0;
@@ -221,6 +243,20 @@ body {
                                     a, button {
                                         @include hover;
                                     }
+=======
+                                    @include fontNotoRegular;
+                                    font-weight: 500;
+                                    text-align: end;
+                                    padding: 12px 20px;
+                                    a, button{
+                                        color: #000000;
+                                    }
+                                }
+                                li:hover {
+                                    @include hover;
+                                    font-weight: 700;
+                                    background-color: #d2d2d2c4;
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
                                 }
                             }
                         }
@@ -233,11 +269,19 @@ body {
                         right: 0;
                         display: none;
                     }
+<<<<<<< HEAD
                     .avatar:hover ul {
                         @include centerAll;
                         flex-direction: column;
                     }
                     .avatar:hover .connect-menu {
+=======
+                    i:hover ul {
+                        @include centerAll;
+                        flex-direction: column;
+                    }
+                    i:hover .connect-menu {
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
                         display: block;
                     }
                 }

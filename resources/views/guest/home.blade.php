@@ -10,8 +10,13 @@
             <select type="text" name="category_id" class="select-category item-input">
                 <option value="0">{{ __('blog.title_select_category')}}</option>
                 @foreach ($categories as $item)
+<<<<<<< HEAD
                     <option value="{{ route('blog.category', ['id' => $item->id]) }}"
                         @if (request()->id == $item->id) selected @endif
+=======
+                    <option value="{{ route('blog.category', ['id' => $item['id']]) }}"
+                        @if ($request->has('id') && $request->id == $item['id']) selected @endif
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
                     >
                         {{ $item['name'] }}
                     </option>
@@ -25,13 +30,21 @@
                 @foreach($blogs as $item)
                     <div class="item-blog">
                         <div class="item-blog-img">     
+<<<<<<< HEAD
                             <img src="{{ asset('storage/'.$item->image) }}" alt="">
+=======
+                            <img src="{{ asset('storage/'.$item['image']) }}" alt="">
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
                         </div>
                         <div class="item-blog-content">
                             <div class="info">
                                 <div class="author">
                                     <img src="{{ Vite::asset('resources/images/Group 25.svg') }}" alt="">
+<<<<<<< HEAD
                                     <p>{{ $item->user->user_name }}</p>
+=======
+                                    <p>{{ $item['user']['user_name'] }}</p>
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
                                 </div>
                                 <div class="time">
                                     <img src="{{ Vite::asset('resources/images/Group 38.svg') }}" alt="">
@@ -39,8 +52,21 @@
                                 </div>
                             </div>
                             <div class="text-detail">
+<<<<<<< HEAD
                                 <p>{{ $item['title'] }}</p>
                                 <p>{!! Str::limit($item->content, 100) !!}</p>
+=======
+                                @php
+                                    $lengthContent = strlen($item['content']);
+                                    if ($lengthContent > 150) {
+                                        $content = substr($item['content'], 0, 150).'.....';
+                                    } else {
+                                        $content = $item['content'];
+                                    }
+                                @endphp
+                                <p>{{ $item['title'] }}</p>
+                                <p>{!! $content !!}</p>
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
                             </div>
                             <div class="text-link">
                                 <button class="btn btn-details">

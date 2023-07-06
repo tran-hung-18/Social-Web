@@ -19,12 +19,17 @@ $('.upload-image-blog').change(function () {
         const reader = new FileReader();
         reader.onload = function (e) {
             const imageUrl = e.target.result;
+<<<<<<< HEAD
             $('.img-preview').html(` <img src = "${imageUrl}" alt = "Image Preview" > `);
+=======
+            $('.img-preview').html(` < img src = "${imageUrl}" alt = "Image Preview" > `);
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
         };
         reader.readAsDataURL(file);
     }
 });
 
+<<<<<<< HEAD
 $('.all-blog').slick({
     infinite: true,
     dots: true,
@@ -33,6 +38,8 @@ $('.all-blog').slick({
     draggable: true,
 });
 
+=======
+>>>>>>> 06bbb67efc3bb6fa43ae736c377b1f7d2f0839a7
 if ($(window).width() <= 768) {
     $('.related-img').slick({
         infinite: true,
