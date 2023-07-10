@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\LikeController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\CommentController;
+use App\Http\Controllers\User\LikeController;
+use App\Http\Controllers\User\PostController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\PostController as PostControllerAdmin;
+use App\Http\Controllers\Admin\UserController as UserControllerAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,15 +61,15 @@ Route::group(['as' => 'user.', 'prefix' => 'users'],function () {
 });
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin'],function () {
-    Route::get('/', [AdminController::class, 'viewDashboard'])->name('dashboard');
+    Route::get('/', [HomeController::class, 'viewDashboard'])->name('dashboard');
     Route::group(['as' => 'blog.', 'prefix' => 'blogs'],function () {
-        Route::get('/', [AdminController::class, 'viewBlog'])->name('index');
-        Route::put('{blog}/update', [AdminController::class, 'approvedBlog'])->name('update.status');
-        Route::put('/approvedAll', [AdminController::class, 'approvedAllBlog'])->name('approved.all');
-        Route::delete('{blog}/delete', [AdminController::class, 'deleteBlog'])->name('delete');
+        Route::get('/', [PostControllerAdmin::class, 'viewBlog'])->name('index');
+        Route::put('{blog}/update', [PostControllerAdmin::class, 'approvedBlog'])->name('update.status');
+        Route::put('/approvedAll', [PostControllerAdmin::class, 'approvedAllBlog'])->name('approved.all');
+        Route::delete('{blog}/delete', [PostControllerAdmin::class, 'deleteBlog'])->name('delete');
     });
     Route::group(['as' => 'user.', 'prefix' => 'users'],function () {
-        Route::get('/', [AdminController::class, 'viewUser'])->name('index');
-        Route::get('{user}/profile', [AdminController::class, 'viewProfileUser'])->name('profile');
+        Route::get('/', [UserControllerAdmin::class, 'viewUser'])->name('index');
+        Route::get('{user}/profile', [UserControllerAdmin::class, 'viewProfileUser'])->name('profile');
     });
 });

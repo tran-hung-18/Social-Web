@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
-use App\Service\PostService;
-use App\Service\CategoryService;
-use App\Service\CommentService;
-use App\Service\LikeService;
+use App\Service\User\PostService;
+use App\Service\User\CategoryService;
+use App\Service\User\CommentService;
+use App\Service\User\LikeService;
+use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {

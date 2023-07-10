@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
 use App\Models\User;
-use App\Service\AdminService;
-use App\Service\PostService;
+use App\Service\Admin\AdminService;
+use App\Service\User\PostService;
+use App\Http\Controllers\Controller;
 
-class AdminController extends Controller
+class PostController extends Controller
 {
     protected AdminService $adminService;
 
@@ -19,15 +20,6 @@ class AdminController extends Controller
         $this->postService = $postService;
     }
     
-    public function viewDashboard()
-    {
-        $this->authorize('viewAdmin', User::class);
-
-        return view('admin.index', [
-            'dataTotal' => $this->adminService->getTotalRecord(),
-        ]);
-    }
-
     public function viewBlog()
     {
         $this->authorize('viewAdmin', User::class);
@@ -35,24 +27,6 @@ class AdminController extends Controller
         return view('admin.blog', [
             'blogs' => $this->adminService->getAllBlog(),
             'dataTotal' => $this->adminService->getTotalRecord(),
-        ]);
-    }
-
-    public function viewUser()
-    {
-        $this->authorize('viewAdmin', User::class);
-
-        return view('admin.user', [
-            'users' => $this->adminService->getAllUser(),
-        ]);
-    }
-
-    public function viewProfileUser(User $user)
-    {
-        $this->authorize('update', User::class);
-
-        return view('users.profile', [
-            'profile' => $user,
         ]);
     }
 
