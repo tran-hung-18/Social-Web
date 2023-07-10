@@ -23,6 +23,7 @@ $(document).on('click', '.interactive', function () {
 $('.icon-option-comment').click(function () {
     var index = $('.icon-option-comment').index(this);
     $('.icon-option-comment').eq(index).show();
+    $('.box-option-comment').hide();
     $('.box-option-comment').eq(index).show();
 });
 

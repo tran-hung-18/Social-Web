@@ -70,14 +70,18 @@
                                     @csrf
                                     <ul>
                                         <li><a href="{{ route('user.profile')}}">{{ __('app.text_profile') }}</a></li>
-                                        <li><a href="{{ route('user.blog') }}">{{ __('app.text_my_blog') }}</a></li>
+                                        @if (Auth::user()->role === \App\Models\User::ROLE_ADMIN) 
+                                            <li><a href="{{ route('admin.dashboard')}}">{{ __('app.text_management') }}</a></li>
+                                        @else
+                                            <li><a href="{{ route('user.blog') }}">{{ __('app.text_my_blog') }}</a></li>
+                                        @endif
                                         <li><a href="{{ route('user.password.edit') }}">{{ __('app.text_change_password') }}</a></li>
                                         <li><button type='submit'>{{ __('app.text_logout') }}</button></li>
                                     </ul>
                                 </form>
                             </div>
                         @else
-                            <a href="{{ route('view.login') }}">{{ __('app.text_login') }}</a>z
+                            <a href="{{ route('view.login') }}">{{ __('app.text_login') }}</a>
                             <a href="{{ route('view.register') }}">{{ __('app.text_sign_up') }}</a>
                         @endif
                     </div>

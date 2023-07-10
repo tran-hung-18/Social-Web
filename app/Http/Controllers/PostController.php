@@ -45,9 +45,9 @@ class PostController extends Controller
 
     public function detail(Post $blog)
     {
-        $commentsBlog = $blog ? $this->commentService->getAll($blog->id) : null;
-        $relatedBlogs = $blog ? $this->postService->relatedBlog($blog->category_id, $blog->id) : null;
-        $resultStatus = $blog ? $this->likeService->getStatusLike($blog->id) : null;
+        $commentsBlog = $this->commentService->getAll($blog->id);
+        $relatedBlogs = $this->postService->relatedBlog($blog->category_id, $blog->id);
+        $resultStatus = $this->likeService->getStatusLike($blog->id);
 
         return view('guest.detail_blog', [
             'blog' => $blog,

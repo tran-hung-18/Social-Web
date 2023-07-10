@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
@@ -55,4 +56,18 @@ Route::group(['as' => 'user.', 'prefix' => 'users'],function () {
     Route::put('/password/update', [UserController::class, 'updatePassword'])->name('password.update');
     Route::get('/profile', [UserController::class, 'editProfile'])->name('profile');
     Route::put('{user}/update', [UserController::class, 'updateUser'])->name('update');
+});
+
+Route::group(['as' => 'admin.', 'prefix' => 'admin'],function () {
+    Route::get('/', [AdminController::class, 'viewDashboard'])->name('dashboard');
+    Route::group(['as' => 'blog.', 'prefix' => 'blogs'],function () {
+        Route::get('/', [AdminController::class, 'viewBlog'])->name('index');
+        Route::put('{blog}/update', [AdminController::class, 'approvedBlog'])->name('update.status');
+        Route::put('/approvedAll', [AdminController::class, 'approvedAllBlog'])->name('approved.all');
+        Route::delete('{blog}/delete', [AdminController::class, 'deleteBlog'])->name('delete');
+    });
+    Route::group(['as' => 'user.', 'prefix' => 'users'],function () {
+        Route::get('/', [AdminController::class, 'viewUser'])->name('index');
+        Route::get('{user}/profile', [AdminController::class, 'viewProfileUser'])->name('profile');
+    });
 });

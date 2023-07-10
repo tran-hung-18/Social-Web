@@ -62,8 +62,9 @@ class UserController extends Controller
     public function editProfile()
     {
         $this->authorize('update', User::class);
+
         return view('users.profile', [
-            'blogs' => $this->userService->getAllBlog(),
+            'profile' => Auth::user(),
         ]);
     }
 

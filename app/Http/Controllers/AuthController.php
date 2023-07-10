@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Service\AuthService;
@@ -30,6 +31,9 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if ($this->authService->login($request->all())) {
+            if (Auth::user()->role === User::ROLE_ADMIN) {
+                return redirect()->route('admin.dashboard');
+            }
             return redirect()->route('blogs.home')->with('message', __('auth.login_success'));
         }
 

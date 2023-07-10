@@ -31,6 +31,7 @@ class AuthService
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => User::ROLE_USER,
+            'avatar' => User::FILENAME_AVATAR_DEFAULT,
             'token_verify_email' => $token,
         ]);
         if ($user) {

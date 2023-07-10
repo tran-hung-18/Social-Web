@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -22,6 +23,8 @@ class User extends Authenticatable implements MustVerifyEmail
     const ROLE_ADMIN = 1;
 
     const ROLE_USER = 2;
+    
+    const FILENAME_AVATAR_DEFAULT = 'images/Group 154.png';
 
     /**
      * The attributes that are mass assignable.
@@ -61,5 +64,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function likes(): BelongsToMany
     {
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->withPivot('id');
+    }
+
+    public function blogs(): HasMany
+    {
+        return $this->hasMany(Post::class, 'user_id');
     }
 }

@@ -79,6 +79,7 @@ class PostService
     {
         try {
             Comment::where('post_id', $blog->id)->delete();
+            $blog->likes()->detach();
 
             return $blog->delete();
         } catch (Exception $e) {

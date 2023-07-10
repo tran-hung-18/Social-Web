@@ -11,6 +11,7 @@
         'title_related' => 'Related',
 
         'text_no_found_comment' => 'This blog has no comments yet',
+        'text_no_blog' => 'You have no posts yet',
         'text_no_found_blog' => 'No Blog found',
         'text_no_found_related' => 'No posts found in the same category',
 
