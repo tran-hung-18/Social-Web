@@ -12,7 +12,7 @@
                 <h3>{{ $blog->title }}</h3>
                 <div class="header-blog">
                     <div class="auth">
-                        <img src="{{ asset('storage/'. Auth::user()->avatar) }}" alt="">
+                        <img src="{{ asset('storage/'. $blog->user->avatar) }}" alt="">
                         <div class="info">
                             <p class="name">{{ $blog->user->user_name }}</p>
                             <p>{{ $blog->created_at->format('d/m/Y') }}</p>

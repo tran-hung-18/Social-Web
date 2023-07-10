@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Service\PostService;
-use App\Service\CategoryService;
-use App\Service\UserService;
+use App\Service\User\PostService;
+use App\Service\User\CategoryService;
+use App\Service\User\UserService;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -62,8 +63,9 @@ class UserController extends Controller
     public function editProfile()
     {
         $this->authorize('update', User::class);
+
         return view('users.profile', [
-            'blogs' => $this->userService->getAllBlog(),
+            'profile' => Auth::user(),
         ]);
     }
 

@@ -10,7 +10,8 @@ return [
     "text_sign_up" => "Sign up",
     "text_logout" => "Log out",
 
-    'text_change_password' => "Change Password",
-    'text_profile' => "Profile",
-    'text_back_to_home' => 'Back to Home Page',
+    "text_change_password" => "Change Password",
+    "text_profile" => "Profile",
+    "text_management" => "Management",
+    "text_back_to_home" => "Back to Home Page",
 ];

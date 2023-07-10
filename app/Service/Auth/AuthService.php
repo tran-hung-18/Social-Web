@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Auth;
 
 use App\Mail\ForgotPassword;
 use App\Mail\SendPassword;
@@ -31,6 +31,7 @@ class AuthService
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => User::ROLE_USER,
+            'avatar' => User::FILENAME_AVATAR_DEFAULT,
             'token_verify_email' => $token,
         ]);
         if ($user) {

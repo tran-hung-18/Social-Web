@@ -19,4 +19,9 @@ class UserPolicy
     {
         return Auth::check() && $user->status === User::STATUS_ACTIVE;
     }
+
+    public function viewAdmin(User $user)
+    {
+        return $user->role === User::ROLE_ADMIN;
+    }
 }
