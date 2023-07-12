@@ -4,47 +4,55 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
 use App\Models\User;
-use App\Service\Admin\AdminService;
-use App\Service\User\PostService;
+use App\Service\User\PostService as PostServiceUser;
+use App\Service\Admin\PostService as PostServiceAdmin;
+use App\Service\User\CategoryService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    protected AdminService $adminService;
+    protected PostServiceAdmin $postServiceAdmin;
 
-    protected PostService $postService;
+    protected PostServiceUser $postServiceUser;
 
-    public function __construct(AdminService $adminService, PostService $postService)
+    protected CategoryService $categoryService;
+
+    public function __construct(PostServiceAdmin $postServiceAdmin, PostServiceUser $postServiceUser, CategoryService $categoryService)
     {
-        $this->adminService = $adminService;
-        $this->postService = $postService;
+        $this->postServiceAdmin = $postServiceAdmin;
+        $this->postServiceUser = $postServiceUser;
+        $this->categoryService = $categoryService;
     }
-    
-    public function viewBlog()
+
+    public function viewBlog(int $status, Request $request)
     {
-        $this->authorize('viewAdmin', User::class);
+        $this->authorize('isAdmin', User::class);
+        $blogs = isset($request->data) ?
+            $this->postServiceAdmin->searchBlog($request->data, $status) :
+            $this->postServiceAdmin->getAllBlog($status) ;
 
         return view('admin.blog', [
-            'blogs' => $this->adminService->getAllBlog(),
-            'dataTotal' => $this->adminService->getTotalRecord(),
+            'blogs' => $blogs,
+            'categories' => $this->categoryService->getAll(),
+            'dataTotal' => $this->postServiceAdmin->getTotalRecord(),
         ]);
     }
 
     public function approvedBlog(Post $blog)
     {
-        $this->authorize('viewAdmin', User::class);
-        if ($this->adminService->approvedBlog($blog)) {
+        $this->authorize('isAdmin', User::class);
+        if ($this->postServiceAdmin->approvedBlog($blog)) {
             return redirect()->back()->with('success', __('admin.msg_update_status_blog_success'));
         }
 
         return redirect()->back()->with('error', __('admin.msg_approved_blog_fail'));
     }
-    
+
     public function approvedAllBlog()
     {
-        $this->authorize('viewAdmin', User::class);
-        if ($this->adminService->approvedAllBlog()) {
-
+        $this->authorize('isAdmin', User::class);
+        if ($this->postServiceAdmin->approvedAllBlog()) {
             return redirect()->back()->with('success', __('admin.msg_approved_blogs_success'));
         }
 
@@ -55,7 +63,7 @@ class PostController extends Controller
     {
         $this->authorize('delete', $blog);
 
-        if ($this->postService->deleteBlog($blog)) {
+        if ($this->postServiceUser->deleteBlog($blog)) {
             return redirect()->back()->with('success', __('admin.msg_delete_blog_success'));
         }
 

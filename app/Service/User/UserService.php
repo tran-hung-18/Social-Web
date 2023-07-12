@@ -24,7 +24,7 @@ class UserService
 
         return $query->with('user')
             ->orderBy('id')
-            ->paginate(Post::LIMIT_BLOG_PAGE);    
+            ->paginate(Post::LIMIT_BLOG_PAGE);
     }
 
     public function updatePassword(object $data): bool
@@ -35,12 +35,12 @@ class UserService
                 $user->update([
                     'password' => Hash::make($data->password)
                 ]);
-                
+
                 return true;
             }
 
             return false;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }

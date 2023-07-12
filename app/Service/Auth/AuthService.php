@@ -46,17 +46,20 @@ class AuthService
 
     public function verifyEmail(string $token): string
     {
-        $user = User::where('token_verify_email', $token)->where('email_verified_at', null)->first();
-        if ($user) {
+        $user = User::where('token_verify_email', $token)->first();
+        if (!$user) {
+            return __('auth.email_unregistered');
+        }
+        if ($user->status === User::STATUS_INACTIVE) {
             $user->update([
                 'email_verified_at' => now(),
                 'status' => User::STATUS_ACTIVE
             ]);
 
             return __('auth.verify_success');
-        }
-
-        return __('auth.email_unregistered');
+        } 
+        
+        return __('auth.verified');
     }
 
     public function forgotPassword(string $email): string

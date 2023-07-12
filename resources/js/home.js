@@ -43,10 +43,6 @@ if ($(window).width() <= 768) {
     });
 }
 
-setTimeout(() => {
-    $(".alert").remove();
-}, 3000);
-
 $('.icon-show-menu').click(function () {
     $('.menu-mobile').css('width','100%');
 });

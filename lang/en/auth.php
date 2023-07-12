@@ -25,7 +25,6 @@ return [
     'notify_update_profile_success' => "Update Profile Successfully",
     'notify_update_profile_error' => "Update Profile Fail, please try again",
 
-
     'btn_login' => 'Login',
     'btn_register' => 'Sign up',
     'btn_logout' => 'Logout',

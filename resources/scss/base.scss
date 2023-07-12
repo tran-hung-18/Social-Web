@@ -61,6 +61,54 @@ $background-btn-not: #ABB1AB;
     border: 1px solid $color-border-primary;
     cursor: pointer;
 }
+@mixin paginate {
+    position: relative;
+    @include centerAll;
+    li {
+        @include centerAll;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        a {
+            height: 28px;
+            font-family: "SVN-Gilroy-Bold";
+            font-style: normal;
+            font-size: 20px;
+            line-height: 28px;
+            color: #211E3B;
+        }
+    }
+    li:hover, .paginate-active {
+        border-radius: 50%;
+        background-color: #FFE4E4;
+        a {
+            color: $color-primary;
+        }
+    }
+    .arrow-paginate {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        a {
+            color: white;
+        }
+    }
+    .arrow-paginate:hover {
+        opacity: 0.8;
+        a {
+            color: white;
+        }
+    }
+    li:first-child {
+        background-color: $color-primary;
+    }
+    li:last-child {
+        background: #E5E5E5;
+    }
+    li + li {
+        margin-left: 10px;
+    }
+}
 ::-webkit-input-placeholder {
     color: $text-color-grey;
 }
@@ -92,11 +140,12 @@ body {
     .container-header {
         width: 100%;
         margin: 0 !important;
-        transition: transform .5s linear;
-        transform: translateY(0);
+        position: absolute;
+        top: 0;
         background-color: rgba(255, 255, 255, 0.65);
         padding: 30px 0 31px;
         box-shadow: 0px 1px 14px rgba(0, 0, 0, 0.25);
+        transition: all .8s linear;
         .header-mobile {
             display: none;
         }
@@ -246,7 +295,7 @@ body {
         }
     }
     .header-scrolled {
-        transform: translateY(-100%);
+        top: -122px;
     }
 }
 .menu-mobile, .search-mobile {
