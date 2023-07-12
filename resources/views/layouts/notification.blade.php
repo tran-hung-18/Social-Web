@@ -22,8 +22,14 @@
     </div>
 @endif
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        Please check the form below for errors
+@error('content')
+    <div class="alert alert-danger alert-block">
+        <strong>{{ $message }}</strong>
     </div>
-@endif
+@enderror
+
+<script>
+    setTimeout(() => {
+        $(".alert").remove();
+    }, 2000);
+</script>

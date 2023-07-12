@@ -94,13 +94,17 @@
             <div class="logo-header">
                 <img src="{{ Vite::asset('resources/images/Group 155.png') }}" alt="">
             </div>
-            <form action="{{ route('blog.search') }}" method="GET" class="search-header">
+            @if (Route::is("blogs.home"))
+                <form action="{{ route('blog.search') }}" method="GET" class="search-header">
+            @else
+                <form action="{{ route('user.blog') }}" method="GET" class="search-header">
+            @endif
                 <input type="text" name="data"
-                    @if (isset($request) && $request->has('data'))
-                        value="{{ $request->input('data') }}" 
+                    @if (request()->data)
+                        value="{{ request()->data }}" 
                     @else 
-                        placeholder="Search blog"
-                    @endif 
+                        placeholder="Search blog" 
+                    @endif
                 >
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
@@ -125,13 +129,10 @@
                         <a @if(Route::is("blog.create")) class="active" @endif href="{{ route('blog.create') }}">{{ __('app.btn_create_blog') }}</a>
                     </div>
                     <div class="header-right-item">
-                        <a href="#">{{ Auth::user()->user_name }}</a>
+                        <a @if(Route::is("user.profile")) class="active" @endif href="{{ route('user.profile')}}">{{ __('app.text_profile') }}</a>
                     </div>
                     <div class="header-right-item">
-                        <a href="{{ route('user.profile')}}">{{ __('app.text_profile') }}</a>
-                    </div>
-                    <div class="header-right-item">
-                        <a href="{{ route('user.blog') }}">{{ __('app.text_my_blog') }}</a>
+                        <a @if(Route::is("user.blog")) class="active" @endif href="{{ route('user.blog') }}">{{ __('app.text_my_blog') }}</a>
                     </div>
                     <div class="header-right-item">
                         <a href="{{ route('user.password.edit') }}">{{ __('app.text_change_password') }}</a>

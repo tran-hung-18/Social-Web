@@ -12,14 +12,14 @@
         </div>
         <div class="form-auth-input">
             <label for="username">Username<span>*</span></label>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username" name="username" value="{{ old('username') }}">
             @error ('username')
                 <small>{{ $message }}</small>
             @enderror
         </div>
         <div class="form-auth-input">
             <label for="email">Email<span>*</span></label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" value="{{ old('email') }}">
             @error ('email')
                 <small>{{ $message }}</small>
             @enderror

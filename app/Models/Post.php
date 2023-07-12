@@ -18,6 +18,8 @@ class Post extends Model
 
     const STATUS_NOT_APPROVED = 0;
 
+    const STATUS_ALL_BLOG = 2;
+
     const LIMIT_BLOG_PAGE = 6;
 
     const LIMIT_BLOG_RELATED = 4;
@@ -41,8 +43,18 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id');
     }
 
+    public function comments(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'comments', 'post_id', 'user_id');
+    }
+
     public function scopeApproved(Builder $query): Builder
     {
         return $query->where('status', Post::STATUS_APPROVED);
+    }
+
+    public function scopeNotApproved(Builder $query): Builder
+    {
+        return $query->where('status', Post::STATUS_NOT_APPROVED);
     }
 }

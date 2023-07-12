@@ -12,7 +12,6 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script src="{{ Vite::asset('resources/js/adminlte.js') }}"></script>
     @vite(['resources/scss/admin.scss'])
-    @vite(['resources/js/setup.js'])
   </head>
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -32,7 +31,7 @@
         </ul>
       </nav>
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="#" class="brand-link">
+        <a href="{{ route('blogs.home') }}" class="brand-link">
             <img src="{{ Vite::asset('resources/images/LogoRegit.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8"/>
             <span class="brand-text font-weight-light">{{ __('app.name_website') }}</span>
         </a>
@@ -48,12 +47,8 @@
             <nav class="mt-2">
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" >
                 <li class="nav-item">
-                  <a href="{{ route('admin.dashboard') }}"  
-                    @if (Route::is('admin.dashboard')) 
-                      class="active nav-link" 
-                    @else 
-                      class="nav-link" 
-                    @endif
+                  <a href="{{ route('admin.dashboard') }}" 
+                    class="nav-link @if (Route::is('admin.dashboard')) active @endif" 
                   >
                     <i class="fa-solid fa-house"></i>
                     <p>{{ __('admin.navbar_dashboard') }}</p>
@@ -61,27 +56,49 @@
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('admin.user.index') }}" 
-                    @if (Route::is('admin.user.index')) 
-                      class="active nav-link" 
-                    @else 
-                      class="nav-link" 
-                    @endif
+                    class="nav-link @if (Route::is('admin.user.index')) active @endif" 
                   >
                     <i class="fa-solid fa-users"></i>
                     <p>{{ __('admin.navbar_user') }}</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="{{ route('admin.blog.index') }}" 
-                    @if (Route::is('admin.blog.index')) 
-                      class="active nav-link" 
-                    @else 
-                      class="nav-link" 
-                    @endif
+                <li class="nav-item 
+                  @if (Route::is('admin.blog.index') || Route::is('admin.blog.not.approved')) 
+                    menu-is-opening menu-open
+                  @endif
+                ">
+                  <a href="{{ route('admin.blog.index', ['status' =>  App\Models\Post::STATUS_ALL_BLOG]) }}" 
+                    class="nav-link @if (Route::is('admin.blog.index')) active @endif" 
                   >
                     <i class="fa-solid fa-blog"></i>
                     <p>{{ __('admin.navbar_blog') }}</p>
                   </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="{{ route('admin.blog.index', ['status' =>  App\Models\Post::STATUS_ALL_BLOG]) }}"
+                        @if (request()->route()->status == App\Models\Post::STATUS_ALL_BLOG)
+                          class ="nav-link active"
+                        @else
+                          class="nav-link"
+                        @endif
+                      >
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>{{ __('admin.navbar_all_blog') }}</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ route('admin.blog.index', ['status' =>  App\Models\Post::STATUS_NOT_APPROVED]) }}"
+                        @if (request()->route()->status == App\Models\Post::STATUS_NOT_APPROVED)
+                          class ="nav-link active"
+                        @else
+                          class="nav-link"
+                        @endif
+                      >
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>{{ __('admin.navbar_blogs_not_approved') }}</p>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </nav>

@@ -5,18 +5,27 @@ namespace App\Service\Admin;
 use Exception;
 use App\Models\User;
 use App\Models\Post;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class AdminService
+class PostService
 {
-    public function getAllBlog(): Collection
+    public function getAllBlog(int $status): LengthAwarePaginator
     {
-        return Post::get();
+        if ($status === Post::STATUS_ALL_BLOG) {
+            return Post::paginate(Post::LIMIT_BLOG_PAGE);
+        }
+
+        return Post::notApproved()->paginate(Post::LIMIT_BLOG_PAGE);
     }
 
-    public function getAllUser(): Collection
+    public function searchBlog(string $data, int $status)
     {
-        return User::get();
+        $query = Post::where('title', 'like', '%' . $data . '%');
+        if ($status === Post::STATUS_NOT_APPROVED) {
+            $query->notApproved();
+        }
+
+        return $query->paginate(Post::LIMIT_BLOG_PAGE);
     }
 
     public function getTotalRecord(): array
@@ -24,12 +33,12 @@ class AdminService
         $totalUser = User::count();
         $totalUserInActive = User::where('status', User::STATUS_INACTIVE)->count();
         $totalBlog = Post::count();
-        $totalBlogNotApproved = Post::where('status', Post::STATUS_NOT_APPROVED)->count();
+        $totalBlogNotApproved = Post::notApproved()->count();
 
         return [
-            'totalUser' => $totalUser, 
-            'totalUserInActive' => $totalUserInActive, 
-            'totalBlog' => $totalBlog, 
+            'totalUser' => $totalUser,
+            'totalUserInActive' => $totalUserInActive,
+            'totalBlog' => $totalBlog,
             'totalBlogNotApproved' => $totalBlogNotApproved,
         ];
     }
@@ -50,7 +59,7 @@ class AdminService
     public function approvedAllBlog(): bool
     {
         try {
-            Post::where('status', Post::STATUS_NOT_APPROVED)->update([
+            Post::notApproved()->update([
                 'status' => Post::STATUS_APPROVED
             ]);
 

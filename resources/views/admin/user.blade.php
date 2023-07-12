@@ -41,17 +41,19 @@
                   </div>
                 </div>
                 <div class="card-footer">
-                  <div class="card-footer-option text-right">
+                  <form action="{{ route('admin.user.delete', ['user' => $user]) }}" method="POST" class="card-footer-option text-right">
+                    @csrf
+                    @method("DELETE")
                     <a class="btn btn-primary btn-sm" href="{{ route('admin.user.profile', ['user' => $user]) }}">
                       <i class="fa-solid fa-eye"></i>
                     </a>
                     <a class="btn btn-info btn-sm" href="{{ route('admin.user.profile', ['user' => $user]) }}">
                       <i class="fa-regular fa-pen-to-square"></i>
                     </a>
-                    <a class="btn btn-danger btn-sm" href="#">
+                    <button class="btn btn-danger btn-sm">
                       <i class="fa-solid fa-trash-can"></i>
-                    </a>
-                  </div>
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -59,5 +61,50 @@
         </div>
       </div>
     </div>
+    <ul class="paginate">
+      <ul class="paginate">
+        @if ($users->lastPage() > 1)
+            <li class="arrow-paginate">
+                <a href="{{ $users->previousPageUrl() }}" rel="prev">
+                    <i class="fa-solid fa-angle-left"></i>
+                </a>
+            </li>
+            <li class="{{ ($users->currentPage() == 1) ? ' paginate-active' : '' }}">
+                <a href="{{ $users->url($users->onFirstPage()) }}">1</a>
+            </li>
+            <?php
+                $start = $users->currentPage() - 2;
+                $end = $users->currentPage() + 2;
+                if ($start < 1) {
+                    $start = 1;
+                    $end += 1;
+                } 
+                if ($end >= $users->lastPage()) {
+                    $end = $users->lastPage();
+                }
+            ?>
+            @if ($users->currentPage() > 3)
+                <li><span>...</span></li>
+            @endif
+            @for ($i = $start + 1; $i < $end; $i++)
+                    <li class="{{ ($users->currentPage() == $i) ? ' paginate-active' : '' }}">
+                        <a href="{{ $users->url($i) }}">{{$i}}</a>
+                    </li>
+            @endfor
+            @if ($users->currentPage()+2 < $users->lastPage())
+                <li><span>...</span></li>
+            @endif
+            <li class="{{ ($users->currentPage() == $users->lastPage()) ? ' paginate-active' : '' }}">
+                <a href="{{ $users->url($users->lastPage()) }}">{{ $users->lastPage() }}</a>
+            </li>
+            <li class="arrow-paginate">
+                <a href="{{ $users->nextPageUrl() }}" rel="next">
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </li>
+        @endif
+    </ul>
+    
+  </ul>  
   </section>
 @endsection
