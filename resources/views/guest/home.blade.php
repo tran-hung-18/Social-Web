@@ -8,7 +8,7 @@
         <div class="title">
             <h1>{{ __('blog.title_list_blog') }}</h1>
             <select type="text" name="category_id" class="select-category item-input">
-                <option value="0">{{ __('blog.title_select_category')}}</option>
+                <option value="{{ route('blogs.home') }}">{{ __('blog.title_select_category')}}</option>
                 @foreach ($categories as $item)
                     <option value="{{ route('blog.category', ['id' => $item->id]) }}"
                         @if (request()->id == $item->id) selected @endif

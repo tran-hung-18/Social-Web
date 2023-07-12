@@ -45,7 +45,7 @@
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('admin.blog.index') }}" class="small-box-footer"
+            <a href="{{ route('admin.blog.index', ['status' => App\Models\Post::STATUS_ALL_BLOG]) }}" class="small-box-footer"
               >{{ __('admin.text_more_info') }} <i class="fas fa-arrow-circle-right"></i
             ></a>
           </div>
@@ -59,7 +59,7 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="{{ route('admin.blog.index') }}" class="small-box-footer"
+            <a href="{{ route('admin.blog.index', ['status' => App\Models\Post::STATUS_NOT_APPROVED]) }}" class="small-box-footer"
               >{{ __('admin.text_more_info') }} <i class="fas fa-arrow-circle-right"></i
             ></a>
           </div>

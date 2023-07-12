@@ -15,6 +15,7 @@ return [
     'password_new' => 'Please check gmail to get your new password',
     'change_password_success' => "Change Password successfully, please login again",
     'incorrect_password' => "Password incorrect, please try again",
+    'password_not_duplicate' => 'Please change password other',
 
     'title_form_login' => 'Sign in',
     'title_form_register' => 'Sign up',
@@ -24,7 +25,6 @@ return [
     'text_login' => "Already have an account? Login",
     'notify_update_profile_success' => "Update Profile Successfully",
     'notify_update_profile_error' => "Update Profile Fail, please try again",
-
 
     'btn_login' => 'Login',
     'btn_register' => 'Sign up',

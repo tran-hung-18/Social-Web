@@ -4,9 +4,7 @@ $(window).scroll(function () {
 });
 
 $('.select-category').change(function () {
-    if ($(this).val() != 0) {
-        location.href = $(this).val();
-    }
+    location.href = $(this).val();
 });
 
 $('.btn-upload-img').click(function () {
@@ -42,10 +40,6 @@ if ($(window).width() <= 768) {
         draggable: true,
     });
 }
-
-setTimeout(() => {
-    $(".alert").remove();
-}, 3000);
 
 $('.icon-show-menu').click(function () {
     $('.menu-mobile').css('width','100%');

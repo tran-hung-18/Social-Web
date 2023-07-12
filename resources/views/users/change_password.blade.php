@@ -17,6 +17,9 @@
             @error ('password_current')
                 <small>{{ $message }}</small>
             @enderror
+            @if (session('error'))
+                <small>{{ session('error') }}</small>
+            @endif
         </div>
         <div class="form-auth-input">
             <label for="password-new">Password New<span>*</span></label>

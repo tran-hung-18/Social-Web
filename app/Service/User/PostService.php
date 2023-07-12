@@ -5,6 +5,7 @@ namespace App\Service\User;
 use Exception;
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,8 @@ class PostService
     {
         $query = Post::approved();
         if (isset($dataSearch['data'])) {
-            $query->where('title', 'like', '%' . $dataSearch['data'] . '%');
+            $query->where('title', 'like', '%' . $dataSearch['data'] . '%')
+                ->orWhere('content', 'like', '%' . $dataSearch['data'] . '%');
         }
         if (isset($dataSearch['categoryId'])) {
             $query->where(['category_id' => $dataSearch['categoryId']]);
@@ -24,7 +26,8 @@ class PostService
 
         return $query->with('user')
             ->orderBy('id')
-            ->paginate(Post::LIMIT_BLOG_PAGE);
+            ->paginate(Post::LIMIT_BLOG_PAGE)
+            ->withQueryString($dataSearch);
     }
 
     public function relatedBlog(int $categoryId, int $blogId): Collection
@@ -77,12 +80,17 @@ class PostService
 
     public function deleteBlog(object $blog): bool
     {
+        DB::beginTransaction();
         try {
-            Comment::where('post_id', $blog->id)->delete();
             $blog->likes()->detach();
+            Comment::where('id', $blog->id)->delete();
+            $blog->delete();
+            DB::commit();
 
-            return $blog->delete();
+            return true;
         } catch (Exception $e) {
+            DB::rollBack();
+            
             return false;
         }
     }

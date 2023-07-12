@@ -56,7 +56,7 @@ class PostController extends Controller
             'relatedBlogs' => $relatedBlogs,
             'totalLike' => $resultStatus['total'],
             'statusLike' => $resultStatus['status'],
-            'interactive_route' => route('interactive', ['idBlog' => $blog->id ]),
+            'totalComment' => $blog->comments()->count(),
         ]);
     }
 
@@ -71,7 +71,7 @@ class PostController extends Controller
     {
         $this->authorize('create', Post::class);
         if ($this->postService->createPost($request)) {
-            return redirect()->route('blogs.home')->with('success', __('blog.notify_create_success'));
+            return redirect()->route('user.blog')->with('success', __('blog.notify_create_success'));
         }
 
         return redirect()->back()->with('error', __('auth.no_permission'));

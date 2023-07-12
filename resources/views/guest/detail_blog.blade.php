@@ -41,17 +41,23 @@
                 <div class="img-blog">
                     <img src="{{ asset('storage/'.$blog->image) }}" alt="">
                 </div>
-                <div class="like">
-                    @if (Auth::check())
-                        @if ($statusLike)
-                            <i class="interactive fa-solid fa-heart" data-route='{{ $interactive_route }}'></i>
+                <div class="info-interactive">
+                    <div class="interactive-item like">
+                        @if (Auth::check())
+                            @if ($statusLike)
+                                <i class="interactive fa-solid fa-heart" data-route='{{ route('interactive', ['idBlog' => $blog->id ]) }}'></i>
+                            @else
+                                <i class="interactive fa-regular fa-heart" data-route='{{ route('interactive', ['idBlog' => $blog->id ]) }}'></i>
+                            @endif
                         @else
-                            <i class="interactive fa-regular fa-heart" data-route='{{ $interactive_route }}'></i>
+                            <i class="fa-regular fa-heart"></i>
                         @endif
-                    @else
-                        <i class="fa-regular fa-heart"></i>
-                    @endif
-                    <p class="total-like">{{ $totalLike }}</p>
+                        <p class="total-like">{{ $totalLike }}</p>
+                    </div>
+                    <div class="interactive-item comment">
+                        <a href="#boxComment"><i class="fa-solid fa-comment"></i></a>
+                        <p class="total-comment">{{ $totalComment }}</p>
+                    </div>
                 </div>
                 <div class="content">
                     <p>{!! $blog->content !!}</p>
@@ -70,7 +76,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="layout-detail-item comments">
+        <div class="layout-detail-item comments" id="boxComment">
             <div class="title">{{ __('blog.title_comments') }}</div>
             <div class="line-title"></div>
             @if (Auth::check())
@@ -81,8 +87,12 @@
                     <button>{{ __('comment.btn_send_comment') }}</button>
                 </form>
             @endif
-            @foreach ($comments as $comment)
-                <div class="item-comment">
+            @foreach ($comments as $key => $comment)
+                @if ($key > 4)
+                    <div class="item-comment hidden">
+                @else
+                    <div class="item-comment">
+                @endif
                     <img src="{{ asset('storage/'. $comment->user->avatar) }}" alt="">
                     <div class="info-comment">
                         <h3>{{ $comment->user->user_name }}</h3>
@@ -110,6 +120,9 @@
                     @endcan
                 </div>
             @endforeach
+            @if ($comments->count() > 5)
+                <p class="show-all-comment" id='showAllComment'>View more comments...</p>
+            @endif
         </div>
     </div>
     <div class="box-delete">
@@ -134,4 +147,10 @@
         @vite(['resources/js/setup.js'])
         @vite(['resources/js/detail.js'])
     @endsection
+    <script>
+        $('#showAllComment').click(function() {
+            $('.item-comment.hidden').css('display', 'flex');
+            $(this).hide();
+        });
+    </script>
 @endsection

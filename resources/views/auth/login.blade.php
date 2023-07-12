@@ -12,7 +12,7 @@
         </div>
         <div class="form-auth-input">
             <label for="email">Username or email<span>*</span></label>
-            <input type="text" id="email" name="email">
+            <input type="text" id="email" name="email" value="{{ old('email') }}">
         </div>
         <div class="form-auth-input">
             <label for="password">Password<span>*</span></label>

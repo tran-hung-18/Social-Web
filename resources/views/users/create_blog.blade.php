@@ -23,7 +23,7 @@
                 @error ('title')
                     <small>{{ $message }}</small>
                 @enderror
-                <input type="text" id="title" name="title" class="item-input title" placeholder="Title">
+                <input type="text" id="title" name="title" value="{{ old('title') }}" class="item-input title" placeholder="Title">
             </div>
             <div class="form-item">
                 <label for="image">{{ __('blog.btn_upload_img') }}<span>*</span></label>
@@ -41,7 +41,7 @@
                 @error ('content')
                     <small>{{ $message }}</small>
                 @enderror
-                <textarea name="content" id="description" class="item-input" cols="30" rows="10" placeholder="Description"></textarea>
+                <textarea name="content" id="description" class="item-input" cols="30" rows="10" placeholder="Description">{{ old('content') }}</textarea>
             </div>
             <button type='submit'>{{ __('blog.btn_create_blog') }}</button>
         </form>

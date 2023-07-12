@@ -52,12 +52,12 @@ class UserController extends Controller
     public function updatePassword(ChangePasswordRequest $request)
     {
         $this->authorize('update', User::class);
-        if($this->userService->updatePassword($request)) {
-
+        $result = $this->userService->updatePassword($request);
+        if ($result == 200) {
             return redirect()->route('user.profile')->with('success', __('auth.change_password_success'));
         }
-        
-        return redirect()->back()->with('error', __('auth.incorrect_password'));
+
+        return redirect()->back()->with('error', $result);
     }
 
     public function editProfile()

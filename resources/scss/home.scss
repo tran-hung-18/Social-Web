@@ -151,52 +151,7 @@
         }
     }
     .paginate {
-        position: relative;
-        @include centerAll;
-        li {
-            @include centerAll;
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
-            a {
-                height: 28px;
-                font-family: "SVN-Gilroy-Bold";
-                font-style: normal;
-                font-size: 20px;
-                line-height: 28px;
-                color: #211E3B;
-            }
-        }
-        li:hover, .paginate-active {
-            border-radius: 50%;
-            background-color: #FFE4E4;
-            a {
-                color: $color-primary;
-            }
-        }
-        .arrow-paginate {
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            a {
-                color: white;
-            }
-        }
-        .arrow-paginate:hover {
-            opacity: 0.8;
-            a {
-                color: white;
-            }
-        }
-        li:first-child {
-            background-color: $color-primary;
-        }
-        li:last-child {
-            background: #E5E5E5;
-        }
-        li + li {
-            margin-left: 10px;
-        }
+        @include paginate;
     }
 }
 

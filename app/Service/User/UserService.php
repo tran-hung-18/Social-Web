@@ -24,24 +24,27 @@ class UserService
 
         return $query->with('user')
             ->orderBy('id')
-            ->paginate(Post::LIMIT_BLOG_PAGE);    
+            ->paginate(Post::LIMIT_BLOG_PAGE);
     }
 
-    public function updatePassword(object $data): bool
+    public function updatePassword(object $data): int|string
     {
         try {
             $user = User::find(Auth::id());
+            if (Hash::check($data->password, $user->password)) {
+                return __('auth.password_not_duplicate');
+            }
             if (Hash::check($data->password_current, $user->password)) {
                 $user->update([
                     'password' => Hash::make($data->password)
                 ]);
-                
-                return true;
+
+                return 200;
             }
 
-            return false;
-        } catch(Exception $e) {
-            return false;
+            return __('auth.incorrect_password');
+        } catch (Exception $e) {
+            return __('auth.try_again');
         }
     }
 

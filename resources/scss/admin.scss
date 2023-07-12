@@ -29,29 +29,57 @@
 }
 .layout-blogs {
     position: relative;
-    .card-header {
-        .card-tools {
+    .card {
+        .card-header {
+            width: 100%;
             @include centerVertical;
-            form {
-                .btn-approved-all {
-                    margin-right: 10px;
+            justify-content: space-between;
+            .card-tools {
+                @include centerVertical;
+                flex: 1;
+                justify-content: flex-end;
+                .form-search {
+                    width: 30%;
+                    margin-right: 20px;
+                    position: relative;
+                    input {
+                        width: 100%;
+                        padding: 8px 12px;
+                        border: 1px solid #D4D4D4;
+                        border-radius: 5px;
+                    }
+                    button {
+                        position: absolute;
+                        top: 8px;
+                        right: 8px;
+                        border: none;
+                        background: none;
+                    }
+                }
+                .form-approved-all {
+                    height: 100%;
+                    position: unset;
+                    .btn-approved-all {
+                        margin-right: 10px;
+                    }
                 }
             }
         }
-    }
-    .card {
         .card-body {
             table {
                 border: 1px solid #dee2e6;
                 tr {
                     th:first-child {
-                        width: 5%;
+                        width: 3%;
                     }
-                    th {
-                        text-align: center;
+                    th:last-child {
+                        width: 12%;
                     }
                     .header-status {
                         width: 10%;
+                    }
+                    th {
+                        text-align: center;
                     }
                     td:first-child {
                         text-align: center;
@@ -78,6 +106,23 @@
                             color: white;
                         }
                     }
+                    .interactive {
+                        height: 100%;
+                        border: none;
+                        font-size: 20px;
+                        p {
+                            @include centerAll;
+                            .fa-heart {
+                                color: red;
+                            }
+                            .fa-comment {
+                                color: blue;
+                            }
+                            i {
+                                margin-right: 8px;
+                            }
+                        }
+                    }
                     .options-blog-item {
                         padding-right: 12px;
                         form {
@@ -88,9 +133,17 @@
                 }
             }
         }
+        .card-footer {
+            @include centerVertical;
+            justify-content: center;
+            .paginate {
+                @include paginate;
+            }
+        }
     }
 }
 .layout-users {
+    padding-bottom: 30px !important;
     .card {
         .card-body {
             .row {
@@ -112,9 +165,14 @@
                                         margin-bottom: 10px;
                                     }
                                     .item-info {
+                                        width: 100%;
+                                        height: auto;
                                         @include centerVertical;
                                         i {
                                             margin-right: 8px;
+                                        }
+                                        p {
+                                            word-break: break-word;
                                         }
                                     }
                                     .item-info + .item-info {
@@ -128,4 +186,47 @@
             }
         }
     }
+    .paginate {
+        margin-top: 10px;
+        @include paginate;
+    }
 }
+
+@media screen and (max-width: 768px){
+    .layout-blogs {
+        .card {
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                .card-tools {
+                    margin-top: 20px;
+                    justify-content: flex-start;
+                    .form-search {
+                        width: 80%;
+                    }
+                }
+            }
+            .card-body {
+                table {
+                    tr {
+                        .text-table-title {
+                            font-size: 14px;
+                        }
+                        .image-blog {
+                            img {
+                                height: 80px;
+                            }
+                        }
+                        .status-blog {
+                            font-size: 14px;
+                        }
+                        .hide-mobile {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

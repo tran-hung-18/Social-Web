@@ -122,22 +122,31 @@
                         font-family: "Noto Sans JP";
                     }
                 }
-                .like {
+                .info-interactive {
+                    margin-top: 15px;
                     @include centerVertical;
                     justify-content: flex-start;
-                    margin-top: 15px;
-                    .total-like {
-                        font-size: 23px;
-                        line-height: 23px;
-                        margin-left: 5px;
+                    .interactive-item {
+                        @include centerVertical;
+                        .total-comment, .total-like {
+                            font-size: 23px;
+                            line-height: 23px;
+                            margin-left: 5px;
+                        }
+                        i {
+                            color: red;
+                            font-size: 25px;
+                            height:100%;
+                        }
+                        .fa-comment {
+                            color: blue;
+                        }
+                        i:hover {
+                            transform: scale(1.1);
+                        }
                     }
-                    i {
-                        color: red;
-                        font-size: 25px;
-                        height:100%;
-                    }
-                    i:hover {
-                        transform: scale(1.1);
+                    .like {
+                        margin-right: 20px;
                     }
                 }
             }
@@ -300,6 +309,22 @@
                     top: 0;
                     left: 90%;
                 }
+            }
+            .hidden {
+                display: none;
+            }
+            .show-all-comment {
+                display: inline-block;
+                @include fontNotoBold;
+                font-size: 18px;
+                color: $text-color-grey;
+                margin: 15px 0 0 5px;
+                padding: 0 3px 3px;
+                border-bottom: 1px solid transparent;
+            }
+            .show-all-comment:hover {
+                cursor: pointer;
+                border-color: $text-color-grey;
             }
         }
     }
