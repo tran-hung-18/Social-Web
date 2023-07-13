@@ -18,8 +18,8 @@ class UserService
 
     public function delete(object $user): bool
     {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
             $user->likes()->detach();
             Comment::where('user_id', $user->id)->delete();
             Post::where('user_id', $user->id)->delete();
@@ -29,7 +29,7 @@ class UserService
             return true;
         } catch (Exception $e) {
             DB::rollBack();
-            
+
             return false;
         }
     }

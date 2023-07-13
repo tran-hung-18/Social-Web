@@ -80,8 +80,8 @@ class PostService
 
     public function deleteBlog(object $blog): bool
     {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
             $blog->likes()->detach();
             Comment::where('id', $blog->id)->delete();
             $blog->delete();
@@ -90,7 +90,7 @@ class PostService
             return true;
         } catch (Exception $e) {
             DB::rollBack();
-            
+
             return false;
         }
     }

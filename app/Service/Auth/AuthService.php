@@ -47,7 +47,6 @@ class AuthService
     public function verifyEmail(string $token): string
     {
         $user = User::where('token_verify_email', $token)->first();
-
         if (!$user) {
             return __('auth.email_unregistered');
         }
@@ -58,8 +57,8 @@ class AuthService
             ]);
 
             return __('auth.verify_success');
-        } 
-        
+        }
+
         return __('auth.verified');
     }
 
