@@ -37,6 +37,10 @@
                           <i class="fa-solid fa-user-xmark"></i>{{ __('admin.text_user_inactive')}}
                         @endif
                       </div>
+                      <div class="item-info">
+                        <i class="fa-solid fa-blog"></i>
+                        <p>{{ $user->blogs()->count() }} Blog</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -50,6 +54,9 @@
                     <a class="btn btn-info btn-sm" href="{{ route('admin.user.profile', ['user' => $user]) }}">
                       <i class="fa-regular fa-pen-to-square"></i>
                     </a>
+                    {{-- <a class="btn btn-danger btn-sm delete-user" data-route='{{ route('admin.user.delete', ['user' => $user]) }}'>
+                      <i class="fa-solid fa-trash-can"></i>
+                    </a> --}}
                     <button class="btn btn-danger btn-sm">
                       <i class="fa-solid fa-trash-can"></i>
                     </button>
@@ -105,4 +112,5 @@
         @endif
     </ul>
   </section>
+  @vite(['resources/js/user.js'])
 @endsection

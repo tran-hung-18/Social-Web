@@ -16,12 +16,11 @@ class PostService
     public function getAllBlogPublic(array $dataSearch = []): LengthAwarePaginator
     {
         $query = Post::approved();
-        if (isset($dataSearch['data'])) {
-            $query->where('title', 'like', '%' . $dataSearch['data'] . '%')
-                ->orWhere('content', 'like', '%' . $dataSearch['data'] . '%');
+        if ($dataSearch['data']) {
+            $query->where('title', 'like', '%' . $dataSearch['data'] . '%');
         }
-        if (isset($dataSearch['categoryId'])) {
-            $query->where(['category_id' => $dataSearch['categoryId']]);
+        if ($dataSearch['categoryId']) {
+            $query->where('category_id', $dataSearch['categoryId']);
         }
 
         return $query->with('user')

@@ -65,7 +65,7 @@
                                     {{ Str::limit($blog->title, 30) }}
                                 </td>
                                 <td class='hide-mobile'>
-                                    {{ Str::limit($blog->content, 50) }}
+                                    {{ Str::limit($blog->content, 50) }}...
                                 </td>
                                 <td class="project-state status-blog">
                                     <form action="{{ route('admin.blog.update.status', ['blog' => $blog]) }}" method="POST">

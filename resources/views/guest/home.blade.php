@@ -10,7 +10,7 @@
             <select type="text" name="category_id" class="select-category item-input">
                 <option value="{{ route('blogs.home') }}">{{ __('blog.title_select_category')}}</option>
                 @foreach ($categories as $item)
-                    <option value="{{ route('blog.category', ['id' => $item->id]) }}"
+                    <option value="{{ route('blog.search', ['id' => $item->id, 'data' => request()->data]) }}"
                         @if (request()->id == $item->id) selected @endif
                     >
                         {{ $item['name'] }}
@@ -40,7 +40,7 @@
                             </div>
                             <div class="text-detail">
                                 <p>{{ $item['title'] }}</p>
-                                <p>{!! Str::limit($item->content, 100) !!}</p>
+                                <p>{!! nl2br(e(Str::limit($item->content, 100))) !!}</p>
                             </div>
                             <div class="text-link">
                                 <button class="btn btn-details">

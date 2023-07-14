@@ -40,7 +40,7 @@
                             </div>
                             <div class="text-detail">
                                 <p>{{ $item['title'] }}</p>
-                                <p>{!! Str::limit($item->content, 100) !!}</p>
+                                <p>{{ Str::limit($item->content, 100) }}</p>
                             </div>
                             <div class="text-link">
                                 <button class="btn btn-details">

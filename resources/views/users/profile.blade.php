@@ -28,7 +28,10 @@
             @if ($profile->blogs->count() > 0)
                 <h2 class="title">{{ __('user.title_my_blog') }}</h2>
                 <div class="all-blog">
-                    @foreach ($profile->blogs as $item)
+                    @foreach ($profile->blogs as $index => $item)
+                        @if ($index == 5)
+                            @break;
+                        @endif
                         <a href="{{ route('blog.detail', ['blog'=> $item]) }}" class="item-blog">
                             <img src="{{ asset('storage/'.$item->image) }}" alt="">
                             <div class="info-blog">

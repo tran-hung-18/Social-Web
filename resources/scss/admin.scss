@@ -148,7 +148,7 @@
         .card-body {
             .row {
                 flex-wrap: wrap;
-                .align-items-stretch {
+                .item-user {
                     .card {
                         .card-body {
                             .box-info-user {
@@ -182,6 +182,9 @@
                             }
                         }
                     }
+                }
+                .box-delete {
+                    display: none;
                 }
             }
         }
