@@ -37,6 +37,7 @@
                     @else
                         <form action="{{ route('blog.search') }}" method="GET" class="search-header">
                     @endif
+                        <input type="text" hidden name='id' value="{{ request()->id }}">
                         <input type="text" name="data"
                             @if (request()->data)
                                 value="{{ request()->data }}" 
@@ -99,6 +100,7 @@
             @else
                 <form action="{{ route('blog.search') }}" method="GET" class="search-header">
             @endif
+                <input type="text" hidden name='id' value="{{ request()->id }}">
                 <input type="text" name="data"
                     @if (request()->data)
                         value="{{ request()->data }}" 

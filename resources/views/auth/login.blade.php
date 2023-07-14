@@ -18,13 +18,16 @@
             <label for="password">Password<span>*</span></label>
             <input type="password" id="password" class="input-password" name="password">
             @if (session('message'))
-                <span>{{ session('message') }}</span>
+                <span class="notify-error">{{ session('message') }}</span>
+            @endif
+            @if (session('success'))
+                <span class='notify-success'>{{ session('success') }}</span>
             @endif
             @error ('email')
-                <br><span class="noti-error">{{ $message }}</span>
+                <br><span class="notify-error">{{ $message }}</span>
             @enderror
             @error ('password')
-                <br><span class="noti-error">{{ $message }}</span>
+                <br><span class="notify-error">{{ $message }}</span>
             @enderror
         </div>
         <div class="form-auth-password">
